@@ -1,18 +1,14 @@
 package design.aeonic.logicnetworks.api.logic;
 
 /**
- * An Operator defines an operation on input signals to compute any number of output signals.
+ * An Operator defines an operation on input signals to compute a single output.
  * It also defines extra data that can be used to configure the operation within a graphical node.<br><br>
  * In general, node definitions are generated automatically from Operators.
  */
-public abstract class Operator {
+public abstract class Operator<T> {
+    protected SignalType<T> outputType;
     protected SignalType<?>[] inputTypes;
-    protected SignalType<?>[] outputTypes;
     protected OptionType<?>[] optionTypes = new OptionType<?>[0];
-
-    public CompiledOperator compile(Option<?>... options) {
-        return new CompiledOperator(this, options);
-    }
 
     /**
      * Runs this operator's process on given signals. The passed signal arrays will match the defined signal type arrays
@@ -21,89 +17,65 @@ public abstract class Operator {
      * @param outputs the output signals
      * @param options the option values
      */
-    public abstract void process(Signal<?>[] inputs, Signal<?>[] outputs, Option<?>[] options);
+    public abstract T process(Object[] inputs, Option<?>[] options);
+
+    public SignalType<T> getOutputType() {
+        return outputType;
+    }
 
     public SignalType<?>[] getInputTypes() {
         return inputTypes;
-    }
-
-    public SignalType<?>[] getOutputTypes() {
-        return outputTypes;
     }
 
     public OptionType<?>[] getOptionTypes() {
         return optionTypes;
     }
 
-    /**
-     * Creates a composed operator that first runs firstProcess, then the outside operator.
-     */
-    public Operator composeFirst(OperatorProcess firstProcess) {
-        return new Operator() {
-            @Override
-            public void process(Signal<?>[] inputs, Signal<?>[] outputs, Option<?>[] options) {
-                firstProcess.execute(inputs, outputs, options);
-                Operator.this.process(inputs, outputs, options);
-            }
-        };
+    public static <T> Builder<T> builder(SignalType<T> outputType) {
+        return new Builder<>(outputType);
     }
 
-    /**
-     * Creates a composed operator that first runs the outside operator, then the passed secondProcess.
-     */
-    public Operator compose(OperatorProcess secondProcess) {
-        return new Operator() {
-            @Override
-            public void process(Signal<?>[] inputs, Signal<?>[] outputs, Option<?>[] options) {
-                Operator.this.process(inputs, outputs, options);
-                secondProcess.execute(inputs, outputs, options);
-            }
-        };
-    }
+    public static class Builder<T> {
+        private Built<T> operator = new Built<>();
 
-    public static Builder builder() {
-        return new Builder();
-    }
+        private Builder(SignalType<T> outputType) {
+            operator.outputType = outputType;
+        }
 
-    public static class Builder {
-        private Built operator = new Built();
-
-        public Builder inputs(SignalType<?>... types) {
+        public Builder<T> inputs(SignalType<?>... types) {
             operator.inputTypes = types;
             return this;
         }
 
-        public Builder outputs(SignalType<?>... types) {
-            operator.outputTypes = types;
-            return this;
-        }
-
-        public Builder options(OptionType<?>... types) {
+        public Builder<T> options(OptionType<?>... types) {
             operator.optionTypes = types;
             return this;
         }
 
-        public Builder process(OperatorProcess process) {
+        public Builder<T> process(OperatorProcess<T> process) {
             operator.process = process;
             return this;
         }
 
-        public Operator build() {
+        public Operator<T> build() {
+            if (operator.inputTypes == null) operator.inputTypes = new SignalType<?>[0];
+            if (operator.optionTypes == null) operator.optionTypes = new OptionType<?>[0];
+            if (operator.process == null) throw new IllegalStateException("Operator process must be defined!");
             return operator;
         }
     }
 
-    private static class Built extends Operator {
-        private OperatorProcess process;
+    private static class Built<T> extends Operator<T> {
+        private OperatorProcess<T> process;
 
         @Override
-        public void process(Signal<?>[] inputs, Signal<?>[] outputs, Option<?>[] options) {
-            process.execute(inputs, outputs, options);
+        public T process(Object[] inputs, Option<?>[] options) {
+            return process.execute(inputs, options);
         }
     }
 
     @FunctionalInterface
-    public interface OperatorProcess {
-        void execute(Signal<?>[] inputs, Signal<?>[] outputs, Option<?>[] options);
+    public interface OperatorProcess<T> {
+        T execute(Object[] inputs, Option<?>[] options);
     }
 }

@@ -21,6 +21,10 @@ public abstract class SignalType<T> {
         this.color = color;
     }
 
+    public T cast(Object value) {
+        return type.cast(value);
+    }
+
     public <S> boolean canConnect(SignalType<S> other) {
         return other == this;
     }

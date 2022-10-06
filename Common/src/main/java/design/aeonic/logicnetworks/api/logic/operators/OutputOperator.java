@@ -1,26 +1,29 @@
 package design.aeonic.logicnetworks.api.logic.operators;
 
+import design.aeonic.logicnetworks.api.logic.Operator;
 import design.aeonic.logicnetworks.api.logic.Option;
-import design.aeonic.logicnetworks.api.logic.Signal;
 import design.aeonic.logicnetworks.api.logic.SignalType;
+
+import javax.lang.model.type.NullType;
 
 /**
  * An operator for single input of a given type, either as a constant or from an in-world anchor.
+ * This class's type parameter is, confusingly, the type of the input signal.
  */
-public class OutputOperator<T> extends NetworkAnchorOperator<T> {
-    public final SignalType<T> type;
+public class OutputOperator<I> extends Operator<NullType> {
+    public final SignalType<I> type;
 
-    public OutputOperator(SignalType<T> type) {
+    public OutputOperator(SignalType<I> type) {
         this.type = type;
         inputTypes = new SignalType[]{type};
     }
 
-    public Signal<T> getSignal() {
-        throw new UnsupportedOperationException();
+    public void write(I value, Option<?>[] options) {
+        throw new UnsupportedOperationException("Cannot write to an output operator");
     }
 
     @Override
-    public void process(Signal<?>[] inputs, Signal<?>[] outputs, Option<?>[] options) {
-
+    public NullType process(Object[] inputs, Option<?>[] options) {
+        return null;
     }
 }

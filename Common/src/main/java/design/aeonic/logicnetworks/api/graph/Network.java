@@ -2,7 +2,6 @@ package design.aeonic.logicnetworks.api.graph;
 
 import com.mojang.blaze3d.vertex.PoseStack;
 import design.aeonic.logicnetworks.api.logic.Operator;
-import design.aeonic.logicnetworks.api.logic.Signal;
 import design.aeonic.logicnetworks.api.logic.operators.InputOperator;
 import design.aeonic.logicnetworks.api.logic.operators.OutputOperator;
 import net.minecraft.nbt.CompoundTag;
@@ -24,9 +23,9 @@ public class Network {
     private int width;
     private int height;
 
-    private Map<UUID, Node<?>> nodes = new HashMap<>();
+    private final Map<UUID, Node<?, ?>> nodes = new HashMap<>();
 
-    public <T extends Operator> Node<T> addNode(Node<T> node) {
+    public <T, O extends Operator<T>> Node<T, O> addNode(Node<T, O> node) {
         nodes.put(node.uuid, node);
         return node;
     }
@@ -35,44 +34,41 @@ public class Network {
         // TODO: For performance, should only operate on nodes that have anchored I/O
         // I considered "compiling" the network somehow and discarding extra node information for performance, but
         // for now decided against it - shouldn't be a huge deal to have a few extra nodes in memory and this way does
-        // avoid an expensive GC cycle
-        getOutputNodes().forEach(node -> {
-            Signal<?>[] signals = node.traverse();
-            if (signals == null) return;
-
-            // This is an output node; there is always exactly one input socket
-            signals[0]
-        });
+        // avoid an expensive GC cycle whenever the network would be destroyed.
+        getOutputNodes().forEach(this::computeSingle);
     }
 
     @SuppressWarnings("unchecked")
-    public Stream<Node<InputOperator<?>>> getInputNodes() {
-        return nodes.values().stream().filter(node -> node.operator instanceof InputOperator<?>).map(node -> (Node<InputOperator<?>>) node);
+    private <I> void computeSingle(Node<?, OutputOperator<?>> node) {
+        ((OutputOperator<I>) node.operator).write((I) node.getInputSockets()[0].connectedSocket.node.traverse(), node.getOptions());
     }
 
     @SuppressWarnings("unchecked")
-    public Stream<Node<OutputOperator<?>>> getOutputNodes() {
-        return nodes.values().stream().filter(node -> node.operator instanceof OutputOperator<?>).map(node -> (Node<OutputOperator<?>>) node);
+    public Stream<Node<?, InputOperator<?>>> getInputNodes() {
+        return nodes.values().stream().filter(node -> node.operator instanceof InputOperator<?>).map(node -> (Node<?, InputOperator<?>>) node);
     }
 
-    public Node getNode(UUID uuid) {
+    @SuppressWarnings("unchecked")
+    public Stream<Node<?, OutputOperator<?>>> getOutputNodes() {
+        return nodes.values().stream().filter(node -> node.operator instanceof OutputOperator<?>).map(node -> (Node<?, OutputOperator<?>>) node);
+    }
+
+    public Node<?, ?> getNode(UUID uuid) {
         return nodes.get(uuid);
     }
 
     public void draw(PoseStack stack, int mouseX, int mouseY, float partialTicks) {
-        for (Node<?> node : nodes.values()) {
+        for (Node<?, ?> node : nodes.values()) {
             node.draw(stack, mouseX, mouseY, partialTicks);
         }
     }
 
     public void drawConnections(PoseStack stack, int mouseX, int mouseY, float partialTicks) {
-        for (Node<?> node : nodes.values()) {
+        for (Node<?, ?> node : nodes.values()) {
             for (Socket<?> socket : node.getInputSockets()) {
                 drawSocket(socket, stack, mouseX, mouseY, partialTicks);
             }
-            for (Socket<?> socket : node.getOutputSockets()) {
-                drawSocket(socket, stack, mouseX, mouseY, partialTicks);
-            }
+            drawSocket(node.getOutputSocket(), stack, mouseX, mouseY, partialTicks);
         }
     }
 
@@ -86,7 +82,7 @@ public class Network {
 
     public void serialize(CompoundTag tag) {
         ListTag nodesTag = new ListTag();
-        for (Node<?> node : nodes.values()) {
+        for (Node<?, ?> node : nodes.values()) {
             CompoundTag nodeTag = new CompoundTag();
             node.serialize(nodeTag);
             nodesTag.add(nodeTag);
@@ -100,7 +96,7 @@ public class Network {
         for (int i = 0; i < nodesTag.size(); i++) {
             network.addNode(Node.deserialize(network, nodesTag.getCompound(i)));
         }
-        for (Node<?> node : network.nodes.values()) {
+        for (Node<?, ?> node : network.nodes.values()) {
             node.ready();
         }
         return network;
