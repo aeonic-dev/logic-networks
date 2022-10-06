@@ -1,11 +1,10 @@
-package design.aeonic.logicnetworks.impl.registry;
+package design.aeonic.logicnetworks.impl.registries;
 
 import design.aeonic.logicnetworks.api.logic.SignalType;
-import design.aeonic.logicnetworks.api.registry.SignalTypeRegistry;
+import design.aeonic.logicnetworks.api.registries.SignalTypeRegistry;
 import net.minecraft.resources.ResourceLocation;
 
 import javax.annotation.Nullable;
-import java.util.Optional;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentMap;
 
@@ -36,11 +35,6 @@ public final class SignalTypeRegistryImpl implements SignalTypeRegistry {
         SignalType<T> signalType = getOrNull(identifier);
         if (signalType == null) throw new IllegalArgumentException("Signal type " + identifier + " is not registered!");
         return signalType;
-    }
-
-    @Override
-    public <T> Optional<SignalType<T>> getOptional(ResourceLocation identifier) {
-        return Optional.ofNullable(getOrNull(identifier));
     }
 
     @Nullable

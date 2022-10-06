@@ -1,29 +1,28 @@
-package design.aeonic.logicnetworks.impl.registry;
+package design.aeonic.logicnetworks.impl.registries;
 
 import design.aeonic.logicnetworks.api.logic.Operator;
-import design.aeonic.logicnetworks.api.registry.OperatorRegistry;
+import design.aeonic.logicnetworks.api.registries.OperatorRegistry;
 import net.minecraft.resources.ResourceLocation;
 
 import javax.annotation.Nullable;
-import java.util.Optional;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentMap;
 
 public final class OperatorRegistryImpl implements OperatorRegistry {
     public static final OperatorRegistryImpl INSTANCE = new OperatorRegistryImpl();
 
-    private ConcurrentMap<ResourceLocation, Operator> operators = new ConcurrentHashMap<>();
+    private ConcurrentMap<ResourceLocation, Operator<?>> operators = new ConcurrentHashMap<>();
 
     private OperatorRegistryImpl() {}
 
     @Override
-    public <T extends Operator> T register(ResourceLocation identifier, T operator) {
+    public <T, O extends Operator<T>> O register(ResourceLocation identifier, O operator) {
         operators.put(identifier, operator);
         return operator;
     }
 
     @Override
-    public ResourceLocation getKey(Operator operator) {
+    public ResourceLocation getKey(Operator<?> operator) {
         return operators.entrySet().stream()
                 .filter(entry -> entry.getValue() == operator)
                 .map(ConcurrentMap.Entry::getKey)
@@ -32,20 +31,16 @@ public final class OperatorRegistryImpl implements OperatorRegistry {
     }
 
     @Override
-    public Operator get(ResourceLocation identifier) {
-        Operator op = getOrNull(identifier);
+    public <T, O extends Operator<T>> O get(ResourceLocation identifier) {
+        O op = getOrNull(identifier);
         if (op == null) throw new IllegalArgumentException("Operator " + identifier + " is not registered!");
         return op;
     }
 
-    @Override
-    public Optional<Operator> getOptional(ResourceLocation identifier) {
-        return Optional.ofNullable(getOrNull(identifier));
-    }
-
+    @SuppressWarnings("unchecked")
     @Nullable
     @Override
-    public Operator getOrNull(ResourceLocation identifier) {
-        return operators.get(identifier);
+    public <T, O extends Operator<T>> O getOrNull(ResourceLocation identifier) {
+        return (O) operators.get(identifier);
     }
 }

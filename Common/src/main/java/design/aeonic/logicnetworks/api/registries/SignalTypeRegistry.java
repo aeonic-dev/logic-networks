@@ -1,11 +1,10 @@
-package design.aeonic.logicnetworks.api.registry;
+package design.aeonic.logicnetworks.api.registries;
 
 import design.aeonic.logicnetworks.api.logic.SignalType;
-import design.aeonic.logicnetworks.impl.registry.SignalTypeRegistryImpl;
+import design.aeonic.logicnetworks.impl.registries.SignalTypeRegistryImpl;
 import net.minecraft.resources.ResourceLocation;
 
 import javax.annotation.Nullable;
-import java.util.Optional;
 
 /**
  * A registry for {@link SignalType}s.
@@ -27,12 +26,6 @@ public interface SignalTypeRegistry {
      * Gets a {@link SignalType} by its identifier, throwing an error if it isn't registered.
      */
     <T> SignalType<T> get(ResourceLocation identifier);
-
-    /**
-     * Gets an {@link Optional} wrapping a {@link SignalType} by its identifier, empty if it isn't registered or if it
-     * isn't of the correct type.
-     */
-    <T> Optional<SignalType<T>> getOptional(ResourceLocation identifier);
 
     /**
      * Gets a {@link SignalType} by its identifier, or null if it isn't registered.
