@@ -1,6 +1,6 @@
 package design.aeonic.logicnetworks.impl.content.controller;
 
-import design.aeonic.logicnetworks.api.builtin.redstone.RedstoneOperators;
+import design.aeonic.logicnetworks.impl.builtin.redstone.RedstoneOperators;
 import design.aeonic.logicnetworks.api.graph.Network;
 import design.aeonic.logicnetworks.api.graph.Node;
 import design.aeonic.logicnetworks.api.graph.Socket;
@@ -18,8 +18,8 @@ public class NetworkControllerBlockEntity extends BlockEntity {
     }
 
     public void networkTest() {
-        Node<?> node1 = getNetwork().addNode(new Node<>(network, RedstoneOperators.INVERT, 0, 0));
-        Node<?> node2 = getNetwork().addNode(new Node<>(network, RedstoneOperators.INVERT, 0, 0));
+        Node<?, ?> node1 = getNetwork().addNode(new Node<>(network, RedstoneOperators.ANALOG_INVERT, 0, 0));
+        Node<?, ?> node2 = getNetwork().addNode(new Node<>(network, RedstoneOperators.ANALOG_INVERT, 0, 0));
         node1.getSocket(Socket.Side.OUTPUT, 0).connect(node2.getSocket(Socket.Side.INPUT, 0));
         setChanged();
     }

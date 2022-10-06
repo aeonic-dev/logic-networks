@@ -1,5 +1,7 @@
 package design.aeonic.logicnetworks.api.logic;
 
+import design.aeonic.logicnetworks.api.graph.Option;
+
 /**
  * An Operator defines an operation on input signals to compute a single output.
  * It also defines extra data that can be used to configure the operation within a graphical node.<br><br>
@@ -8,14 +10,11 @@ package design.aeonic.logicnetworks.api.logic;
 public abstract class Operator<T> {
     protected SignalType<T> outputType;
     protected SignalType<?>[] inputTypes;
-    protected OptionType<?>[] optionTypes = new OptionType<?>[0];
+    protected OptionType<?, ?>[] optionTypes = new OptionType<?, ?>[0];
 
     /**
      * Runs this operator's process on given signals. The passed signal arrays will match the defined signal type arrays
      * of this operator, and the options array will match the option type array. Input signals will be nonnull.
-     * @param inputs the input signals
-     * @param outputs the output signals
-     * @param options the option values
      */
     public abstract T process(Object[] inputs, Option<?>[] options);
 
@@ -27,7 +26,7 @@ public abstract class Operator<T> {
         return inputTypes;
     }
 
-    public OptionType<?>[] getOptionTypes() {
+    public OptionType<?, ?>[] getOptionTypes() {
         return optionTypes;
     }
 
@@ -36,7 +35,7 @@ public abstract class Operator<T> {
     }
 
     public static class Builder<T> {
-        private Built<T> operator = new Built<>();
+        private final Built<T> operator = new Built<>();
 
         private Builder(SignalType<T> outputType) {
             operator.outputType = outputType;
@@ -47,7 +46,7 @@ public abstract class Operator<T> {
             return this;
         }
 
-        public Builder<T> options(OptionType<?>... types) {
+        public Builder<T> options(OptionType<?, ?>... types) {
             operator.optionTypes = types;
             return this;
         }
@@ -59,7 +58,7 @@ public abstract class Operator<T> {
 
         public Operator<T> build() {
             if (operator.inputTypes == null) operator.inputTypes = new SignalType<?>[0];
-            if (operator.optionTypes == null) operator.optionTypes = new OptionType<?>[0];
+            if (operator.optionTypes == null) operator.optionTypes = new OptionType<?, ?>[0];
             if (operator.process == null) throw new IllegalStateException("Operator process must be defined!");
             return operator;
         }
