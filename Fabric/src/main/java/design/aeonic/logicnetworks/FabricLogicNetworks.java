@@ -6,10 +6,12 @@ import design.aeonic.logicnetworks.impl.LogicNetworks;
 import design.aeonic.logicnetworks.impl.content.NetworkBlockEntities;
 import design.aeonic.logicnetworks.impl.content.NetworkBlocks;
 import design.aeonic.logicnetworks.impl.content.NetworkItems;
+import net.fabricmc.api.ClientModInitializer;
 import net.fabricmc.api.ModInitializer;
 import net.minecraft.core.Registry;
 
 public class FabricLogicNetworks implements ModInitializer {
+
     @Override
     public void onInitialize() {
         LogicNetworks.init();
@@ -21,5 +23,13 @@ public class FabricLogicNetworks implements ModInitializer {
 
     <T> Registrar<T> registrar(Registry<T> registry) {
         return Registrar.of(Constants.MOD_ID, (key, value) -> Registry.register(registry, key, value));
+    }
+
+    public static class Client implements ClientModInitializer {
+
+        @Override
+        public void onInitializeClient() {
+            LogicNetworks.clientInit();
+        }
     }
 }

@@ -20,6 +20,9 @@
     "entrypoints": {
       "main": [
         "design.aeonic.logicnetworks.FabricLogicNetworks"
+      ],
+      "client": [
+        "design.aeonic.logicnetworks.FabricLogicNetworks$Client"
       ]
     },
     "mixins": [
