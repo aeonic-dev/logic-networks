@@ -1,7 +1,7 @@
 package design.aeonic.logicnetworks.api.logic.operators;
 
 import design.aeonic.logicnetworks.api.logic.Operator;
-import design.aeonic.logicnetworks.api.logic.Option;
+import design.aeonic.logicnetworks.api.graph.Option;
 import design.aeonic.logicnetworks.api.logic.SignalType;
 
 import javax.lang.model.type.NullType;
