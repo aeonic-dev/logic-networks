@@ -6,7 +6,7 @@ import net.minecraft.nbt.CompoundTag;
 import java.util.UUID;
 
 public class Socket<T> {
-    public final Node node;
+    public final Node<?, ?> node;
     public final int index;
     public final SignalType<T> signalType;
     public final Side side;
@@ -17,7 +17,7 @@ public class Socket<T> {
     private UUID connectedSocketUuid;
     private int connectedSocketIndex;
 
-    public Socket(Node node, int index, SignalType<T> signalType, Side side) {
+    public Socket(Node<?, ?> node, int index, SignalType<T> signalType, Side side) {
         this.node = node;
         this.index = index;
         this.signalType = signalType;
@@ -68,7 +68,6 @@ public class Socket<T> {
         return socket;
     }
 
-    @SuppressWarnings("unchecked")
     public void ready(Network network) {
         if (connectedSocketUuid != null) {
             connectedSocket = network.getNode(connectedSocketUuid).getSocket(side.flip(), connectedSocketIndex);

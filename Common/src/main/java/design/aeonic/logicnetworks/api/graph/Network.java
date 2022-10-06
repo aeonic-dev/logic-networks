@@ -1,6 +1,5 @@
 package design.aeonic.logicnetworks.api.graph;
 
-import com.mojang.blaze3d.vertex.PoseStack;
 import design.aeonic.logicnetworks.api.logic.Operator;
 import design.aeonic.logicnetworks.api.logic.operators.InputOperator;
 import design.aeonic.logicnetworks.api.logic.operators.OutputOperator;
@@ -18,12 +17,7 @@ import java.util.stream.Stream;
  * operators when the graph is closed for performance.
  */
 public class Network {
-    private int x;
-    private int y;
-    private int width;
-    private int height;
-
-    private final Map<UUID, Node<?, ?>> nodes = new HashMap<>();
+    protected final Map<UUID, Node<?, ?>> nodes = new HashMap<>();
 
     public <T, O extends Operator<T>> Node<T, O> addNode(Node<T, O> node) {
         nodes.put(node.uuid, node);
@@ -31,7 +25,6 @@ public class Network {
     }
 
     public void compute() {
-        // TODO: For performance, should only operate on nodes that have anchored I/O
         // I considered "compiling" the network somehow and discarding extra node information for performance, but
         // for now decided against it - shouldn't be a huge deal to have a few extra nodes in memory and this way does
         // avoid an expensive GC cycle whenever the network would be destroyed.
@@ -55,29 +48,6 @@ public class Network {
 
     public Node<?, ?> getNode(UUID uuid) {
         return nodes.get(uuid);
-    }
-
-    public void draw(PoseStack stack, int mouseX, int mouseY, float partialTicks) {
-        for (Node<?, ?> node : nodes.values()) {
-            node.draw(stack, mouseX, mouseY, partialTicks);
-        }
-    }
-
-    public void drawConnections(PoseStack stack, int mouseX, int mouseY, float partialTicks) {
-        for (Node<?, ?> node : nodes.values()) {
-            for (Socket<?> socket : node.getInputSockets()) {
-                drawSocket(socket, stack, mouseX, mouseY, partialTicks);
-            }
-            drawSocket(node.getOutputSocket(), stack, mouseX, mouseY, partialTicks);
-        }
-    }
-
-    public void drawSocket(Socket<?> socket, PoseStack stack, int mouseX, int mouseY, float partialTicks) {
-        int color = socket.signalType.color;
-        // TODO: Draw socket
-        if (socket.getConnectedSocket() != null) {
-            // TODO: Draw connection
-        }
     }
 
     public void serialize(CompoundTag tag) {

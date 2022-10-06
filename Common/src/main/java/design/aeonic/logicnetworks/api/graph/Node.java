@@ -1,10 +1,10 @@
 package design.aeonic.logicnetworks.api.graph;
 
-import com.mojang.blaze3d.vertex.PoseStack;
+import design.aeonic.logicnetworks.api.client.NodeRenderer;
 import design.aeonic.logicnetworks.api.logic.Operator;
-import design.aeonic.logicnetworks.api.logic.Option;
 import design.aeonic.logicnetworks.api.logic.operators.InputOperator;
-import design.aeonic.logicnetworks.api.registry.OperatorRegistry;
+import design.aeonic.logicnetworks.api.registries.NodeRendererRegistry;
+import design.aeonic.logicnetworks.api.registries.OperatorRegistry;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.ListTag;
 import net.minecraft.nbt.Tag;
@@ -13,7 +13,7 @@ import net.minecraft.resources.ResourceLocation;
 import java.util.UUID;
 
 /**
- * A node in a logic network; serves as a visual representation of an {@link Operator}.
+ * A node in a logic network; serves as a graph's instance of an {@link Operator} with I/O sockets and connections.
  */
 public class Node<T, O extends Operator<T>> {
     public final Network network;
@@ -44,12 +44,17 @@ public class Node<T, O extends Operator<T>> {
 
             options = new Option[operator.getOptionTypes().length];
             for (int i = 0; i < options.length; i++) {
-                options[i] = new Option<>(operator.getOptionTypes()[i]);
+                options[i] = operator.getOptionTypes()[i].create();
             }
         }
 
         this.x = x;
         this.y = y;
+    }
+
+    @SuppressWarnings("unchecked")
+    public NodeRenderer<T, O> getRenderer() {
+        return (NodeRenderer<T, O>) (Object) NodeRendererRegistry.INSTANCE.get(operator);
     }
 
     /**
@@ -118,7 +123,8 @@ public class Node<T, O extends Operator<T>> {
         ListTag options = tag.getList("options", Tag.TAG_COMPOUND);
         Option<?>[] optionsArray = new Option[options.size()];
         for (int i = 0; i < inputs.size(); i++) {
-            optionsArray[i] = Option.deserialize(operator.getOptionTypes()[i], options.getCompound(i));
+            optionsArray[i] = operator.getOptionTypes()[i].create();
+            optionsArray[i].deserialize(options.getCompound(i));
         }
 
         node.inputSockets = inputSockets;
@@ -132,13 +138,6 @@ public class Node<T, O extends Operator<T>> {
         for (Socket<?> socket : inputSockets) {
             socket.ready(network);
         }
-    }
-
-    /**
-     * Draws the node, excluding sockets.
-     */
-    public void draw(PoseStack stack, int mouseX, int mouseY, float partialTicks) {
-        // TODO: Draw the node, excluding sockets
     }
 
     public Socket<T> getOutputSocket() {
