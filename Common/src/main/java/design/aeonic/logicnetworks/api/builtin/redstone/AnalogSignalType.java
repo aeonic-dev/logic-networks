@@ -1,6 +1,6 @@
-package design.aeonic.logicnetworks.impl.builtin.redstone;
+package design.aeonic.logicnetworks.api.builtin.redstone;
 
-import design.aeonic.logicnetworks.impl.builtin.BuiltinSignalTypes;
+import design.aeonic.logicnetworks.api.builtin.BuiltinSignalTypes;
 import design.aeonic.logicnetworks.api.logic.SignalType;
 
 import javax.annotation.Nullable;
