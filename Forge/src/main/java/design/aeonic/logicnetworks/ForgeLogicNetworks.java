@@ -1,21 +1,13 @@
 package design.aeonic.logicnetworks;
 
 import design.aeonic.logicnetworks.api.Constants;
-import design.aeonic.logicnetworks.api.client.nodes.BaseNodeRenderer;
-import design.aeonic.logicnetworks.api.graph.Network;
-import design.aeonic.logicnetworks.api.graph.Node;
-import design.aeonic.logicnetworks.api.logic.Operator;
 import design.aeonic.logicnetworks.api.util.Registrar;
 import design.aeonic.logicnetworks.impl.LogicNetworks;
-import design.aeonic.logicnetworks.impl.builtin.redstone.RedstoneOperators;
 import design.aeonic.logicnetworks.impl.content.NetworkBlockEntities;
 import design.aeonic.logicnetworks.impl.content.NetworkBlocks;
 import design.aeonic.logicnetworks.impl.content.NetworkItems;
 import net.minecraft.core.Registry;
-import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceKey;
-import net.minecraftforge.client.event.RenderGuiEvent;
-import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
@@ -37,14 +29,6 @@ public class ForgeLogicNetworks {
         });
 
         modBus.addListener((FMLClientSetupEvent event) -> LogicNetworks.clientInit());
-
-        Network network = new Network();
-        var node = new Node<>(network, RedstoneOperators.ANALOG_ADD, 50, 50);
-        var rndr = new BaseNodeRenderer<Integer, Operator<Integer>>(Component.literal("Node"), 80, 40);
-
-        MinecraftForge.EVENT_BUS.addListener((RenderGuiEvent.Post event) -> {
-                rndr.draw(node, event.getPoseStack(), 0, 0, event.getPartialTick());
-        });
     }
 
     <T> Registrar<T> registrar(RegisterEvent event, ResourceKey<? extends Registry<T>> registry) {

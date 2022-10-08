@@ -22,7 +22,7 @@
         "design.aeonic.logicnetworks.FabricLogicNetworks"
       ],
       "client": [
-        "design.aeonic.logicnetworks.FabricLogicNetworks$Client"
+        "design.aeonic.logicnetworks.FabricLogicNetworks::onInitializeClient"
       ]
     },
     "mixins": [
