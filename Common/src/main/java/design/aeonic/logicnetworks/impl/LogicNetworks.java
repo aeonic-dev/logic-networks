@@ -1,7 +1,7 @@
 package design.aeonic.logicnetworks.impl;
 
-import design.aeonic.logicnetworks.impl.builtin.BuiltinSignalTypes;
-import design.aeonic.logicnetworks.impl.builtin.redstone.RedstoneOperators;
+import design.aeonic.logicnetworks.api.builtin.BuiltinSignalTypes;
+import design.aeonic.logicnetworks.api.builtin.redstone.RedstoneOperators;
 import design.aeonic.logicnetworks.impl.client.BuiltinNodeRenderers;
 
 public class LogicNetworks {
