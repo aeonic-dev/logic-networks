@@ -1,6 +1,6 @@
 package design.aeonic.logicnetworks.impl.content.controller;
 
-import design.aeonic.logicnetworks.impl.builtin.redstone.RedstoneOperators;
+import design.aeonic.logicnetworks.api.builtin.redstone.RedstoneOperators;
 import design.aeonic.logicnetworks.api.graph.Network;
 import design.aeonic.logicnetworks.api.graph.Node;
 import design.aeonic.logicnetworks.api.graph.Socket;

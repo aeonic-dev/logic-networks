@@ -1,9 +1,9 @@
-package design.aeonic.logicnetworks.impl.builtin.redstone;
+package design.aeonic.logicnetworks.api.builtin.redstone;
 
 import design.aeonic.logicnetworks.api.Constants;
 import design.aeonic.logicnetworks.api.logic.Operator;
 import design.aeonic.logicnetworks.api.registries.OperatorRegistry;
-import design.aeonic.logicnetworks.impl.builtin.BuiltinSignalTypes;
+import design.aeonic.logicnetworks.api.builtin.BuiltinSignalTypes;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.Mth;
 

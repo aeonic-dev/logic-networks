@@ -18,7 +18,6 @@ import java.util.stream.Stream;
  */
 public class Network {
     protected final Map<UUID, Node<?, ?>> nodes = new HashMap<>();
-
     public <T, O extends Operator<T>> Node<T, O> addNode(Node<T, O> node) {
         nodes.put(node.uuid, node);
         return node;
@@ -34,6 +33,10 @@ public class Network {
     @SuppressWarnings("unchecked")
     private <I> void computeSingle(Node<?, OutputOperator<?>> node) {
         ((OutputOperator<I>) node.operator).write((I) node.getInputSockets()[0].connectedSocket.node.traverse(), node.getOptions());
+    }
+
+    public Map<UUID, Node<?, ?>> getNodes() {
+        return nodes;
     }
 
     @SuppressWarnings("unchecked")

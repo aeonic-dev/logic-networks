@@ -18,7 +18,7 @@ public interface NodeRendererRegistry {
     <T, O extends Operator<T>, R extends NodeRenderer<T, ? super O>> R register(O operator, R renderer);
 
     /**
-     * Gets a {@link NodeRenderer} by its associated operator, throwing an error if it isn't registered.
+     * Gets a {@link NodeRenderer} by its associated operator, or {@link design.aeonic.logicnetworks.api.client.nodes.MissingNodeRenderer#INSTANCE} if it isn't registered.
      */
     <T, O extends Operator<T>, R extends NodeRenderer<T, ? super O>> R get(O operator);
 
