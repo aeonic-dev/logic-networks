@@ -1,18 +1,19 @@
 package design.aeonic.logicnetworks;
 
-import design.aeonic.logicnetworks.api.Constants;
+import design.aeonic.logicnetworks.api.core.Constants;
 import design.aeonic.logicnetworks.api.util.Registrar;
 import design.aeonic.logicnetworks.impl.LogicNetworks;
 import design.aeonic.logicnetworks.impl.content.NetworkBlockEntities;
 import design.aeonic.logicnetworks.impl.content.NetworkBlocks;
 import design.aeonic.logicnetworks.impl.content.NetworkItems;
 import net.fabricmc.api.ModInitializer;
+import net.minecraft.client.Minecraft;
 import net.minecraft.core.Registry;
 
 public class FabricLogicNetworks implements ModInitializer {
 
     public static void onInitializeClient() {
-        LogicNetworks.clientInit();
+        LogicNetworks.clientInit(Minecraft.getInstance()::submit);
     }
 
     @Override

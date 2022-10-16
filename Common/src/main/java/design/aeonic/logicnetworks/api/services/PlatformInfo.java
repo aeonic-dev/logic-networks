@@ -1,6 +1,6 @@
-package design.aeonic.logicnetworks.api.platform;
+package design.aeonic.logicnetworks.api.services;
 
-public interface IPlatformInfo {
+public interface PlatformInfo {
 
     /**
      * Gets the name of the current platform

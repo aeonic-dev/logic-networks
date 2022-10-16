@@ -1,6 +1,6 @@
 package design.aeonic.logicnetworks;
 
-import design.aeonic.logicnetworks.api.Constants;
+import design.aeonic.logicnetworks.api.core.Constants;
 import design.aeonic.logicnetworks.api.util.Registrar;
 import design.aeonic.logicnetworks.impl.LogicNetworks;
 import design.aeonic.logicnetworks.impl.content.NetworkBlockEntities;
@@ -28,7 +28,7 @@ public class ForgeLogicNetworks {
             NetworkItems.register(registrar(event, ForgeRegistries.Keys.ITEMS));
         });
 
-        modBus.addListener((FMLClientSetupEvent event) -> LogicNetworks.clientInit());
+        modBus.addListener((FMLClientSetupEvent event) -> LogicNetworks.clientInit(event::enqueueWork));
     }
 
     <T> Registrar<T> registrar(RegisterEvent event, ResourceKey<? extends Registry<T>> registry) {

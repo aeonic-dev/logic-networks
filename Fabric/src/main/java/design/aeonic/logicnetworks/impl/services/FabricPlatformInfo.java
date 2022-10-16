@@ -1,9 +1,9 @@
-package design.aeonic.logicnetworks.impl.platform;
+package design.aeonic.logicnetworks.impl.services;
 
-import design.aeonic.logicnetworks.api.platform.IPlatformInfo;
+import design.aeonic.logicnetworks.api.services.PlatformInfo;
 import net.fabricmc.loader.api.FabricLoader;
 
-public class FabricPlatformInfo implements IPlatformInfo {
+public class FabricPlatformInfo implements PlatformInfo {
 
     @Override
     public String getPlatformName() {

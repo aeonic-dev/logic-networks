@@ -1,10 +1,10 @@
-package design.aeonic.logicnetworks.impl.platform;
+package design.aeonic.logicnetworks.impl.services;
 
-import design.aeonic.logicnetworks.api.platform.IPlatformInfo;
+import design.aeonic.logicnetworks.api.services.PlatformInfo;
 import net.minecraftforge.fml.ModList;
 import net.minecraftforge.fml.loading.FMLLoader;
 
-public class ForgePlatformInfo implements IPlatformInfo {
+public class ForgePlatformInfo implements PlatformInfo {
 
     @Override
     public String getPlatformName() {
