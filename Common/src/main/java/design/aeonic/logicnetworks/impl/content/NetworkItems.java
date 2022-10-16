@@ -1,7 +1,6 @@
 package design.aeonic.logicnetworks.impl.content;
 
 import design.aeonic.logicnetworks.api.util.Registrar;
-import design.aeonic.logicnetworks.impl.content.NetworkBlocks;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.Item;
 
