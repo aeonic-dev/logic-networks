@@ -1,80 +1,88 @@
 package design.aeonic.logicnetworks.api.logic;
 
-import design.aeonic.logicnetworks.api.graph.Option;
-
-/**
- * An Operator defines an operation on input signals to compute a single output.
- * It also defines extra data that can be used to configure the operation within a graphical node.<br><br>
- * In general, node definitions are generated automatically from Operators.
- */
-public abstract class Operator<T> {
-    protected SignalType<T> outputType;
-    protected SignalType<?>[] inputTypes;
-    protected OptionType<?, ?>[] optionTypes = new OptionType<?, ?>[0];
+public interface Operator {
 
     /**
-     * Runs this operator's process on given signals. The passed signal arrays will match the defined signal type arrays
-     * of this operator, and the options array will match the option type array. Input signals will be nonnull.
+     * A descriptor of this operator's inputs.
      */
-    public abstract T process(Object[] inputs, Option<?>[] options);
+    SignalType<?>[] getInputs();
 
-    public SignalType<T> getOutputType() {
-        return outputType;
-    }
+    /**
+     * A descriptor of this operator's outputs.
+     */
+    SignalType<?>[] getOutputs();
 
-    public SignalType<?>[] getInputTypes() {
-        return inputTypes;
-    }
-
-    public OptionType<?, ?>[] getOptionTypes() {
-        return optionTypes;
-    }
-
-    public static <T> Builder<T> builder(SignalType<T> outputType) {
-        return new Builder<>(outputType);
-    }
-
-    public static class Builder<T> {
-        private final Built<T> operator = new Built<>();
-
-        private Builder(SignalType<T> outputType) {
-            operator.outputType = outputType;
+    /**
+     * Validates input parameters before evaluation. If this method returns false, this branch of traversal will stop.
+     */
+    default boolean validate(Object... inputs) {
+        // Parameters are assumed to be of the correct type, so we just need to null-check them.
+        for (Object input : inputs) {
+            if (input == null) {
+                return false;
+            }
         }
+        return true;
+    }
 
-        public Builder<T> inputs(SignalType<?>... types) {
-            operator.inputTypes = types;
+    /**
+     * Evaluates this operator, returning an array matching {@link #getOutputs()}. Inputs will have passed any tests in
+     * {@link #validate(Object...)} prior to this method being called; by default, this ensures they are all nonnull.
+     */
+    Object[] evaluate(Object... inputs);
+
+    static Builder builder() {
+        return new Builder();
+    }
+
+    final class Builder {
+        private SignalType<?>[] inputs;
+        private SignalType<?>[] outputs;
+        private Evaluator evaluator;
+
+        private Builder() {}
+
+        public Builder inputs(SignalType<?>... inputs) {
+            this.inputs = inputs;
             return this;
         }
 
-        public Builder<T> options(OptionType<?, ?>... types) {
-            operator.optionTypes = types;
+        public Builder outputs(SignalType<?>... outputs) {
+            this.outputs = outputs;
             return this;
         }
 
-        public Builder<T> process(OperatorProcess<T> process) {
-            operator.process = process;
+        public Builder process(Evaluator evaluator) {
+            this.evaluator = evaluator;
             return this;
         }
 
-        public Operator<T> build() {
-            if (operator.inputTypes == null) operator.inputTypes = new SignalType<?>[0];
-            if (operator.optionTypes == null) operator.optionTypes = new OptionType<?, ?>[0];
-            if (operator.process == null) throw new IllegalStateException("Operator process must be defined!");
-            return operator;
-        }
-    }
+        public Operator build() {
+            if (inputs == null) inputs = new SignalType[0];
+            if (outputs == null) outputs = new SignalType[0];
+            if (evaluator == null) evaluator = (inputs) -> new Object[0];
 
-    private static class Built<T> extends Operator<T> {
-        private OperatorProcess<T> process;
+            return new Operator() {
+                @Override
+                public SignalType<?>[] getInputs() {
+                    return inputs;
+                }
 
-        @Override
-        public T process(Object[] inputs, Option<?>[] options) {
-            return process.execute(inputs, options);
+                @Override
+                public SignalType<?>[] getOutputs() {
+                    return outputs;
+                }
+
+                @Override
+                public Object[] evaluate(Object... inputs) {
+                    return evaluator.evaluate(inputs);
+                }
+            };
         }
     }
 
     @FunctionalInterface
-    public interface OperatorProcess<T> {
-        T execute(Object[] inputs, Option<?>[] options);
+    interface Evaluator {
+        Object[] evaluate(Object... inputs);
     }
 }
