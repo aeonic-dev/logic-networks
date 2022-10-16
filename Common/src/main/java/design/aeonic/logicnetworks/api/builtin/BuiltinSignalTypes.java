@@ -1,18 +1,16 @@
 package design.aeonic.logicnetworks.api.builtin;
 
-import design.aeonic.logicnetworks.api.Constants;
-import design.aeonic.logicnetworks.api.builtin.redstone.AnalogSignalType;
-import design.aeonic.logicnetworks.api.builtin.redstone.BooleanSignalType;
+import design.aeonic.logicnetworks.api.core.CommonRegistries;
+import design.aeonic.logicnetworks.api.core.Constants;
 import design.aeonic.logicnetworks.api.logic.SignalType;
-import design.aeonic.logicnetworks.api.registries.SignalTypeRegistry;
 import net.minecraft.resources.ResourceLocation;
 
 public final class BuiltinSignalTypes {
-    public static final SignalType<Integer> ANALOG = new AnalogSignalType();
-    public static final SignalType<Boolean> BOOLEAN = new BooleanSignalType();
+    public static final SignalType<Integer> ANALOG = new SignalType<>(Integer.class, 0xFF0000);
+    public static final SignalType<Boolean> BOOLEAN = new SignalType<>(Boolean.class, 0x00FF00);
 
     public static void register() {
-        SignalTypeRegistry.INSTANCE.register(new ResourceLocation(Constants.MOD_ID, "analog"), ANALOG);
-        SignalTypeRegistry.INSTANCE.register(new ResourceLocation(Constants.MOD_ID, "boolean"), BOOLEAN);
+        CommonRegistries.SIGNAL_TYPES.register(new ResourceLocation(Constants.MOD_ID, "analog"), ANALOG);
+        CommonRegistries.SIGNAL_TYPES.register(new ResourceLocation(Constants.MOD_ID, "boolean"), BOOLEAN);
     }
 }
