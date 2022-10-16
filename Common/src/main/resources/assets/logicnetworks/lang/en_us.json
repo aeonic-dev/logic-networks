@@ -1,3 +1,10 @@
 {
-  "logicnetworks.category.redstone": "Redstone"
+  "gui.logicnetworks.ticks": "Ticks/operation",
+  "gui.logicnetworks.redstone_control": "Redstone control",
+  "gui.logicnetworks.redstone_control.always": "Always active",
+  "gui.logicnetworks.redstone_control.high": "Active with redstone signal",
+  "gui.logicnetworks.redstone_control.low": "Active without redstone signal",
+  "gui.logicnetworks.redstone_control.never": "Never active",
+  "gui.logicnetworks.network_controller.title": "Network Controller",
+  "gui.logicnetworks.network_controller.ticks_per_operation": "Ticks per operation"
 }

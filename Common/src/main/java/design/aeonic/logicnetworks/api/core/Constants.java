@@ -1,4 +1,4 @@
-package design.aeonic.logicnetworks.api;
+package design.aeonic.logicnetworks.api.core;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
