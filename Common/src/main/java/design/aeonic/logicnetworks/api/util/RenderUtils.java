@@ -1,7 +1,6 @@
 package design.aeonic.logicnetworks.api.util;
 
 import com.mojang.blaze3d.vertex.PoseStack;
-import design.aeonic.logicnetworks.api.client.Texture;
 import net.minecraft.client.gui.screens.Screen;
 
 public final class RenderUtils {
@@ -12,15 +11,21 @@ public final class RenderUtils {
         rgba[3] = ((color >> 24) & 0xFF) / 255f;
     }
 
+    public static void drawRect(PoseStack stack, Texture texture, int x, int y, int zOffset, int width, int height) {
+        drawRect(stack, texture, x, y, zOffset, width, height, 0xFFFFFFFF);
+    }
+
     /**
      * Draws a rectangle with the given texture tiled to fit the dimensions. Ex: nodes, which use a 16x16 texture.
-     * See the `textures/gui/graph/node.png` file for an example.
+     * See the `textures/gui/graph/fromNode.png` file for an example.
      */
-    public static void drawRect(PoseStack stack, Texture texture, int x, int y, int zOffset, int width, int height) {
+    public static void drawRect(PoseStack stack, Texture texture, int x, int y, int zOffset, int width, int height, int color) {
         int cornerWidth = texture.fileWidth() / 4;
         int cornerHeight = texture.fileHeight() / 4;
 
-        texture.setup(1, 1, 1, 1);
+        float[] rgba = new float[4];
+        unpackRGBA(color, rgba);
+        texture.setup(rgba[0], rgba[1], rgba[2], rgba[3]);
 
         // Corners
         Screen.blit(stack, x, y, zOffset, 0, 0, cornerWidth, cornerHeight, texture.fileWidth(), texture.fileHeight());

@@ -1,4 +1,4 @@
-package design.aeonic.logicnetworks.api.client;
+package design.aeonic.logicnetworks.api.util;
 
 import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.PoseStack;
@@ -7,6 +7,18 @@ import net.minecraft.client.renderer.GameRenderer;
 import net.minecraft.resources.ResourceLocation;
 
 public record Texture(ResourceLocation location, int fileWidth, int fileHeight, int width, int height, int u, int v) {
+    public Texture(String location, int fileWidth, int fileHeight) {
+        this(new ResourceLocation(location), fileWidth, fileHeight);
+    }
+
+    public Texture(String location, int fileWidth, int fileHeight, int width, int height) {
+        this(new ResourceLocation(location), fileWidth, fileHeight, width, height, 0, 0);
+    }
+
+    public Texture(String location, int fileWidth, int fileHeight, int width, int height, int u, int v) {
+        this(new ResourceLocation(location), fileWidth, fileHeight, width, height, u, v);
+    }
+
     public Texture(ResourceLocation location, int fileWidth, int fileHeight) {
         this(location, fileWidth, fileHeight, fileWidth, fileHeight);
     }
