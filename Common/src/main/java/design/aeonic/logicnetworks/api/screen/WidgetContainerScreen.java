@@ -80,11 +80,7 @@ public abstract class WidgetContainerScreen<T extends AbstractContainerMenu> ext
 
     @Override
     public boolean mouseReleased(double mouseX, double mouseY, int button) {
-        InputWidget widget = getWidgetAt((int) mouseX - leftPos, (int) mouseY - topPos);
-        if (widget != null && widget.isEnabled()) {
-            widget.mouseUp(this, (int) mouseX - leftPos, (int) mouseY - topPos, button);
-            return true;
-        }
+        if (inputWidgets.stream().anyMatch(widget -> widget.mouseUp(this, (int) mouseX - leftPos, (int) mouseY - topPos, button))) return true;
         return super.mouseReleased(mouseX, mouseY, button);
     }
 

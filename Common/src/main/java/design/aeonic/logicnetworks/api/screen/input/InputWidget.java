@@ -28,7 +28,7 @@ public interface InputWidget {
     }
 
     /**
-     * Called only if {@link #isEnabled()} is true and the mouse is over the widget.
+     * Called for mouse up anywhere regardless of focus.
      */
     default boolean mouseUp(WidgetScreen screen, int mouseX, int mouseY, int button) {
         return false;

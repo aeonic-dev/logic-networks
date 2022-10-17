@@ -37,10 +37,11 @@ public class ServerboundNetworkChangePacket {
     }
 
     public static class Handler implements ServerboundPacketHandler<ServerboundNetworkChangePacket> {
+        public static final ResourceLocation CHANNEL = new ResourceLocation(Constants.MOD_ID, "network_change");
 
         @Override
         public ResourceLocation getChannelId() {
-            return new ResourceLocation(Constants.MOD_ID, "network_change");
+            return CHANNEL;
         }
 
         @Override
