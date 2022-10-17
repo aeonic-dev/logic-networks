@@ -18,5 +18,7 @@ public final class Translations {
     public static final class NetworkController {
         public static final Component TITLE = Component.translatable("gui.logicnetworks.network_controller.title");
         public static final Component TICKS_PER_OP = Component.translatable("gui.logicnetworks.network_controller.ticks_per_operation");
+        public static final Component EDIT_NETWORK = Component.translatable("gui.logicnetworks.network_controller.edit_network");
+        public static final Component EDIT_NETWORK_TOOLTIP = Component.translatable("gui.logicnetworks.network_controller.edit_network_tooltip");
     }
 }

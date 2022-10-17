@@ -6,5 +6,7 @@
   "gui.logicnetworks.redstone_control.low": "Active without redstone signal",
   "gui.logicnetworks.redstone_control.never": "Never active",
   "gui.logicnetworks.network_controller.title": "Network Controller",
-  "gui.logicnetworks.network_controller.ticks_per_operation": "Ticks per operation"
+  "gui.logicnetworks.network_controller.ticks_per_operation": "Ticks per operation",
+  "gui.logicnetworks.network_controller.edit_network": "Edit network",
+  "gui.logicnetworks.network_controller.edit_network_tooltip": "Open the graph editor"
 }
