@@ -35,6 +35,10 @@ public class RedstoneInputWidget extends AbstractInputWidget {
         this.value = value;
     }
 
+    public void setValue(RedstoneControl value) {
+        this.value = value;
+    }
+
     public RedstoneControl getValue() {
         return value;
     }
