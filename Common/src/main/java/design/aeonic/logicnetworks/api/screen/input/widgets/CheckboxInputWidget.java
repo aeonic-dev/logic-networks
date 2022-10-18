@@ -25,6 +25,7 @@ public class CheckboxInputWidget extends AbstractInputWidget {
 
     @Override
     public boolean mouseDown(WidgetScreen screen, int mouseX, int mouseY, int button) {
+        if (button != 0) return false;
         value = !value;
         playClickSound();
         return true;
