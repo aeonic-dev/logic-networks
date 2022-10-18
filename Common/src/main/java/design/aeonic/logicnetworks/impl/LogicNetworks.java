@@ -1,5 +1,6 @@
 package design.aeonic.logicnetworks.impl;
 
+import design.aeonic.logicnetworks.api.builtin.BuiltinNodeTypes;
 import design.aeonic.logicnetworks.api.builtin.BuiltinSignalTypes;
 import design.aeonic.logicnetworks.impl.content.NetworkScreens;
 import design.aeonic.logicnetworks.impl.content.controller.NetworkControllerUpdatePacket;
@@ -11,6 +12,7 @@ import java.util.function.Consumer;
 public class LogicNetworks {
     public static void init() {
         BuiltinSignalTypes.register();
+        BuiltinNodeTypes.register();
 
         Services.NETWORKING.registerServerboundPacketHandler(NetworkControllerUpdatePacket.HANDLER);
         Services.NETWORKING.registerServerboundPacketHandler(ServerboundNetworkChangePacket.HANDLER);
