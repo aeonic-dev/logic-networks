@@ -23,6 +23,13 @@ public class ContainerFields implements ContainerData {
         this.count = i;
     }
 
+    public boolean isClientSide() {
+        for (DataField<?> field : fields) {
+            if (!field.isClientSide()) return false;
+        }
+        return true;
+    }
+
     @SuppressWarnings("unchecked")
     public <T> T getField(int index) {
         return (T) fields[index].getValue();

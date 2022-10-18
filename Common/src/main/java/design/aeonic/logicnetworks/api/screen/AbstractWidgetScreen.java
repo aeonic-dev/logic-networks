@@ -59,7 +59,7 @@ public abstract class AbstractWidgetScreen extends Screen implements WidgetScree
 
         RenderSystem.enableBlend();
         RenderSystem.defaultBlendFunc();
-        RenderUtils.drawRect(stack, TOOLTIP, x - 2, y - 2, getBlitOffset() + 400, width, height, 0xE0FFFFFF);
+        RenderUtils.drawRect(stack, TOOLTIP, x - 2, y - 2, getBlitOffset() + 400, width, height, 0xF0FFFFFF);
         stack.pushPose();
         stack.translate(0, 0, 500);
         for (int i = 0; i < tooltip.size(); i++) {

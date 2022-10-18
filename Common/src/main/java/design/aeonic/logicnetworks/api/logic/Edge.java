@@ -31,7 +31,7 @@ public class Edge {
         if (fromNode.getOutputSlots()[fromIndex] == null || toNode.getInputSlots()[toIndex] == null) return EMPTY;
         if (!fromNode.getOutputSlots()[fromIndex].canConnect(toNode.getInputSlots()[toIndex])) return EMPTY;
 
-        return new Edge(fromNode.getUuid(), fromIndex, toNode.getUuid(), toIndex);
+        return new Edge(fromNode.getUUID(), fromIndex, toNode.getUUID(), toIndex);
     }
 
     public boolean isValid() {

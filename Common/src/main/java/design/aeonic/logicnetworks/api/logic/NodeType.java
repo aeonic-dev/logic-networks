@@ -13,17 +13,19 @@ import java.util.UUID;
 public interface NodeType<T extends Node<T>> {
     T createNode(UUID uuid, int x, int y);
 
-    default CompoundTag serialize(T node) {
+    default CompoundTag serialize(T node, boolean isClientNode) {
         CompoundTag tag = new CompoundTag();
-        tag.putUUID("uuid", node.getUuid());
+        tag.putUUID("uuid", node.getUUID());
         tag.putInt("x", node.getX());
         tag.putInt("y", node.getY());
 
-        saveAdditional(node, tag);
+        saveAdditional(node, tag, isClientNode);
         return tag;
     }
 
-    default void saveAdditional(T node, CompoundTag tag) {}
+    default void saveAdditional(T node, CompoundTag tag, boolean isClientNode) {
+        node.saveAdditional(tag, isClientNode);
+    }
 
     default T load(CompoundTag tag) {
         T node = createNode(tag.getUUID("uuid"), tag.getInt("x"), tag.getInt("y"));
@@ -31,5 +33,7 @@ public interface NodeType<T extends Node<T>> {
         return node;
     }
 
-    void readAdditional(T node, CompoundTag tag);
+    default void readAdditional(T node, CompoundTag tag) {
+        node.readAdditional(tag);
+    }
 }

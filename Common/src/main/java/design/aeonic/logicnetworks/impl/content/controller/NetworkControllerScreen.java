@@ -4,6 +4,7 @@ import com.mojang.blaze3d.vertex.PoseStack;
 import design.aeonic.logicnetworks.api.control.RedstoneControl;
 import design.aeonic.logicnetworks.api.core.Constants;
 import design.aeonic.logicnetworks.api.core.Translations;
+import design.aeonic.logicnetworks.api.logic.Network;
 import design.aeonic.logicnetworks.api.screen.WidgetContainerScreen;
 import design.aeonic.logicnetworks.api.screen.input.InputWidget;
 import design.aeonic.logicnetworks.api.screen.input.WidgetScreen;
@@ -11,6 +12,8 @@ import design.aeonic.logicnetworks.api.screen.input.widgets.ButtonInputWidget;
 import design.aeonic.logicnetworks.api.screen.input.widgets.IntInputWidget;
 import design.aeonic.logicnetworks.api.screen.input.widgets.RedstoneInputWidget;
 import design.aeonic.logicnetworks.api.util.Texture;
+import design.aeonic.logicnetworks.impl.client.NetworkGraphScreen;
+import design.aeonic.logicnetworks.impl.networking.packets.ServerboundNetworkChangePacket;
 import net.minecraft.network.chat.Component;
 import net.minecraft.util.Mth;
 import net.minecraft.world.entity.player.Inventory;
@@ -32,7 +35,7 @@ public class NetworkControllerScreen extends WidgetContainerScreen<NetworkContro
         }
     };
 
-    private ButtonInputWidget editNetworkButton = new ButtonInputWidget(8, 36, Translations.NetworkController.EDIT_NETWORK, () -> {}) {
+    private ButtonInputWidget editNetworkButton = new ButtonInputWidget(8, 36, Translations.NetworkController.EDIT_NETWORK, this::openNetworkGraph) {
         @Override
         public List<Component> getTooltip(WidgetScreen screen, int mouseX, int mouseY) {
             return List.of(Translations.NetworkController.EDIT_NETWORK_TOOLTIP);
@@ -66,6 +69,14 @@ public class NetworkControllerScreen extends WidgetContainerScreen<NetworkContro
 
         editNetworkButton.setX(8 + (imageWidth - 16 - editNetworkButton.getWidth()) / 2);
         addWidgets(redstoneControlInputWidget, ticksPerOperationInput, editNetworkButton);
+    }
+
+    public void openNetworkGraph() {
+        NetworkGraphScreen.open(menu.getClientNetwork(), this::onNetworkGraphClosed);
+    }
+
+    public void onNetworkGraphClosed(Network network) {
+        ServerboundNetworkChangePacket.HANDLER.sendToServer(new ServerboundNetworkChangePacket(menu.getControllerPos(), network));
     }
 
     @Override

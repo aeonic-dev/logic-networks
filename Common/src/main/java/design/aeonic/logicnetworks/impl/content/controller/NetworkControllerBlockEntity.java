@@ -32,8 +32,8 @@ public class NetworkControllerBlockEntity extends BlockEntity implements MenuPro
     private Network network;
     private CompiledNetwork compiledNetwork;
 
-    private RedstoneControl redstoneControl;
-    private int ticksPerOperation;
+    private RedstoneControl redstoneControl = RedstoneControl.ALWAYS;
+    private int ticksPerOperation = 20;
 
     public NetworkControllerBlockEntity(BlockPos pos, BlockState state) {
         super(NetworkBlockEntities.NETWORK_CONTROLLER, pos, state);
@@ -96,7 +96,7 @@ public class NetworkControllerBlockEntity extends BlockEntity implements MenuPro
 
         if (network != null) {
             CompoundTag networkTag = new CompoundTag();
-            network.serialize(networkTag);
+            network.serialize(networkTag, false);
             tag.put("network", networkTag);
         }
     }

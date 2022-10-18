@@ -5,7 +5,7 @@ import design.aeonic.logicnetworks.api.logic.node.Node;
 import design.aeonic.logicnetworks.api.logic.node.SinkNode;
 import design.aeonic.logicnetworks.api.logic.node.SourceNode;
 import design.aeonic.logicnetworks.impl.logic.NetworkImpl;
-import design.aeonic.logicnetworks.impl.process.TopologicalCompiledNetwork;
+import design.aeonic.logicnetworks.impl.logic.TopologicalCompiledNetwork;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.ListTag;
 import net.minecraft.nbt.Tag;
@@ -55,14 +55,14 @@ public interface Network {
      * Gets all edges originating from one of the given node's outputs.
      */
     default Stream<Edge> getEdgesFrom(Node<?> node) {
-        return getEdges().filter(edge -> edge.getFromNode().equals(node.getUuid()));
+        return getEdges().filter(edge -> edge.getFromNode().equals(node.getUUID()));
     }
 
     /**
      * Gets all edges terminating at one of the given node's inputs.
      */
     default Stream<Edge> getEdgesTo(Node<?> node) {
-        return getEdges().filter(edge -> edge.getToNode().equals(node.getUuid()));
+        return getEdges().filter(edge -> edge.getToNode().equals(node.getUUID()));
     }
 
     /**
@@ -84,10 +84,14 @@ public interface Network {
         return getNodes().filter(node -> node instanceof SinkNode<?>).map(node -> (SinkNode<?>) node);
     }
 
-    default void serialize(CompoundTag tag) {
+    /**
+     * `isClient` is used to determine whether values from input widgets should be serialized to normal fields.
+     * Should only be true if this method is being called from an existing screen that's modifying the network's nodes.
+     */
+    default void serialize(CompoundTag tag, boolean isClient) {
         ListTag nodeList = tag.getList("nodes", Tag.TAG_COMPOUND);
         getNodes().forEach(node -> {
-            CompoundTag nodeTag = serializeNode(node);
+            CompoundTag nodeTag = serializeNode(node, isClient);
             nodeList.add(nodeTag);
         });
         ListTag edgeList = tag.getList("edges", Tag.TAG_COMPOUND);
@@ -101,8 +105,8 @@ public interface Network {
     }
 
     @SuppressWarnings("unchecked")
-    default <T extends Node<T>> CompoundTag serializeNode(Node<T> node) {
-        CompoundTag tag = node.getNodeType().serialize((T) node);
+    default <T extends Node<T>> CompoundTag serializeNode(Node<T> node, boolean isClient) {
+        CompoundTag tag = node.getNodeType().serialize((T) node, isClient);
         tag.putString("type", CommonRegistries.NODE_TYPES.getKey(node.getNodeType()).toString());
         return tag;
     }

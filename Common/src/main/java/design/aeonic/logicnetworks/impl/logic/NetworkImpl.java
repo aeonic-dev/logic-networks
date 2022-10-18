@@ -14,7 +14,7 @@ public class NetworkImpl implements Network {
 
     @Override
     public void addNode(Node<?> node) {
-        nodeMap.put(node.getUuid(), node);
+        nodeMap.put(node.getUUID(), node);
     }
 
     @Override

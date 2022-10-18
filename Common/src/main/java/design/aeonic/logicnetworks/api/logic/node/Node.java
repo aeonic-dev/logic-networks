@@ -2,50 +2,80 @@ package design.aeonic.logicnetworks.api.logic.node;
 
 import design.aeonic.logicnetworks.api.logic.NodeType;
 import design.aeonic.logicnetworks.api.logic.SignalType;
-import design.aeonic.logicnetworks.api.screen.input.WidgetScreen;
+import design.aeonic.logicnetworks.api.screen.input.InputWidget;
+import net.minecraft.nbt.CompoundTag;
+import net.minecraft.network.chat.Component;
 
+import java.util.List;
 import java.util.UUID;
 
 public interface Node<T extends Node<T>> {
+
+    Component getName();
 
     NodeType<T> getNodeType();
 
     /**
      * Gets this node's unique identifier.
      */
-    UUID getUuid();
+    UUID getUUID();
 
     /**
-     * Gets the x position of this node's top left corner.
+     * Gets the x position of this node's top left corner. Called only on the client.
      */
     int getX();
 
     /**
-     * Gets the y position of this node's top left corner.
+     * Gets the y position of this node's top left corner. Called only on the client.
      */
     int getY();
 
     /**
-     * Sets the position of this node's top left corner.
-     * This should only be called from within a network, or otherwise in a way that updates any attached change
-     * listeners.
+     * Sets the position of this node's top left corner. Called only on the client.
      */
-    void setPosition(int x, int y);
+    default void setPosition(int x, int y) {
+        setX(x);
+        setY(y);
+    }
+
+    /**
+     * Called only on the client.
+     */
+    void setX(int x);
+
+    /**
+     * Called only on the client.
+     */
+    void setY(int y);
 
     /**
      * Used for UI interactions on the client; add any custom input widgets here to receive interaction events.
      */
-    default void addInputWidgets(WidgetScreen screen) {}
+    default List<InputWidget> getInputWidgets() {
+        return List.of();
+    }
 
     /**
-     * Gets the width of this node in pixels.
+     * Gets the width of this node in pixels. Called only on the client.
      */
     int getWidth();
 
     /**
-     * Gets the height of this node in pixels.
+     * Gets the height of this node in pixels. Called only on the client.
      */
     int getHeight();
+
+    /**
+     * Gets the y positions of input slots, respective to the return of {@link #getInputSlots()}. The node itself does not handle drawing these slots or the connections
+     * to them; the network graph screen will take care of it for you.
+     */
+    int[] getInputPositions();
+
+    /**
+     * Gets the y positions of output slots, respective to the return of {@link #getOutputSlots()}.. The node itself does not handle drawing these slots or the connections
+     * to them; the network graph screen will take care of it for you.
+     */
+    int[] getOutputPositions();
 
     /**
      * Gets input socket types for this node. Can be empty or null if none.
@@ -56,4 +86,9 @@ public interface Node<T extends Node<T>> {
      * Gets output socket types for this node. Can be empty or null if none.
      */
     SignalType<?>[] getOutputSlots();
+
+    default void saveAdditional(CompoundTag tag, boolean isClientNode) {}
+
+    default void readAdditional(CompoundTag tag) {}
+
 }

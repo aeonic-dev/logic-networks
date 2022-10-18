@@ -40,6 +40,10 @@ public abstract class DataField<T> {
      */
     public abstract int slots();
 
+    public boolean isClientSide() {
+        return getter == null;
+    }
+
     /**
      * Gets the value of the contained field.
      */

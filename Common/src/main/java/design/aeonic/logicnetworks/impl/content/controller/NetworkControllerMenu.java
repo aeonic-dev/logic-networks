@@ -2,14 +2,20 @@ package design.aeonic.logicnetworks.impl.content.controller;
 
 import design.aeonic.logicnetworks.api.control.RedstoneControl;
 import design.aeonic.logicnetworks.api.core.Constants;
+import design.aeonic.logicnetworks.api.logic.Network;
 import design.aeonic.logicnetworks.api.networking.container.BaseContainerMenu;
 import design.aeonic.logicnetworks.api.networking.container.ContainerFields;
 import design.aeonic.logicnetworks.api.networking.container.field.BlockPosField;
 import design.aeonic.logicnetworks.api.networking.container.field.EnumField;
 import design.aeonic.logicnetworks.api.networking.container.field.IntField;
 import design.aeonic.logicnetworks.impl.content.NetworkMenus;
+import net.minecraft.client.Minecraft;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.entity.player.Inventory;
+import net.minecraft.world.level.Level;
+
+import java.util.Objects;
+
 public class NetworkControllerMenu extends BaseContainerMenu<NetworkControllerMenu> {
     public final ContainerFields data;
 
@@ -33,6 +39,16 @@ public class NetworkControllerMenu extends BaseContainerMenu<NetworkControllerMe
     public void setData(int $$0, int $$1) {
         super.setData($$0, $$1);
         broadcastChanges();
+    }
+
+    public Network getClientNetwork() {
+        // Some possibly unnecessary assertions here, but this method should only be called for an existing clientside
+        // menu, and the block entity *should* exist.
+        assert this.data.isClientSide();
+        Level level = Minecraft.getInstance().level;
+        assert Objects.requireNonNull(level).hasChunkAt(getControllerPos());
+
+        return ((Network.IHasNetwork) Objects.requireNonNull(level.getBlockEntity(getControllerPos()))).getNetwork();
     }
 
     public RedstoneControl getRedstoneControl() {

@@ -6,7 +6,13 @@ import design.aeonic.logicnetworks.api.logic.SignalType;
 import net.minecraft.resources.ResourceLocation;
 
 public final class BuiltinSignalTypes {
+    /**
+     * Analog redstone signal type, values 0-15.
+     */
     public static final SignalType<Integer> ANALOG = new SignalType<>(Integer.class, 0xFF0000);
+    /**
+     * Digital redstone signal type, boolean values.
+     */
     public static final SignalType<Boolean> BOOLEAN = new SignalType<>(Boolean.class, 0x00FF00);
 
     public static void register() {
