@@ -1,4 +1,4 @@
-package design.aeonic.logicnetworks.impl.process;
+package design.aeonic.logicnetworks.impl.logic;
 
 import design.aeonic.logicnetworks.api.logic.Edge;
 import design.aeonic.logicnetworks.api.logic.Network;
@@ -7,12 +7,11 @@ import design.aeonic.logicnetworks.api.logic.node.OperatorNode;
 import design.aeonic.logicnetworks.api.logic.node.SinkNode;
 import design.aeonic.logicnetworks.api.logic.node.SourceNode;
 import design.aeonic.logicnetworks.api.logic.CompiledNetwork;
-import design.aeonic.logicnetworks.api.logic.Operator;
 
 import java.util.*;
 
 public class TopologicalCompiledNetwork implements CompiledNetwork {
-    private final List<List<Node>> layers = new ArrayList<>();
+    private final List<List<Node<?>>> layers = new ArrayList<>();
     private final Map<UUID, Object[]> inputBuffer = new HashMap<>();
     private final Map<UUID, Edge[]> connections = new HashMap<>();
 
@@ -22,30 +21,29 @@ public class TopologicalCompiledNetwork implements CompiledNetwork {
 
     @Override
     public void tick() {
-        for (List<Node> layer : layers) {
-            for (Node node : layer) {
-                if (node instanceof SinkNode sink) {
-                    Object[] input = inputBuffer.get(sink.getUuid());
+        for (List<Node<?>> layer : layers) {
+            for (Node<?> node : layer) {
+                if (node instanceof SinkNode<?> sink) {
+                    Object[] input = inputBuffer.get(sink.getUUID());
                     // Don't write to the sink if any input is null
                     for (Object obj : input) {
                         if (obj == null) return;
                     }
                     sink.accept(input);
-                } else if (node instanceof SourceNode source){
+                } else if (node instanceof SourceNode<?> source){
                     Object[] output = source.get();
-                    for (Edge edge: connections.get(node.getUuid())) {
-                        inputBuffer.get(edge.getToNode())[edge.getToIndex()] =  output[edge.getFromIndex()];
+                    for (Edge edge: connections.get(node.getUUID())) {
+                        inputBuffer.get(edge.getToNode())[edge.getToIndex()] = output[edge.getFromIndex()];
                     }
-                } else if (node instanceof OperatorNode operator) {
-                    Object[] input = inputBuffer.get(operator.getUuid());
+                } else if (node instanceof OperatorNode<?> operator) {
+                    Object[] input = inputBuffer.get(operator.getUUID());
                     if (input == null) return;
 
-                    // Validate operator inputs before continuing; should propogate the rest of the changes
-                    Operator op = operator.getOperator();
-                    if (!op.validate(input)) return;
+                    // Validate operator inputs before continuing; should propagate the rest of the changes
+                    if (!operator.validate(input)) return;
 
-                    Object[] output = op.evaluate(input);
-                    for (Edge edge: connections.get(node.getUuid())) {
+                    Object[] output = operator.evaluate(input);
+                    for (Edge edge: connections.get(node.getUUID())) {
                         inputBuffer.get(edge.getToNode())[edge.getToIndex()] =  output[edge.getFromIndex()];
                     }
                 }
@@ -53,7 +51,7 @@ public class TopologicalCompiledNetwork implements CompiledNetwork {
         }
     }
 
-    void sort(Network network, Node node, int depth) {
+    void sort(Network network, Node<?> node, int depth) {
         if (layers.size() <= depth) layers.add(new ArrayList<>());
 
         // If this node is in an earlier layer, move it to this one to ensure its dependencies are computed first
@@ -62,10 +60,10 @@ public class TopologicalCompiledNetwork implements CompiledNetwork {
 
         layers.get(depth).add(node);
         Edge[] edges = network.getEdgesFrom(node).toArray(Edge[]::new);
-        connections.put(node.getUuid(), edges);
+        connections.put(node.getUUID(), edges);
 
         for (Edge edge: edges) {
-            Node toNode = network.getNode(edge.getToNode());
+            Node<?> toNode = network.getNode(edge.getToNode());
             sort(network, toNode, depth + 1);
         }
     }
@@ -73,7 +71,7 @@ public class TopologicalCompiledNetwork implements CompiledNetwork {
     /**
      * If the node is contained in the layer list, returns the outer index of the list it's in. Otherwise, returns -1
      */
-    public int getNodeLayer(Node node) {
+    public int getNodeLayer(Node<?> node) {
         for (int i = 0; i < layers.size(); i++) {
             if (layers.get(i).contains(node)) return i;
         }

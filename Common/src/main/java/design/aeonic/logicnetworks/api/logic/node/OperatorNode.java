@@ -1,22 +1,23 @@
 package design.aeonic.logicnetworks.api.logic.node;
 
-import design.aeonic.logicnetworks.api.logic.Operator;
-import design.aeonic.logicnetworks.api.logic.SignalType;
-
 public interface OperatorNode<T extends OperatorNode<T>> extends Node<T> {
 
     /**
-     * Gets the operation this fromNode performs.
+     * Validates input parameters before evaluation. If this method returns false, this branch of traversal will stop.
      */
-    Operator getOperator();
-
-    @Override
-    default SignalType<?>[] getOutputSlots() {
-        return getOperator().getOutputs();
+    default boolean validate(Object[] inputs) {
+        // Parameters are assumed to be of the correct type, so we just need to null-check them.
+        for (Object input : inputs) {
+            if (input == null) {
+                return false;
+            }
+        }
+        return true;
     }
 
-    @Override
-    default SignalType<?>[] getInputSlots() {
-        return getOperator().getInputs();
-    }
+    /**
+     * Evaluates this operator, returning an array matching {@link #getOutputSlots()}. Inputs will have passed any tests in
+     * {@link #validate(Object[])} prior to this method being called; by default, this ensures they are all nonnull.
+     */
+    Object[] evaluate(Object[] inputs);
 }

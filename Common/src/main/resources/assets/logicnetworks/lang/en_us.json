@@ -1,6 +1,7 @@
 {
-  "gui.logicnetworks.ticks": "Ticks/operation",
-  "gui.logicnetworks.redstone_control": "Redstone control",
+  "gui.logicnetworks.generic.ticks": "Ticks/operation",
+  "gui.logicnetworks.generic.redstone_control": "Redstone control",
+  "gui.logicnetworks.generic.clamps": "Clamps the output",
   "gui.logicnetworks.redstone_control.always": "Always active",
   "gui.logicnetworks.redstone_control.high": "Active with redstone signal",
   "gui.logicnetworks.redstone_control.low": "Active without redstone signal",
@@ -8,5 +9,7 @@
   "gui.logicnetworks.network_controller.title": "Network Controller",
   "gui.logicnetworks.network_controller.ticks_per_operation": "Ticks per operation",
   "gui.logicnetworks.network_controller.edit_network": "Edit network",
-  "gui.logicnetworks.network_controller.edit_network_tooltip": "Open the graph editor"
+  "gui.logicnetworks.network_controller.edit_network_tooltip": "Open the graph editor",
+  "gui.logicnetworks.network_graph.title": "Network Graph",
+  "gui.logicnetworks.nodes.analog_add": "Analog Add"
 }
