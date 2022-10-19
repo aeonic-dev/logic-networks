@@ -32,7 +32,7 @@ public class ServerboundNetworkChangePacket {
     public void write(FriendlyByteBuf buf) {
         buf.writeBlockPos(blockPos);
         CompoundTag tag = new CompoundTag();
-        network.serialize(tag, true);
+        network.serialize(tag);
         buf.writeNbt(tag);
     }
 

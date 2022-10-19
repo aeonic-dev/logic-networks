@@ -8,6 +8,7 @@ import design.aeonic.logicnetworks.api.logic.node.base.AbstractOperatorNode;
 import design.aeonic.logicnetworks.api.screen.input.InputWidget;
 import design.aeonic.logicnetworks.api.screen.input.WidgetScreen;
 import design.aeonic.logicnetworks.api.screen.input.widgets.CheckboxInputWidget;
+import net.minecraft.client.Minecraft;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.util.Mth;
@@ -28,7 +29,7 @@ public class AnalogAddNode extends AbstractOperatorNode<AnalogAddNode> {
 
     @Override
     public List<InputWidget> getInputWidgets() {
-        return List.of(clampCheckbox = new CheckboxInputWidget(8, 16, clamp) {
+        return List.of(clampCheckbox = new CheckboxInputWidget(6, 15, clamp) {
             @Override
             public List<Component> getTooltip(WidgetScreen screen, int mouseX, int mouseY) {
                 return List.of(Translations.Generic.CLAMPS);
@@ -43,7 +44,7 @@ public class AnalogAddNode extends AbstractOperatorNode<AnalogAddNode> {
 
     @Override
     public int getWidth() {
-        return 32;
+        return Minecraft.getInstance().font.width(getName()) + 12;
     }
 
     @Override
@@ -67,13 +68,14 @@ public class AnalogAddNode extends AbstractOperatorNode<AnalogAddNode> {
     }
 
     @Override
-    public void saveAdditional(CompoundTag tag, boolean isClientNode) {
-        if (isClientNode) tag.putBoolean("clamp", clampCheckbox.getValue());
-        else tag.putBoolean("clamp", clamp);
+    public void saveAdditional(CompoundTag tag) {
+        if (clampCheckbox != null) clamp = clampCheckbox.getValue();
+        tag.putBoolean("clamp", clamp);
     }
 
     @Override
     public void readAdditional(CompoundTag tag) {
         clamp = tag.getBoolean("clamp");
+        if (clampCheckbox != null) clampCheckbox.setValue(clamp);
     }
 }

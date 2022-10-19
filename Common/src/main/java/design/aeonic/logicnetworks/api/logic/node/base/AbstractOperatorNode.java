@@ -56,7 +56,7 @@ public abstract class AbstractOperatorNode<T extends AbstractOperatorNode<T>> im
         if (defaultInputPositions == null) {
             defaultInputPositions = new int[getInputSlots().length];
             for (int i = 0; i < getInputSlots().length; i++) {
-                defaultInputPositions[i] = getHeight() / (getInputSlots().length + 1) * (i + 1);
+                defaultInputPositions[i] = getHeight() / (getInputSlots().length + 1) * (i + 1) + 1;
             }
         }
         return defaultInputPositions;

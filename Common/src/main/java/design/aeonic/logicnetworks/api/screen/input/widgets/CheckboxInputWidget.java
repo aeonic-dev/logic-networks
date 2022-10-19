@@ -23,6 +23,10 @@ public class CheckboxInputWidget extends AbstractInputWidget {
         return value;
     }
 
+    public void setValue(boolean value) {
+        this.value = value;
+    }
+
     @Override
     public boolean mouseDown(WidgetScreen screen, int mouseX, int mouseY, int button) {
         if (button != 0) return false;
@@ -34,11 +38,11 @@ public class CheckboxInputWidget extends AbstractInputWidget {
     @Override
     public void draw(PoseStack stack, WidgetScreen screen, int mouseX, int mouseY, float partialTicks) {
         if (isEnabled() && (isWithinBounds(mouseX, mouseY) || screen.getFocusedWidget() == this)) {
-            HIGHLIGHT.draw(stack, getX() - 1, getY() - 1, 200);
+            HIGHLIGHT.draw(stack, getX() - 1, getY() - 1, 0);
         }
 
         float[] rgba = isEnabled() ? new float[]{1, 1, 1, 1} : new float[]{0.5f, 0.5f, 0.5f, 1};
-        (value ? CHECKED : EMPTY).draw(stack, getX(), getY(), 200, rgba[0], rgba[1], rgba[2], rgba[3]);
+        (value ? CHECKED : EMPTY).draw(stack, getX(), getY(), 0, rgba[0], rgba[1], rgba[2], rgba[3]);
     }
 
     @Override

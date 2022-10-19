@@ -87,7 +87,7 @@ public interface Node<T extends Node<T>> {
      */
     SignalType<?>[] getOutputSlots();
 
-    default void saveAdditional(CompoundTag tag, boolean isClientNode) {}
+    default void saveAdditional(CompoundTag tag) {}
 
     default void readAdditional(CompoundTag tag) {}
 
