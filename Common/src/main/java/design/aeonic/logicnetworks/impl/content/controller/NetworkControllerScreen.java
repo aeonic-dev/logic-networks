@@ -14,14 +14,17 @@ import design.aeonic.logicnetworks.api.screen.input.widgets.RedstoneInputWidget;
 import design.aeonic.logicnetworks.api.util.Texture;
 import design.aeonic.logicnetworks.impl.client.NetworkGraphScreen;
 import design.aeonic.logicnetworks.impl.networking.packets.ServerboundNetworkChangePacket;
+import net.minecraft.client.Minecraft;
 import net.minecraft.network.chat.Component;
 import net.minecraft.util.Mth;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.inventory.ContainerListener;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.Level;
 
 import java.util.List;
+import java.util.Objects;
 
 public class NetworkControllerScreen extends WidgetContainerScreen<NetworkControllerMenu> {
     public static final Texture BACKGROUND = new Texture("logicnetworks:textures/gui/containers/network_controller.png", 128, 128, 128, 56);
@@ -73,7 +76,11 @@ public class NetworkControllerScreen extends WidgetContainerScreen<NetworkContro
 
     public void openNetworkGraph() {
         onClose();
-        NetworkGraphScreen.open(menu.getClientNetwork(), this::onNetworkGraphClosed);
+
+        assert menu.data.isClientSide();
+        Level level = Minecraft.getInstance().level;
+        assert Objects.requireNonNull(level).hasChunkAt(menu.getControllerPos());
+        NetworkGraphScreen.open(((Network.IHasNetwork) Objects.requireNonNull(level.getBlockEntity(menu.getControllerPos()))).getNetwork(), this::onNetworkGraphClosed);
     }
 
     public void onNetworkGraphClosed(Network network) {

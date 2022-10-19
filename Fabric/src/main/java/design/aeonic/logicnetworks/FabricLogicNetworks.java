@@ -6,6 +6,7 @@ import design.aeonic.logicnetworks.impl.LogicNetworks;
 import design.aeonic.logicnetworks.impl.content.NetworkBlockEntities;
 import design.aeonic.logicnetworks.impl.content.NetworkBlocks;
 import design.aeonic.logicnetworks.impl.content.NetworkItems;
+import design.aeonic.logicnetworks.impl.content.NetworkMenus;
 import net.fabricmc.api.ModInitializer;
 import net.minecraft.client.Minecraft;
 import net.minecraft.core.Registry;
@@ -21,8 +22,9 @@ public class FabricLogicNetworks implements ModInitializer {
         LogicNetworks.init();
 
         NetworkBlocks.register(registrar(Registry.BLOCK));
-        NetworkBlockEntities.register(registrar(Registry.BLOCK_ENTITY_TYPE));
         NetworkItems.register(registrar(Registry.ITEM));
+        NetworkBlockEntities.register(registrar(Registry.BLOCK_ENTITY_TYPE));
+        NetworkMenus.register(registrar(Registry.MENU));
     }
 
     <T> Registrar<T> registrar(Registry<T> registry) {

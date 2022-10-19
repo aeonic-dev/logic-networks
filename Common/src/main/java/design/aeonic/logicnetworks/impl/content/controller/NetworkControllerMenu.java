@@ -41,16 +41,6 @@ public class NetworkControllerMenu extends BaseContainerMenu<NetworkControllerMe
         broadcastChanges();
     }
 
-    public Network getClientNetwork() {
-        // Some possibly unnecessary assertions here, but this method should only be called for an existing clientside
-        // menu, and the block entity *should* exist.
-        assert this.data.isClientSide();
-        Level level = Minecraft.getInstance().level;
-        assert Objects.requireNonNull(level).hasChunkAt(getControllerPos());
-
-        return ((Network.IHasNetwork) Objects.requireNonNull(level.getBlockEntity(getControllerPos()))).getNetwork();
-    }
-
     public RedstoneControl getRedstoneControl() {
         Constants.LOG.info("redstone control {}", (Object) data.getField(0));
         return data.getField(0);
