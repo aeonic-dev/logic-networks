@@ -21,7 +21,7 @@ public class AnalogAddNode extends AbstractOperatorNode<AnalogAddNode> {
     private static final SignalType<?>[] output = new SignalType<?>[]{BuiltinSignalTypes.ANALOG};
 
     private CheckboxInputWidget clampCheckbox;
-    private boolean clamp = false;
+    private boolean clamp = true;
 
     public AnalogAddNode(NodeType<AnalogAddNode> nodeType, UUID uuid, int x, int y) {
         super(nodeType, uuid, x, y);
