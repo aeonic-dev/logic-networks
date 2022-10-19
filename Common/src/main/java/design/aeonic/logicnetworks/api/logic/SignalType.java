@@ -23,6 +23,14 @@ public class SignalType<T> {
         return new SignalType<?>[]{this};
     }
 
+    public SignalType<?>[] arrayOf(int size) {
+        SignalType<?>[] ret = new SignalType<?>[size];
+        for (int i = 0; i < size; i++) {
+            ret[i] = this;
+        }
+        return ret;
+    }
+
     public static SignalType<?>[] arrayOf(SignalType<?>... types) {
         return types;
     }

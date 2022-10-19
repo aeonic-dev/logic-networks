@@ -1,7 +1,6 @@
 package design.aeonic.logicnetworks.api.logic;
 
 import design.aeonic.logicnetworks.api.core.CommonRegistries;
-import design.aeonic.logicnetworks.api.core.Constants;
 import design.aeonic.logicnetworks.api.logic.node.Node;
 import design.aeonic.logicnetworks.api.logic.node.SinkNode;
 import design.aeonic.logicnetworks.api.logic.node.SourceNode;

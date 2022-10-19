@@ -12,6 +12,19 @@
   "gui.logicnetworks.network_controller.edit_network_tooltip": "Open the graph editor",
   "gui.logicnetworks.network_graph.title": "Network Graph",
 
+  "gui.logicnetworks.nodes.analog_invert": "Analog Invert",
   "gui.logicnetworks.nodes.analog_add": "Analog Add",
-  "gui.logicnetworks.nodes.analog_invert": "Analog Invert"
+  "gui.logicnetworks.nodes.analog_subtract": "Analog Subtract",
+  "gui.logicnetworks.nodes.analog_multiply":  "Analog Multiply",
+  "gui.logicnetworks.nodes.analog_divide":  "Analog Divide",
+  "gui.logicnetworks.nodes.analog_modulo":  "Analog Modulo",
+
+
+  "gui.logicnetworks.nodes.boolean_invert":  "NOT",
+  "gui.logicnetworks.nodes.boolean_and":  "AND",
+  "gui.logicnetworks.nodes.boolean_or":  "OR",
+  "gui.logicnetworks.nodes.boolean_xor":  "XOR",
+  "gui.logicnetworks.nodes.boolean_nand":  "NAND",
+  "gui.logicnetworks.nodes.boolean_nor":  "NOR",
+  "gui.logicnetworks.nodes.boolean_xnor":  "XNOR"
 }

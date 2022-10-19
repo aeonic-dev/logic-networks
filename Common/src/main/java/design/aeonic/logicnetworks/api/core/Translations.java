@@ -28,7 +28,20 @@ public final class Translations {
     }
 
     public static final class Nodes {
-        public static final Component ANALOG_ADD = Component.translatable("gui.logicnetworks.nodes.analog_add");
         public static final Component ANALOG_INVERT = Component.translatable("gui.logicnetworks.nodes.analog_invert");
+        public static final Component ANALOG_ADD = Component.translatable("gui.logicnetworks.nodes.analog_add");
+        public static final Component ANALOG_SUBTRACT = Component.translatable("gui.logicnetworks.nodes.analog_subtract");
+        public static final Component ANALOG_MULTIPLY = Component.translatable("gui.logicnetworks.nodes.analog_multiply");
+        public static final Component ANALOG_DIVIDE = Component.translatable("gui.logicnetworks.nodes.analog_divide");
+        public static final Component ANALOG_MODULO = Component.translatable("gui.logicnetworks.nodes.analog_modulo");
+
+
+        public static final Component BOOLEAN_INVERT = Component.translatable("gui.logicnetworks.nodes.boolean_invert");
+        public static final Component BOOLEAN_AND = Component.translatable("gui.logicnetworks.nodes.boolean_and");
+        public static final Component BOOLEAN_OR = Component.translatable("gui.logicnetworks.nodes.boolean_or");
+        public static final Component BOOLEAN_XOR = Component.translatable("gui.logicnetworks.nodes.boolean_xor");
+        public static final Component BOOLEAN_NAND = Component.translatable("gui.logicnetworks.nodes.boolean_nand");
+        public static final Component BOOLEAN_NOR = Component.translatable("gui.logicnetworks.nodes.boolean_nor");
+        public static final Component BOOLEAN_XNOR = Component.translatable("gui.logicnetworks.nodes.boolean_xnor");
     }
 }

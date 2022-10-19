@@ -80,6 +80,8 @@ public class NetworkGraphScreen extends AbstractWidgetScreen {
 
         addNode(BuiltinNodeTypes.ANALOG_ADD.createNode(UUID.randomUUID(), 0, 0));
         addNode(BuiltinNodeTypes.ANALOG_INVERT.createNode(UUID.randomUUID(), 50, 0));
+        addNode(BuiltinNodeTypes.BOOLEAN_AND.createNode(UUID.randomUUID(), 50, 50));
+        addNode(BuiltinNodeTypes.BOOLEAN_XNOR.createNode(UUID.randomUUID(), 100, 50));
 
         network.getNodes().forEach(node -> {
             int x = node.getX();
@@ -352,7 +354,7 @@ public class NetworkGraphScreen extends AbstractWidgetScreen {
         // Only accept a widget belonging to the hovered node
         if (hoveredNode != null) {
             if (nodeWidgets.get(hoveredNode.getUUID()).contains(hoveredWidget)) hoveredNode = null;
-            if (getHoveredInputSocket(hoveredNode, mx, my) != -1 || getHoveredOutputSocket(hoveredNode, mx, my) != -1) hoveredNode = null;
+            if (hoveredNode != null && (getHoveredInputSocket(hoveredNode, mx, my) != -1 || getHoveredOutputSocket(hoveredNode, mx, my) != -1)) hoveredNode = null;
             else hoveredWidget = null;
         }
 
