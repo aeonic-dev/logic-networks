@@ -7,6 +7,7 @@ import com.mojang.blaze3d.vertex.PoseStack;
 import design.aeonic.logicnetworks.api.builtin.BuiltinNodeTypes;
 import design.aeonic.logicnetworks.api.core.Constants;
 import design.aeonic.logicnetworks.api.core.Translations;
+import design.aeonic.logicnetworks.api.logic.Edge;
 import design.aeonic.logicnetworks.api.logic.Network;
 import design.aeonic.logicnetworks.api.logic.node.Node;
 import design.aeonic.logicnetworks.api.screen.AbstractWidgetScreen;
@@ -26,6 +27,11 @@ import java.util.function.Consumer;
 public class NetworkGraphScreen extends AbstractWidgetScreen {
     public static final Texture NODE = new Texture(new ResourceLocation(Constants.MOD_ID, "textures/gui/graph/node.png"), 16, 16, 16, 16, 0, 0);
     public static final Texture NODE_HOVERED = new Texture(new ResourceLocation(Constants.MOD_ID, "textures/gui/graph/node_hovered.png"), 16, 16, 16, 16, 0, 0);
+
+    public static final Texture SOCKET = new Texture(new ResourceLocation(Constants.MOD_ID, "textures/gui/graph/socket.png"), 16, 16, 5, 5, 0, 0);
+    public static final Texture SOCKET_HOVERED = new Texture(new ResourceLocation(Constants.MOD_ID, "textures/gui/graph/socket.png"), 16, 16, 5, 5, 5, 0);
+    public static final Texture SOCKET_OUTLINE = new Texture(new ResourceLocation(Constants.MOD_ID, "textures/gui/graph/socket.png"), 16, 16, 5, 5, 0, 5);
+    public static final Texture SOCKET_OUTLINE_HOVERED = new Texture(new ResourceLocation(Constants.MOD_ID, "textures/gui/graph/socket.png"), 16, 16, 5, 5, 5, 5);
 
     private final Texture window = new Texture(new ResourceLocation(Constants.MOD_ID, "textures/gui/graph/window.png"), 512, 512, 378, 231, 0, 0);
     private final Texture backgroundTile = new Texture(new ResourceLocation(Constants.MOD_ID, "textures/gui/graph/background.png"), 16, 16);
@@ -51,6 +57,9 @@ public class NetworkGraphScreen extends AbstractWidgetScreen {
     private int dragMouseX = 0;
     private int dragMouseY = 0;
     private Node<?> dragging = null;
+    private Node<?> connecting = null;
+    private boolean connectingOutput = false;
+    private int connectingSocket = -1;
     private boolean graphDragging = false;
 
     public NetworkGraphScreen(Component title, Network network, Consumer<Network> onClose) {
@@ -69,8 +78,7 @@ public class NetworkGraphScreen extends AbstractWidgetScreen {
         this.leftPos = (this.width - window.width()) / 2;
         this.topPos = (this.height - window.height()) / 2;
 
-        network.addNode(BuiltinNodeTypes.ANALOG_ADD.createNode(
-                UUID.randomUUID(), 0, 0));
+        addNode(BuiltinNodeTypes.ANALOG_ADD.createNode(UUID.randomUUID(), 0, 0));
 
         network.getNodes().forEach(node -> {
             int x = node.getX();
@@ -83,6 +91,11 @@ public class NetworkGraphScreen extends AbstractWidgetScreen {
                 nodeWidgets.put(node.getUUID(), widget);
             });
         });
+    }
+
+    public void addNode(Node<?> node) {
+        network.addNode(node);
+        layerMap.put(node.getUUID(), layerMap.values().stream().min(Comparator.naturalOrder()).orElse(0) - 1);
     }
 
     @Override
@@ -113,10 +126,29 @@ public class NetworkGraphScreen extends AbstractWidgetScreen {
 
     @Override
     public boolean mouseClicked(double mouseX, double mouseY, int button) {
+        if (!(mouseX >= leftPos + boundLowerX && mouseX < leftPos + boundUpperX && mouseY >= topPos + boundLowerY && mouseY < topPos + boundUpperY)) return false;
         if (super.mouseClicked(mouseX, mouseY, button)) return true;
 
         int mx = adjustMouseX((int) mouseX);
         int my = adjustMouseY((int) mouseY);
+
+        for (Node<?> node : network.getNodes().toList()) {
+            int inputSocket = getHoveredInputSocket(node, mx, my);
+            if (inputSocket != -1) {
+                connecting = node;
+                connectingOutput = false;
+                connectingSocket = inputSocket;
+                return true;
+            }
+            int outputSocket = getHoveredOutputSocket(node, mx, my);
+            if (outputSocket != -1) {
+                connecting = node;
+                connectingOutput = true;
+                connectingSocket = outputSocket;
+                return true;
+            }
+        }
+
         dragging = getNodeAt(mx, my);
 
         // Dragging a node
@@ -137,14 +169,11 @@ public class NetworkGraphScreen extends AbstractWidgetScreen {
         }
 
         // Dragging the graph
-        if (mouseX >= leftPos + boundLowerX && mouseX < leftPos + boundUpperX && mouseY >= topPos + boundLowerY && mouseY < topPos + boundUpperY) {
-            graphDragging = true;
-            lastMouseX = mx + graphX;
-            lastMouseY = my + graphY;
-            GLFW.glfwSetCursor(Minecraft.getInstance().getWindow().getWindow(), GLFW.glfwCreateStandardCursor(GLFW.GLFW_RESIZE_ALL_CURSOR));
-            return true;
-        }
-        return false;
+        graphDragging = true;
+        lastMouseX = mx + graphX;
+        lastMouseY = my + graphY;
+        GLFW.glfwSetCursor(Minecraft.getInstance().getWindow().getWindow(), GLFW.glfwCreateStandardCursor(GLFW.GLFW_RESIZE_ALL_CURSOR));
+        return true;
     }
 
     @Override
@@ -156,9 +185,33 @@ public class NetworkGraphScreen extends AbstractWidgetScreen {
             GLFW.glfwSetCursor(Minecraft.getInstance().getWindow().getWindow(), GLFW.glfwCreateStandardCursor(GLFW.GLFW_ARROW_CURSOR));
         }
 
-        if (dragging != null) {
-            dragging = null;
-            GLFW.glfwSetCursor(Minecraft.getInstance().getWindow().getWindow(), GLFW.glfwCreateStandardCursor(GLFW.GLFW_ARROW_CURSOR));
+        if (button == 0) {
+            if (connecting != null) {
+                int mx = adjustMouseX((int) mouseX);
+                int my = adjustMouseY((int) mouseY);
+
+                for (Node<?> node : network.getNodes().toList()) {
+                    int inputSocket = getHoveredInputSocket(node, mx, my);
+                    if (inputSocket != -1 && connectingOutput) {
+                        // Network validates edges for us; nothing happens if we pass an invalid edge
+                        network.addEdge(Edge.of(connecting, connectingSocket, node, inputSocket));
+                        break;
+                    } else if (!connectingOutput) {
+                        int outputSocket = getHoveredOutputSocket(node, mx, my);
+                        if (outputSocket != -1) {
+                            network.addEdge(Edge.of(node, outputSocket, connecting, connectingSocket));
+                            break;
+                        }
+                    }
+                }
+                connecting = null;
+                connectingSocket = -1;
+            }
+
+            if (dragging != null) {
+                dragging = null;
+                GLFW.glfwSetCursor(Minecraft.getInstance().getWindow().getWindow(), GLFW.glfwCreateStandardCursor(GLFW.GLFW_ARROW_CURSOR));
+            }
         }
 
         return true;
@@ -225,6 +278,11 @@ public class NetworkGraphScreen extends AbstractWidgetScreen {
             }
         }
 
+        Node<?> node = getNodeAt(x, y);
+        if (node != null && getNodeLayer(node.getUUID()) > highestLayer) {
+            return null;
+        }
+
         return highestWidget;
     }
 
@@ -242,6 +300,8 @@ public class NetworkGraphScreen extends AbstractWidgetScreen {
 
     @Override
     public void render(PoseStack stack, int mouseX, int mouseY, float partialTick) {
+        int mx = adjustMouseX(mouseX);
+        int my = adjustMouseY(mouseY);
         double scale = minecraft.getWindow().getGuiScale();
         RenderSystem.enableScissor(
                 (int) ((leftPos + boundLowerX) * scale),
@@ -254,49 +314,69 @@ public class NetworkGraphScreen extends AbstractWidgetScreen {
         stack.pushPose();
         stack.translate(leftPos + window.width() / 2 + graphX, topPos + window.height() / 2 + graphY, 0);
 
+        // Connections
+        network.getEdges().forEach(edge -> {
+            Node<?> from = network.getNode(edge.getFromNode());
+            Node<?> to = network.getNode(edge.getToNode());
+
+            int fromX = from.getX() + to.getWidth();
+            int fromY = from.getY() + from.getOutputPositions()[edge.getFromIndex()];
+            int toX = to.getX();
+            int toY = to.getY() + to.getInputPositions()[edge.getToIndex()];
+            int fromColor = from.getOutputSlots()[edge.getFromIndex()].color;
+            int toColor = to.getInputSlots()[edge.getToIndex()].color;
+
+            renderConnection(stack, fromX, fromY, toX, toY, fromColor, toColor);
+        });
+
+        // Dragging connection
+        if (connecting != null) {
+            if (connectingOutput) {
+                int fromX = connecting.getX() + connecting.getWidth();
+                int fromY = connecting.getY() + connecting.getOutputPositions()[connectingSocket];
+                int fromColor = connecting.getOutputSlots()[connectingSocket].color;
+                renderConnection(stack, fromX, fromY, mx, my, fromColor, fromColor);
+            } else {
+                int toX = connecting.getX();
+                int toY = connecting.getY() + connecting.getInputPositions()[connectingSocket];
+                int toColor = connecting.getInputSlots()[connectingSocket].color;
+                renderConnection(stack, mx, my, toX, toY, toColor, toColor);
+            }
+        }
+
+        // Nodes
         List<Node<?>> nodes = network.getNodes().sorted(Comparator.comparingInt(node -> this.getNodeLayer(node.getUUID()))).toList();
-        Node<?> hovered = getNodeAt(adjustMouseX(mouseX), adjustMouseY(mouseY));
-        if (getWidgetAt(adjustMouseX(mouseX), adjustMouseY(mouseY)) != null) hovered = null;
+        Node<?> hoveredNode = getNodeAt(mx, my);
+        InputWidget hoveredWidget = getWidgetAt(mx, my);
+        // Only accept a widget belonging to the hovered node
+        if (hoveredNode != null && nodeWidgets.get(hoveredNode.getUUID()).contains(hoveredWidget)) hoveredNode = null;
+        if (hoveredNode != null && (getHoveredInputSocket(hoveredNode, mx, my) != -1 || getHoveredOutputSocket(hoveredNode, mx, my) != -1)) hoveredNode = null;
+        else hoveredWidget = null;
 
         for (Node<?> node : nodes) {
-            RenderUtils.drawRect(stack, node == hovered ? NODE_HOVERED : NODE, node.getX(), node.getY(), getBlitOffset(), node.getWidth(), node.getHeight());
+            RenderUtils.drawRect(stack, node == hoveredNode ? NODE_HOVERED : NODE, node.getX(), node.getY(), getBlitOffset(), node.getWidth(), node.getHeight());
+            font.draw(stack, node.getName(), node.getX() + 6, node.getY() + 5, 0x232323);
+            renderNodeSockets(stack, node, mx, my, partialTick);
             for (InputWidget widget : nodeWidgets.get(node.getUUID())) {
-                widget.draw(stack, this, adjustMouseX(mouseX), adjustMouseY(mouseY), partialTick);
+                widget.draw(stack, this, mx, my, partialTick);
             }
         }
 
         stack.popPose();
-//
-//        // Nodes
-//        stack.pushPose();
-//        stack.translate(leftPos + window.width() / 2 + offsetX, topPos + window.height() / 2 + offsetY, 0);
-//        renderers.keySet().forEach(node -> drawNode(node, stack, mouseX, mouseY, partialTick));
-//        renderers.keySet().forEach(node -> renderConnection(stack, node));
-//        stack.popPose();
 
-//        stack.pushPose();
-//        stack.translate(getLeftPos(), getTopPos(), 0);
-//        for (InputWidget widget : inputWidgets) {
-//            if (widget.getX)
-//            widget.draw(stack, this, mouseX - getLeftPos(), mouseY - getTopPos(), partialTick);
-//        }
-//        stack.popPose();
-//
-//        InputWidget hovered = getWidgetAt(mouseX - getLeftPos(), mouseY - getTopPos());
-//        if (hovered != null) {
-//            var tooltip = hovered.getTooltip(this, mouseX - getLeftPos(), mouseY - getTopPos());
-//            if (tooltip != null) renderTooltip(stack, mouseX, mouseY, tooltip);
-//        }
+        if (hoveredWidget != null) {
+            var tooltip = hoveredWidget.getTooltip(this, mx, my);
+            if (tooltip != null) renderTooltip(stack, mouseX, mouseY, tooltip);
+        }
 
         RenderSystem.disableScissor();
         renderWindow(stack, mouseX, mouseY, partialTick);
         renderLabel(stack, mouseX, mouseY, partialTick);
+    }
 
-        InputWidget hoveredWidget = getWidgetAt(adjustMouseX(mouseX), adjustMouseY(mouseY));
-        if (hoveredWidget != null) {
-            var tooltip = hoveredWidget.getTooltip(this, mouseX - getLeftPos(), mouseY - getTopPos());
-            if (tooltip != null) renderTooltip(stack, mouseX, mouseY, tooltip);
-        }
+    public void renderConnection(PoseStack stack, int fromX, int fromY, int toX, int toY, int fromColor, int toColor) {
+        // TODO: Line color blending
+        RenderUtils.renderLine(stack, fromX, fromY - 1, toX, toY - 1, getBlitOffset(), fromColor);
     }
 
     public void renderBackgroundTiles(PoseStack stack, int mouseX, int mouseY, float partialTick) {
@@ -325,129 +405,51 @@ public class NetworkGraphScreen extends AbstractWidgetScreen {
         font.draw(stack, title, leftPos + 8, topPos + 6, 0x404040);
     }
 
-    //    @Override
-//    public boolean mouseDragged(double $$0, double $$1, int key, double $$3, double $$4) {
-//        if (key == 0) {
-//            if (lastMouseX == -1 || lastMouseY == -1 || lastHoveredNode == null) {
-//                lastHoveredNode = getHoveredNode((int) $$0, (int) $$1);
-//                int mouseX = (int) $$0 - leftPos - window.width() / 2 - offsetX;
-//                int mouseY = (int) $$1 - topPos - window.height() / 2 - offsetY;
-//
-//                if (lastHoveredNode != null) {
-//                    Socket<?> socket = getHoveredSocket(lastHoveredNode, mouseX, mouseY);
-//                    if (socket != null) {
-//                        // TODO: Start socket dragging
-//                        return false;
-//                    } else if ($$0 >= leftPos && $$0 <= leftPos + window.width() && $$1 >= topPos && $$1 <= topPos + window.height()) {
-//                        lastMouseX = (int) $$0;
-//                        lastMouseY = (int) $$1;
-//                        Socket<?> connectedSocket;
-//                        if (lastHoveredNode.getOutputSocket() != null && (connectedSocket = lastHoveredNode.getOutputSocket().getConnectedSocket()) != null) {
-//                            lastHoveredNodeMaxX = connectedSocket.node.getX() - getWidth(lastHoveredNode) - 10;
-//                        } else lastHoveredNodeMaxX = 1000;
-//                        lastHoveredNodeMinX = -1000;
-//                        for (Socket<?> inputSocket : lastHoveredNode.getInputSockets()) {
-//                            if ((connectedSocket = inputSocket.getConnectedSocket()) != null) {
-//                                lastHoveredNodeMinX = Math.max(lastHoveredNodeMinX, connectedSocket.node.getX() + getWidth(connectedSocket.node) + 10);
-//                            }
-//                        }
-//                    } else {
-//                        lastHoveredNode = null;
-//                        return false;
-//                    }
-//                } else return false;
-//            } else {
-//                lastHoveredNode.setX(Mth.clamp(lastHoveredNode.getX() + (int) $$0 - lastMouseX, lastHoveredNodeMinX, lastHoveredNodeMaxX));
-//                lastHoveredNode.setY(lastHoveredNode.getY() + (int) $$1 - lastMouseY);
-//                lastMouseX = (int) $$0;
-//                lastMouseY = (int) $$1;
-//            }
-//            return true;
-//        }
-//        else if (key == 1) {
-//            // Just using the last two params results in jerky/weird movement
-//            if (lastMouseX == -1 || lastMouseY == -1) {
-//                if ($$0 >= leftPos && $$0 <= leftPos + window.width() &&
-//                        $$1 >= topPos && $$1 <= topPos + window.height()) {
-//                    lastMouseX = (int) $$0;
-//                    lastMouseY = (int) $$1;
-//                } else return false;
-//            } else {
-//                offsetX += (int) $$0 - lastMouseX;
-//                offsetY += (int) $$1 - lastMouseY;
-//                lastMouseX = (int) $$0;
-//                lastMouseY = (int) $$1;
-//            }
-//            return true;
-//        }
-//        return super.mouseDragged($$0, $$1, key, $$3, $$4);
-//    }
-//
-//    @SuppressWarnings("unchecked")
-//    <T, O extends Operator<T>> int getWidth(Node<T, O> node) {
-//        return ((NodeRenderer<T, O>) renderers.get(node)).getWidth(node);
-//    }
-//
-//    @SuppressWarnings("unchecked")
-//    public <T, O extends Operator<T>> Socket<?> getHoveredSocket(Node<T, O> node, int mouseX, int mouseY) {
-//        return ((NodeRenderer<T, O>) renderers.get(node)).getHoveredSocket(node, mouseX, mouseY);
-//    }
-//
-//    @Override
-//    public boolean mouseReleased(double $$0, double $$1, int $$2) {
-//        if ($$2 == 0) {
-//            lastHoveredNode = null;
-//            lastHoveredNodeMinX = -1000;
-//            lastHoveredNodeMaxX = 1000;
-//            lastMouseX = -1;
-//            lastMouseY = -1;
-//            return true;
-//        }
-//        else if ($$2 == 1) {
-//            lastMouseX = -1;
-//            lastMouseY = -1;
-//            return true;
-//        }
-//        return super.mouseReleased($$0, $$1, $$2);
-//    }
-//
-//    @Override
-//    public void render(PoseStack stack, int mouseX, int mouseY, float partialTick) {
-//        double scale = minecraft.getWindow().getGuiScale();
-//        RenderSystem.enableScissor((int) ((leftPos + backgroundTileOffsetX) * scale), (int) ((topPos) * scale),
-//                (int) ((window.width() - backgroundTileOffsetX * 2) * scale), (int) ((window.height() - backgroundTileOffsetY) * scale));
-//
-//        renderBackgroundTiles(stack, mouseX, mouseY, partialTick);
-//
-//        // Nodes
-//        stack.pushPose();
-//        stack.translate(leftPos + window.width() / 2 + offsetX, topPos + window.height() / 2 + offsetY, 0);
-//        renderers.keySet().forEach(node -> drawNode(node, stack, mouseX, mouseY, partialTick));
-//        renderers.keySet().forEach(node -> renderConnection(stack, node));
-//        stack.popPose();
-//
-//        RenderSystem.disableScissor();
-//        renderWindow(stack, mouseX, mouseY, partialTick);
-//        renderLabel(stack, mouseX, mouseY, partialTick);
-//    }
-//
-//    @SuppressWarnings("unchecked")
-//    protected <T, O extends Operator<T>> void renderConnection(PoseStack stack, Node<T, O> node) {
-//        NodeRenderer<T, O> renderer = (NodeRenderer<T, O>) renderers.get(node);
-//        Socket<T> socket = node.getOutputSocket();
-//
-//        if (node.getOutputSocket() != null && socket.getConnectedSocket() != null) {
-//            Socket<?> destSocket = socket.getConnectedSocket();
-//            Node<?, ?> destNode = destSocket.node;
-//            IntIntPair destOffset = getSocketOffset(destNode, destSocket.side, destSocket.index);
-//
-//            // TODO: More readable socket definitions with width to avoid the hardcoded offsets here + elsewhere
-//            int x1 = node.getX() + renderer.getSocketOffsetX(node, Socket.Side.OUTPUT, 0) + 5;
-//            int y1 = node.getY() + renderer.getSocketOffsetY(node, Socket.Side.OUTPUT, 0) + 1;
-//            int x2 = destOffset.firstInt() + destNode.getX() + 1;
-//            int y2 = destOffset.secondInt() + destNode.getY() + 1;
-//
-//            drawLine(stack, x1, y1, x2, y2, socket.signalType.color);
-//        }
-//    }
+    public void renderNodeSockets(PoseStack stack, Node<?> node, int mouseX, int mouseY, float partialTick) {
+        int[] inputPositions = node.getInputPositions();
+        int[] outputPositions = node.getOutputPositions();
+        int inputHovered = getHoveredInputSocket(node, mouseX, mouseY);
+        int outputHovered = getHoveredOutputSocket(node, mouseX, mouseY);
+
+        float[] rgba = new float[4];
+        for (int i = 0; i < node.getInputSlots().length; i++) {
+            RenderUtils.unpackRGBA(node.getInputSlots()[i].color, rgba);
+            boolean hovered = i == inputHovered && shouldHighlightSocket(node, false, i, mouseX, mouseY);
+            renderSocket(stack, node.getX() - SOCKET.width() / 2, node.getY() + inputPositions[i] - SOCKET.height() / 2, rgba[0], rgba[1], rgba[2], rgba[3], hovered);
+        }
+        for (int i = 0; i < node.getOutputSlots().length; i++) {
+            RenderUtils.unpackRGBA(node.getOutputSlots()[i].color, rgba);
+            boolean hovered = i == outputHovered && shouldHighlightSocket(node, true, i, mouseX, mouseY);
+            renderSocket(stack, node.getX() + node.getWidth() - SOCKET.width() / 2 - 1, node.getY() + outputPositions[i] - SOCKET.height() / 2, rgba[0], rgba[1], rgba[2], rgba[3], hovered);
+        }
+    }
+
+    public boolean shouldHighlightSocket(Node<?> node, boolean isOutputSocket, int socket, int mx, int my) {
+        return connecting == null || connectingOutput == !isOutputSocket;
+    }
+
+    public int getHoveredInputSocket(Node<?> node, int mouseX, int mouseY) {
+        int[] inputPositions = node.getInputPositions();
+        if (!(mouseX >= node.getX() - SOCKET.width() / 2 && mouseX <= node.getX() + SOCKET.width() / 2)) return -1;
+
+        for (int i = 0; i < node.getInputSlots().length; i++) {
+            if (mouseY >= node.getY() + inputPositions[i] - SOCKET.height() / 2 && mouseY <= node.getY() + inputPositions[i] + SOCKET.height() / 2) return i;
+        }
+        return -1;
+    }
+
+    public int getHoveredOutputSocket(Node<?> node, int mouseX, int mouseY) {
+        int[] outputPositions = node.getOutputPositions();
+        if (!(mouseX >= node.getX() + node.getWidth() - SOCKET.width() / 2 - 1 && mouseX <= node.getX() + node.getWidth() + SOCKET.width() / 2 - 1)) return -1;
+
+        for (int i = 0; i < node.getOutputSlots().length; i++) {
+            if (mouseY >= node.getY() + outputPositions[i] - SOCKET.height() / 2 && mouseY <= node.getY() + outputPositions[i] + SOCKET.height() / 2) return i;
+        }
+        return -1;
+    }
+
+    public void renderSocket(PoseStack stack, int x, int y, float r, float g, float b, float a, boolean hovered) {
+        (hovered ? SOCKET_OUTLINE_HOVERED : SOCKET_OUTLINE).draw(stack, x, y, getBlitOffset());
+        (hovered ? SOCKET_HOVERED : SOCKET).draw(stack, x, y, getBlitOffset(), r, g, b, a);
+    }
 }
