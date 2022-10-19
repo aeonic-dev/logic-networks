@@ -425,7 +425,9 @@ public class NetworkGraphScreen extends AbstractWidgetScreen {
     }
 
     public boolean shouldHighlightSocket(Node<?> node, boolean isOutputSocket, int socket, int mx, int my) {
-        return connecting == null || connectingOutput == !isOutputSocket;
+        if (connecting == null) return true;
+        if (isOutputSocket) return !connectingOutput && node.getOutputSlots()[socket].canConnect(connecting.getInputSlots()[connectingSocket]);
+        return connectingOutput && connecting.getOutputSlots()[connectingSocket].canConnect(node.getInputSlots()[socket]);
     }
 
     public int getHoveredInputSocket(Node<?> node, int mouseX, int mouseY) {

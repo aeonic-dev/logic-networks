@@ -23,7 +23,7 @@ public class Edge {
         this.toIndex = toIndex;
     }
 
-    public static Edge of(Node fromNode, int fromIndex, Node toNode, int toIndex) {
+    public static Edge of(Node<?> fromNode, int fromIndex, Node<?> toNode, int toIndex) {
         // Validate the connection; if invalid, we return the constant empty edge to notify the network.
         if (fromNode == null || toNode == null) return EMPTY;
         if (fromNode.getUUID().equals(toNode.getUUID())) return EMPTY;
