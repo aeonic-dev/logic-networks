@@ -29,5 +29,6 @@ public final class Translations {
 
     public static final class Nodes {
         public static final Component ANALOG_ADD = Component.translatable("gui.logicnetworks.nodes.analog_add");
+        public static final Component ANALOG_INVERT = Component.translatable("gui.logicnetworks.nodes.analog_invert");
     }
 }

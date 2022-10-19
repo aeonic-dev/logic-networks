@@ -19,6 +19,14 @@ public class SignalType<T> {
         this.color = color;
     }
 
+    public SignalType<?>[] arrayOf() {
+        return new SignalType<?>[]{this};
+    }
+
+    public static SignalType<?>[] arrayOf(SignalType<?>... types) {
+        return types;
+    }
+
     public boolean is(Class<?> type) {
         return this.type.isAssignableFrom(type);
     }

@@ -11,5 +11,7 @@
   "gui.logicnetworks.network_controller.edit_network": "Edit network",
   "gui.logicnetworks.network_controller.edit_network_tooltip": "Open the graph editor",
   "gui.logicnetworks.network_graph.title": "Network Graph",
-  "gui.logicnetworks.nodes.analog_add": "Analog Add"
+
+  "gui.logicnetworks.nodes.analog_add": "Analog Add",
+  "gui.logicnetworks.nodes.analog_invert": "Analog Invert"
 }

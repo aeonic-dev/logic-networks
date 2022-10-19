@@ -1,6 +1,7 @@
 package design.aeonic.logicnetworks.api.builtin;
 
 import design.aeonic.logicnetworks.api.builtin.nodes.AnalogAddNode;
+import design.aeonic.logicnetworks.api.builtin.nodes.AnalogInvertNode;
 import design.aeonic.logicnetworks.api.core.CommonRegistries;
 import design.aeonic.logicnetworks.api.core.Constants;
 import design.aeonic.logicnetworks.api.logic.BaseNodeType;
@@ -9,8 +10,10 @@ import net.minecraft.resources.ResourceLocation;
 
 public final class BuiltinNodeTypes {
     public static final NodeType<?> ANALOG_ADD = new BaseNodeType<>(AnalogAddNode::new);
+    public static final NodeType<?> ANALOG_INVERT = new BaseNodeType<>(AnalogInvertNode::new);
 
     public static void register() {
         CommonRegistries.NODE_TYPES.register(new ResourceLocation(Constants.MOD_ID, "analog_add"), ANALOG_ADD);
+        CommonRegistries.NODE_TYPES.register(new ResourceLocation(Constants.MOD_ID, "analog_invert"), ANALOG_INVERT);
     }
 }
