@@ -26,9 +26,9 @@ public class Edge {
     public static Edge of(Node fromNode, int fromIndex, Node toNode, int toIndex) {
         // Validate the connection; if invalid, we return the constant empty edge to notify the network.
         if (fromNode == null || toNode == null) return EMPTY;
+        if (fromNode.getUUID().equals(toNode.getUUID())) return EMPTY;
         if (fromIndex < 0 || toIndex < 0) return EMPTY;
         if (fromIndex >= fromNode.getOutputSlots().length || toIndex >= toNode.getInputSlots().length) return EMPTY;
-        if (fromNode.getOutputSlots()[fromIndex] == null || toNode.getInputSlots()[toIndex] == null) return EMPTY;
         if (!fromNode.getOutputSlots()[fromIndex].canConnect(toNode.getInputSlots()[toIndex])) return EMPTY;
 
         return new Edge(fromNode.getUUID(), fromIndex, toNode.getUUID(), toIndex);

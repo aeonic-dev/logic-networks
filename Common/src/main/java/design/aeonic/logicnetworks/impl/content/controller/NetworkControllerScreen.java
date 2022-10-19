@@ -72,6 +72,7 @@ public class NetworkControllerScreen extends WidgetContainerScreen<NetworkContro
     }
 
     public void openNetworkGraph() {
+        onClose();
         NetworkGraphScreen.open(menu.getClientNetwork(), this::onNetworkGraphClosed);
     }
 

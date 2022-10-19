@@ -31,9 +31,20 @@ public class NetworkImpl implements Network {
     @Override
     public void addEdge(Edge edge) {
         if (!edge.isValid()) return;
+        if (isCyclicEdge(getNode(edge.getToNode()), edge)) return;
 
-        edges.removeIf(oldEdge -> oldEdge.getFromNode() == edge.getFromNode() && oldEdge.getFromIndex() == edge.getFromIndex());
+        edges.removeIf(oldEdge -> oldEdge.getToNode().equals(edge.getToNode()) && oldEdge.getToIndex() == edge.getToIndex());
         edges.add(edge);
+    }
+
+    public boolean isCyclicEdge(Node<?> node, Edge edge) {
+        // TODO: Probably a better way to do this
+        if (edge.getFromNode().equals(node.getUUID())) return true;
+        for (Edge e : getEdgesTo(getNode(edge.getFromNode())).toList()) {
+            if (e.getFromNode().equals(node.getUUID())) return true;
+            if (isCyclicEdge(node, e)) return true;
+        }
+        return false;
     }
 
     @Override

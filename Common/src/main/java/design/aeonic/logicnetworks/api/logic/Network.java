@@ -1,6 +1,7 @@
 package design.aeonic.logicnetworks.api.logic;
 
 import design.aeonic.logicnetworks.api.core.CommonRegistries;
+import design.aeonic.logicnetworks.api.core.Constants;
 import design.aeonic.logicnetworks.api.logic.node.Node;
 import design.aeonic.logicnetworks.api.logic.node.SinkNode;
 import design.aeonic.logicnetworks.api.logic.node.SourceNode;
@@ -88,10 +89,10 @@ public interface Network {
      * `isClient` is used to determine whether values from input widgets should be serialized to normal fields.
      * Should only be true if this method is being called from an existing screen that's modifying the network's nodes.
      */
-    default void serialize(CompoundTag tag, boolean isClient) {
+    default void serialize(CompoundTag tag) {
         ListTag nodeList = tag.getList("nodes", Tag.TAG_COMPOUND);
         getNodes().forEach(node -> {
-            CompoundTag nodeTag = serializeNode(node, isClient);
+            CompoundTag nodeTag = serializeNode(node);
             nodeList.add(nodeTag);
         });
         ListTag edgeList = tag.getList("edges", Tag.TAG_COMPOUND);
@@ -99,14 +100,15 @@ public interface Network {
             CompoundTag edgeTag = new CompoundTag();
             edge.serialize(edgeTag);
             edgeList.add(edgeTag);
+            Constants.LOG.info("serialized edge {}", edgeTag);
         });
         tag.put("nodes", nodeList);
         tag.put("edges", edgeList);
     }
 
     @SuppressWarnings("unchecked")
-    default <T extends Node<T>> CompoundTag serializeNode(Node<T> node, boolean isClient) {
-        CompoundTag tag = node.getNodeType().serialize((T) node, isClient);
+    default <T extends Node<T>> CompoundTag serializeNode(Node<T> node) {
+        CompoundTag tag = node.getNodeType().serialize((T) node);
         tag.putString("type", CommonRegistries.NODE_TYPES.getKey(node.getNodeType()).toString());
         return tag;
     }
@@ -116,6 +118,10 @@ public interface Network {
         ListTag nodeList = tag.getList("nodes", Tag.TAG_COMPOUND);
         nodeList.forEach(nodeTag -> {
             network.addNode(deserializeNode((CompoundTag) nodeTag));
+        });
+        ListTag edgeList = tag.getList("edges", Tag.TAG_COMPOUND);
+        edgeList.forEach(edgeTag -> {
+            network.addEdge(Edge.deserialize((CompoundTag) edgeTag));
         });
         return network;
     }

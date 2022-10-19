@@ -96,7 +96,7 @@ public class NetworkControllerBlockEntity extends BlockEntity implements MenuPro
 
         if (network != null) {
             CompoundTag networkTag = new CompoundTag();
-            network.serialize(networkTag, false);
+            network.serialize(networkTag);
             tag.put("network", networkTag);
         }
     }
