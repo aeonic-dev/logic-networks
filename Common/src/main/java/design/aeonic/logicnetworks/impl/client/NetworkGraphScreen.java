@@ -79,6 +79,7 @@ public class NetworkGraphScreen extends AbstractWidgetScreen {
         this.topPos = (this.height - window.height()) / 2;
 
         addNode(BuiltinNodeTypes.ANALOG_ADD.createNode(UUID.randomUUID(), 0, 0));
+        addNode(BuiltinNodeTypes.ANALOG_INVERT.createNode(UUID.randomUUID(), 50, 0));
 
         network.getNodes().forEach(node -> {
             int x = node.getX();
@@ -319,7 +320,7 @@ public class NetworkGraphScreen extends AbstractWidgetScreen {
             Node<?> from = network.getNode(edge.getFromNode());
             Node<?> to = network.getNode(edge.getToNode());
 
-            int fromX = from.getX() + to.getWidth();
+            int fromX = from.getX() + from.getWidth();
             int fromY = from.getY() + from.getOutputPositions()[edge.getFromIndex()];
             int toX = to.getX();
             int toY = to.getY() + to.getInputPositions()[edge.getToIndex()];
@@ -349,9 +350,11 @@ public class NetworkGraphScreen extends AbstractWidgetScreen {
         Node<?> hoveredNode = getNodeAt(mx, my);
         InputWidget hoveredWidget = getWidgetAt(mx, my);
         // Only accept a widget belonging to the hovered node
-        if (hoveredNode != null && nodeWidgets.get(hoveredNode.getUUID()).contains(hoveredWidget)) hoveredNode = null;
-        if (hoveredNode != null && (getHoveredInputSocket(hoveredNode, mx, my) != -1 || getHoveredOutputSocket(hoveredNode, mx, my) != -1)) hoveredNode = null;
-        else hoveredWidget = null;
+        if (hoveredNode != null) {
+            if (nodeWidgets.get(hoveredNode.getUUID()).contains(hoveredWidget)) hoveredNode = null;
+            if (getHoveredInputSocket(hoveredNode, mx, my) != -1 || getHoveredOutputSocket(hoveredNode, mx, my) != -1) hoveredNode = null;
+            else hoveredWidget = null;
+        }
 
         for (Node<?> node : nodes) {
             RenderUtils.drawRect(stack, node == hoveredNode ? NODE_HOVERED : NODE, node.getX(), node.getY(), getBlitOffset(), node.getWidth(), node.getHeight());

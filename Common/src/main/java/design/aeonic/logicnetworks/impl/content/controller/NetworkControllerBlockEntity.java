@@ -1,7 +1,6 @@
 package design.aeonic.logicnetworks.impl.content.controller;
 
 import design.aeonic.logicnetworks.api.control.RedstoneControl;
-import design.aeonic.logicnetworks.api.core.Constants;
 import design.aeonic.logicnetworks.api.core.Translations;
 import design.aeonic.logicnetworks.api.logic.CompiledNetwork;
 import design.aeonic.logicnetworks.api.logic.Network;
@@ -121,7 +120,6 @@ public class NetworkControllerBlockEntity extends BlockEntity implements MenuPro
     @Nullable
     @Override
     public AbstractContainerMenu createMenu(int var1, Inventory var2, Player var3) {
-        Constants.LOG.info("server side {} {}", redstoneControl, ticksPerOperation);
         return new NetworkControllerMenu(var1, var2, new ContainerFields(
                 new EnumField<>(RedstoneControl.class, () -> redstoneControl),
                 new IntField(() -> ticksPerOperation),

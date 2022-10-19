@@ -100,7 +100,6 @@ public interface Network {
             CompoundTag edgeTag = new CompoundTag();
             edge.serialize(edgeTag);
             edgeList.add(edgeTag);
-            Constants.LOG.info("serialized edge {}", edgeTag);
         });
         tag.put("nodes", nodeList);
         tag.put("edges", edgeList);

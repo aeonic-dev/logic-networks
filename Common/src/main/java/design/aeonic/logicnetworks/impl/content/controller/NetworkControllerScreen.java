@@ -2,7 +2,6 @@ package design.aeonic.logicnetworks.impl.content.controller;
 
 import com.mojang.blaze3d.vertex.PoseStack;
 import design.aeonic.logicnetworks.api.control.RedstoneControl;
-import design.aeonic.logicnetworks.api.core.Constants;
 import design.aeonic.logicnetworks.api.core.Translations;
 import design.aeonic.logicnetworks.api.logic.Network;
 import design.aeonic.logicnetworks.api.screen.WidgetContainerScreen;
@@ -51,7 +50,6 @@ public class NetworkControllerScreen extends WidgetContainerScreen<NetworkContro
 
         @Override
         public void dataChanged(AbstractContainerMenu var1, int var2, int var3) {
-            Constants.LOG.info("DATA CHANGED");
             redstoneControlInputWidget.setValue(menu.getRedstoneControl());
             ticksPerOperationInput.setValue(menu.getTicksPerOperation());
         }
