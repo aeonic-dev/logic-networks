@@ -1,4 +1,4 @@
-package design.aeonic.logicnetworks.api.logic;
+package design.aeonic.logicnetworks.api.logic.network;
 
 /**
  * A type of signal that can be processed by a logic network.

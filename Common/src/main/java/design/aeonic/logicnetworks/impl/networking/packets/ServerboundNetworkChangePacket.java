@@ -1,7 +1,8 @@
 package design.aeonic.logicnetworks.impl.networking.packets;
 
 import design.aeonic.logicnetworks.api.core.Constants;
-import design.aeonic.logicnetworks.api.logic.Network;
+import design.aeonic.logicnetworks.api.logic.network.Network;
+import design.aeonic.logicnetworks.api.logic.NetworkController;
 import design.aeonic.logicnetworks.api.networking.ServerboundPacketHandler;
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
@@ -53,7 +54,7 @@ public class ServerboundNetworkChangePacket {
         public void handle(Consumer<Runnable> taskQueue, MinecraftServer server, ServerPlayer player, ServerboundNetworkChangePacket packet) {
             taskQueue.accept(() -> {
                 ServerLevel level = (ServerLevel) player.level;
-                if (level.hasChunkAt(packet.blockPos) && level.getChunk(packet.blockPos).getBlockEntity(packet.blockPos) instanceof Network.IHasNetwork be) {
+                if (level.hasChunkAt(packet.blockPos) && level.getChunk(packet.blockPos).getBlockEntity(packet.blockPos) instanceof NetworkController be) {
                     be.setNetwork(packet.network);
                 }
             });

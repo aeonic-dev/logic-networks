@@ -1,9 +1,9 @@
 package design.aeonic.logicnetworks.api.builtin.nodes;
 
 import design.aeonic.logicnetworks.api.core.Translations;
-import design.aeonic.logicnetworks.api.logic.NodeType;
-import design.aeonic.logicnetworks.api.logic.SignalType;
-import design.aeonic.logicnetworks.api.logic.node.base.SimpleOperatorNode;
+import design.aeonic.logicnetworks.api.logic.network.NodeType;
+import design.aeonic.logicnetworks.api.logic.network.SignalType;
+import design.aeonic.logicnetworks.api.logic.network.node.base.SimpleOperatorNode;
 import design.aeonic.logicnetworks.api.screen.input.InputWidget;
 import design.aeonic.logicnetworks.api.screen.input.WidgetScreen;
 import design.aeonic.logicnetworks.api.screen.input.widgets.CheckboxInputWidget;

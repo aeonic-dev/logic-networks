@@ -1,9 +1,9 @@
-package design.aeonic.logicnetworks.api.logic;
+package design.aeonic.logicnetworks.api.logic.network;
 
 import design.aeonic.logicnetworks.api.core.CommonRegistries;
-import design.aeonic.logicnetworks.api.logic.node.Node;
-import design.aeonic.logicnetworks.api.logic.node.SinkNode;
-import design.aeonic.logicnetworks.api.logic.node.SourceNode;
+import design.aeonic.logicnetworks.api.logic.network.node.Node;
+import design.aeonic.logicnetworks.api.logic.network.node.SinkNode;
+import design.aeonic.logicnetworks.api.logic.network.node.SourceNode;
 import design.aeonic.logicnetworks.impl.logic.NetworkImpl;
 import design.aeonic.logicnetworks.impl.logic.TopologicalCompiledNetwork;
 import net.minecraft.nbt.CompoundTag;
@@ -135,9 +135,4 @@ public interface Network {
      */
     Stream<Node<?>> getNodes();
 
-    interface IHasNetwork {
-        Network getNetwork();
-
-        void setNetwork(Network network);
-    }
 }

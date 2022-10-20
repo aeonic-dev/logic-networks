@@ -1,6 +1,6 @@
-package design.aeonic.logicnetworks.api.logic.node;
+package design.aeonic.logicnetworks.api.logic.network.node;
 
-import design.aeonic.logicnetworks.api.logic.SignalType;
+import design.aeonic.logicnetworks.api.logic.network.SignalType;
 import it.unimi.dsi.fastutil.ints.IntArrays;
 
 public interface SinkNode<T extends SinkNode<T>> extends Node<T> {

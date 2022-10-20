@@ -1,4 +1,4 @@
-package design.aeonic.logicnetworks.api.logic.node;
+package design.aeonic.logicnetworks.api.logic.network.node;
 
 public interface OperatorNode<T extends OperatorNode<T>> extends Node<T> {
 

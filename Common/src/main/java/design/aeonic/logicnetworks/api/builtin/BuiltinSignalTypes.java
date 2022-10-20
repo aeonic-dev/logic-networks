@@ -2,7 +2,7 @@ package design.aeonic.logicnetworks.api.builtin;
 
 import design.aeonic.logicnetworks.api.core.CommonRegistries;
 import design.aeonic.logicnetworks.api.core.Constants;
-import design.aeonic.logicnetworks.api.logic.SignalType;
+import design.aeonic.logicnetworks.api.logic.network.SignalType;
 import net.minecraft.resources.ResourceLocation;
 
 public final class BuiltinSignalTypes {

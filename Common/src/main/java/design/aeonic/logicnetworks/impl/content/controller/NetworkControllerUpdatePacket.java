@@ -1,6 +1,6 @@
 package design.aeonic.logicnetworks.impl.content.controller;
 
-import design.aeonic.logicnetworks.api.control.RedstoneControl;
+import design.aeonic.logicnetworks.api.logic.RedstoneControl;
 import design.aeonic.logicnetworks.api.core.Constants;
 import design.aeonic.logicnetworks.api.networking.ServerboundPacketHandler;
 import net.minecraft.core.BlockPos;

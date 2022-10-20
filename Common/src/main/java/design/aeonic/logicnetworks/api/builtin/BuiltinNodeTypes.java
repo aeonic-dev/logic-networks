@@ -5,8 +5,8 @@ import design.aeonic.logicnetworks.api.builtin.nodes.AnalogInvertNode;
 import design.aeonic.logicnetworks.api.builtin.nodes.BooleanLogicNode;
 import design.aeonic.logicnetworks.api.core.CommonRegistries;
 import design.aeonic.logicnetworks.api.core.Constants;
-import design.aeonic.logicnetworks.api.logic.BaseNodeType;
-import design.aeonic.logicnetworks.api.logic.NodeType;
+import design.aeonic.logicnetworks.api.logic.network.BaseNodeType;
+import design.aeonic.logicnetworks.api.logic.network.NodeType;
 import net.minecraft.resources.ResourceLocation;
 
 public final class BuiltinNodeTypes {

@@ -8,8 +8,8 @@ import net.minecraft.world.inventory.Slot;
 import net.minecraft.world.item.ItemStack;
 
 public abstract class BaseContainerMenu<T extends BaseContainerMenu<T>> extends AbstractContainerMenu {
-    private final int containerCount;
-    private final Inventory playerInventory;
+    protected final int containerCount;
+    protected final Inventory playerInventory;
 
     public BaseContainerMenu(MenuType<T> menuType, int containerCount, int syncId, Inventory playerInventory) {
         super(menuType, syncId);

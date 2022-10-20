@@ -1,6 +1,6 @@
 package design.aeonic.logicnetworks.impl.content.controller;
 
-import design.aeonic.logicnetworks.api.control.RedstoneControl;
+import design.aeonic.logicnetworks.api.logic.RedstoneControl;
 import design.aeonic.logicnetworks.api.networking.container.BaseContainerMenu;
 import design.aeonic.logicnetworks.api.networking.container.ContainerFields;
 import design.aeonic.logicnetworks.api.networking.container.field.BlockPosField;
@@ -17,16 +17,16 @@ public class NetworkControllerMenu extends BaseContainerMenu<NetworkControllerMe
         this(syncId, inventory, new ContainerFields(new EnumField<>(RedstoneControl.class), new IntField(), new BlockPosField()));
     }
 
-    @Override
-    protected void addPlayerSlots() {
-        // Prevents the parent method from adding player slots
-    }
-
     public NetworkControllerMenu(int syncId, Inventory inventory, ContainerFields containerData) {
         super(NetworkMenus.NETWORK_CONTROLLER, 0, syncId, inventory);
         this.data = containerData;
 
         addDataSlots(containerData);
+    }
+
+    @Override
+    protected void addPlayerSlots() {
+        // Prevents the parent method from adding player slots
     }
 
     @Override

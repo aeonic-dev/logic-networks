@@ -1,7 +1,7 @@
-package design.aeonic.logicnetworks.api.logic;
+package design.aeonic.logicnetworks.api.logic.network;
 
 import design.aeonic.logicnetworks.api.core.CommonRegistries;
-import design.aeonic.logicnetworks.api.logic.node.Node;
+import design.aeonic.logicnetworks.api.logic.network.node.Node;
 import net.minecraft.nbt.CompoundTag;
 
 import java.util.UUID;

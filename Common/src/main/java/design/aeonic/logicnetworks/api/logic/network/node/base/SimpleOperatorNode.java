@@ -1,7 +1,7 @@
-package design.aeonic.logicnetworks.api.logic.node.base;
+package design.aeonic.logicnetworks.api.logic.network.node.base;
 
-import design.aeonic.logicnetworks.api.logic.NodeType;
-import design.aeonic.logicnetworks.api.logic.SignalType;
+import design.aeonic.logicnetworks.api.logic.network.NodeType;
+import design.aeonic.logicnetworks.api.logic.network.SignalType;
 import net.minecraft.client.Minecraft;
 import net.minecraft.network.chat.Component;
 

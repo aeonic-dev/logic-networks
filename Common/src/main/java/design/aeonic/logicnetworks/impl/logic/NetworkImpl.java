@@ -1,8 +1,8 @@
 package design.aeonic.logicnetworks.impl.logic;
 
-import design.aeonic.logicnetworks.api.logic.Edge;
-import design.aeonic.logicnetworks.api.logic.Network;
-import design.aeonic.logicnetworks.api.logic.node.Node;
+import design.aeonic.logicnetworks.api.logic.network.Edge;
+import design.aeonic.logicnetworks.api.logic.network.Network;
+import design.aeonic.logicnetworks.api.logic.network.node.Node;
 
 import java.util.*;
 import java.util.stream.Stream;

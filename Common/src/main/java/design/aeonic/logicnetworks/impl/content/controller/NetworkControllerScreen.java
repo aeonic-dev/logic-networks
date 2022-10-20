@@ -1,9 +1,10 @@
 package design.aeonic.logicnetworks.impl.content.controller;
 
 import com.mojang.blaze3d.vertex.PoseStack;
-import design.aeonic.logicnetworks.api.control.RedstoneControl;
+import design.aeonic.logicnetworks.api.logic.RedstoneControl;
 import design.aeonic.logicnetworks.api.core.Translations;
-import design.aeonic.logicnetworks.api.logic.Network;
+import design.aeonic.logicnetworks.api.logic.network.Network;
+import design.aeonic.logicnetworks.api.logic.NetworkController;
 import design.aeonic.logicnetworks.api.screen.WidgetContainerScreen;
 import design.aeonic.logicnetworks.api.screen.input.InputWidget;
 import design.aeonic.logicnetworks.api.screen.input.WidgetScreen;
@@ -78,7 +79,7 @@ public class NetworkControllerScreen extends WidgetContainerScreen<NetworkContro
         assert menu.data.isClientSide();
         Level level = Minecraft.getInstance().level;
         assert Objects.requireNonNull(level).hasChunkAt(menu.getControllerPos());
-        NetworkGraphScreen.open(((Network.IHasNetwork) Objects.requireNonNull(level.getBlockEntity(menu.getControllerPos()))).getNetwork(), this::onNetworkGraphClosed);
+        NetworkGraphScreen.open(((NetworkController) Objects.requireNonNull(level.getBlockEntity(menu.getControllerPos()))).getNetwork(), this::onNetworkGraphClosed);
     }
 
     public void onNetworkGraphClosed(Network network) {

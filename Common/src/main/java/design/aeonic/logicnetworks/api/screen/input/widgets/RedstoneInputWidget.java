@@ -1,7 +1,7 @@
 package design.aeonic.logicnetworks.api.screen.input.widgets;
 
 import com.mojang.blaze3d.vertex.PoseStack;
-import design.aeonic.logicnetworks.api.control.RedstoneControl;
+import design.aeonic.logicnetworks.api.logic.RedstoneControl;
 import design.aeonic.logicnetworks.api.core.Translations;
 import design.aeonic.logicnetworks.api.screen.input.AbstractInputWidget;
 import design.aeonic.logicnetworks.api.screen.input.WidgetScreen;

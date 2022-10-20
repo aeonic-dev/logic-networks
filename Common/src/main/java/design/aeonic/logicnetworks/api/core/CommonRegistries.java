@@ -1,7 +1,7 @@
 package design.aeonic.logicnetworks.api.core;
 
-import design.aeonic.logicnetworks.api.logic.NodeType;
-import design.aeonic.logicnetworks.api.logic.SignalType;
+import design.aeonic.logicnetworks.api.logic.network.NodeType;
+import design.aeonic.logicnetworks.api.logic.network.SignalType;
 import design.aeonic.logicnetworks.api.util.SimpleRegistry;
 
 /**

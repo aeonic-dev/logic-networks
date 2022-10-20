@@ -1,9 +1,10 @@
 package design.aeonic.logicnetworks.impl.content.controller;
 
-import design.aeonic.logicnetworks.api.control.RedstoneControl;
+import design.aeonic.logicnetworks.api.logic.RedstoneControl;
 import design.aeonic.logicnetworks.api.core.Translations;
-import design.aeonic.logicnetworks.api.logic.CompiledNetwork;
-import design.aeonic.logicnetworks.api.logic.Network;
+import design.aeonic.logicnetworks.api.logic.network.CompiledNetwork;
+import design.aeonic.logicnetworks.api.logic.network.Network;
+import design.aeonic.logicnetworks.api.logic.NetworkController;
 import design.aeonic.logicnetworks.api.networking.container.ContainerFields;
 import design.aeonic.logicnetworks.api.networking.container.field.BlockPosField;
 import design.aeonic.logicnetworks.api.networking.container.field.EnumField;
@@ -27,7 +28,7 @@ import net.minecraft.world.level.block.state.BlockState;
 
 import javax.annotation.Nullable;
 
-public class NetworkControllerBlockEntity extends BlockEntity implements MenuProvider, design.aeonic.logicnetworks.api.logic.Network.IHasNetwork {
+public class NetworkControllerBlockEntity extends BlockEntity implements MenuProvider, NetworkController {
     private Network network;
     private CompiledNetwork compiledNetwork;
 
@@ -60,6 +61,7 @@ public class NetworkControllerBlockEntity extends BlockEntity implements MenuPro
     }
 
     public CompiledNetwork getCompiledNetwork() {
+        if (level == null || level.isClientSide) return CompiledNetwork.EMPTY;
         if (compiledNetwork == null) compiledNetwork = network.compile();
         return compiledNetwork;
     }

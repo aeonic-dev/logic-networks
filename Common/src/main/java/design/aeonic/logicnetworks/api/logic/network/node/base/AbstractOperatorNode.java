@@ -1,7 +1,7 @@
-package design.aeonic.logicnetworks.api.logic.node.base;
+package design.aeonic.logicnetworks.api.logic.network.node.base;
 
-import design.aeonic.logicnetworks.api.logic.NodeType;
-import design.aeonic.logicnetworks.api.logic.node.OperatorNode;
+import design.aeonic.logicnetworks.api.logic.network.NodeType;
+import design.aeonic.logicnetworks.api.logic.network.node.OperatorNode;
 
 import java.util.UUID;
 

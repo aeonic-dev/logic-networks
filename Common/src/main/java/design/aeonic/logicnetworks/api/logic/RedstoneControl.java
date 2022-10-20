@@ -1,4 +1,4 @@
-package design.aeonic.logicnetworks.api.control;
+package design.aeonic.logicnetworks.api.logic;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.level.Level;
