@@ -13,6 +13,8 @@ public interface InputWidget {
 
     default void onClose(WidgetScreen screen) {}
 
+    default void onLostFocus(WidgetScreen screen) {}
+
     void draw(PoseStack stack, WidgetScreen screen, int mouseX, int mouseY, float partialTicks);
 
     @Nullable

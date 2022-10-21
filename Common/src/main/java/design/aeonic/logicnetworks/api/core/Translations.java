@@ -1,12 +1,38 @@
 package design.aeonic.logicnetworks.api.core;
 
+import design.aeonic.logicnetworks.api.logic.LinkStatus;
+import net.minecraft.ChatFormatting;
+import net.minecraft.core.Direction;
 import net.minecraft.network.chat.Component;
+import net.minecraft.network.chat.MutableComponent;
+
+import java.util.function.Function;
 
 public final class Translations {
     public static final class Generic {
         public static final Component TICKS = Component.translatable("gui.logicnetworks.generic.ticks");
         public static final Component REDSTONE_CONTROL = Component.translatable("gui.logicnetworks.generic.redstone_control");
         public static final Component CLAMPS = Component.translatable("gui.logicnetworks.generic.clamps");
+    }
+
+    public static final class Side {
+        public static final Component UP = Component.translatable("gui.logicnetworks.side.up");
+        public static final Component DOWN = Component.translatable("gui.logicnetworks.side.down");
+        public static final Component NORTH = Component.translatable("gui.logicnetworks.side.north");
+        public static final Component SOUTH = Component.translatable("gui.logicnetworks.side.south");
+        public static final Component EAST = Component.translatable("gui.logicnetworks.side.east");
+        public static final Component WEST = Component.translatable("gui.logicnetworks.side.west");
+
+        public static Component translate(Direction side) {
+            return switch (side) {
+                case UP -> UP;
+                case DOWN -> DOWN;
+                case NORTH -> NORTH;
+                case SOUTH -> SOUTH;
+                case EAST -> EAST;
+                case WEST -> WEST;
+            };
+        }
     }
 
     public static final class RedstoneControl {
@@ -16,11 +42,34 @@ public final class Translations {
         public static final Component NEVER = Component.translatable("gui.logicnetworks.redstone_control.never");
     }
 
+    public static final class Link {
+        public static final DynamicComponent LINKED_TO = dynamic("gui.logicnetworks.link.linked_to", c -> c.withStyle(ChatFormatting.BLUE));
+        public static final DynamicComponent LINKED_SIDE = dynamic("gui.logicnetworks.link.linked_side", c -> c.withStyle(ChatFormatting.BLUE));
+        public static final Component VALID = Component.translatable("gui.logicnetworks.link.valid").withStyle(ChatFormatting.GREEN);
+        public static final Component UNLOADED = Component.translatable("gui.logicnetworks.link.unloaded").withStyle(ChatFormatting.DARK_PURPLE);
+        public static final Component DESTROYED = Component.translatable("gui.logicnetworks.link.destroyed").withStyle(ChatFormatting.DARK_RED);
+        public static final Component INVALID = Component.translatable("gui.logicnetworks.link.invalid").withStyle(ChatFormatting.DARK_RED);
+
+        public static Component status(LinkStatus status) {
+            return switch (status) {
+                case VALID -> VALID;
+                case UNLOADED -> UNLOADED;
+                case DESTROYED -> DESTROYED;
+                case INVALID -> INVALID;
+            };
+        }
+    }
+
     public static final class NetworkController {
         public static final Component TITLE = Component.translatable("gui.logicnetworks.network_controller.title");
         public static final Component TICKS_PER_OP = Component.translatable("gui.logicnetworks.network_controller.ticks_per_operation");
         public static final Component EDIT_NETWORK = Component.translatable("gui.logicnetworks.network_controller.edit_network");
         public static final Component EDIT_NETWORK_TOOLTIP = Component.translatable("gui.logicnetworks.network_controller.edit_network_tooltip");
+    }
+
+    public static final class NetworkAnchor {
+        public static final Component TITLE = Component.translatable("gui.logicnetworks.network_anchor.title");
+        public static final Component NAME_TOOLTIP = Component.translatable("gui.logicnetworks.network_anchor.name_tooltip");
     }
 
     public static final class NetworkGraph {
@@ -43,5 +92,17 @@ public final class Translations {
         public static final Component BOOLEAN_NAND = Component.translatable("gui.logicnetworks.nodes.boolean_nand");
         public static final Component BOOLEAN_NOR = Component.translatable("gui.logicnetworks.nodes.boolean_nor");
         public static final Component BOOLEAN_XNOR = Component.translatable("gui.logicnetworks.nodes.boolean_xnor");
+    }
+
+    private static DynamicComponent dynamic(String key) {
+        return (Object... args) -> Component.translatable(key, args);
+    }
+
+    private static DynamicComponent dynamic(String key, Function<MutableComponent, Component> mutator) {
+        return (Object... args) -> mutator.apply(Component.translatable(key, args));
+    }
+
+    public interface DynamicComponent {
+        Component get(Object... args);
     }
 }

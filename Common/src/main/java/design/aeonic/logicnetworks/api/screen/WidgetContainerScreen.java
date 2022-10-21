@@ -48,6 +48,8 @@ public abstract class WidgetContainerScreen<T extends AbstractContainerMenu> ext
             var tooltip = hovered.getTooltip(this, mouseX - leftPos, mouseY - topPos);
             if (tooltip != null) renderTooltip(stack, mouseX, mouseY, tooltip);
         }
+
+        renderTooltip(stack, mouseX, mouseY);
     }
 
     public void renderTooltip(PoseStack stack, int mouseX, int mouseY, List<Component> tooltip) {
@@ -142,11 +144,13 @@ public abstract class WidgetContainerScreen<T extends AbstractContainerMenu> ext
 
     @Override
     public void setFocus(InputWidget widget) {
+        WidgetScreen.super.setFocus(widget);
         focusedWidget = widget;
     }
 
     @Override
     public void clearFocus(InputWidget widget) {
+        WidgetScreen.super.clearFocus(widget);
         if (focusedWidget == widget) {
             focusedWidget = null;
         }

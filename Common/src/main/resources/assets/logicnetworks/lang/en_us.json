@@ -2,10 +2,29 @@
   "gui.logicnetworks.generic.ticks": "Ticks/operation",
   "gui.logicnetworks.generic.redstone_control": "Redstone control",
   "gui.logicnetworks.generic.clamps": "Clamps the output",
+
+  "gui.logicnetworks.side.up": "U",
+    "gui.logicnetworks.side.down": "D",
+    "gui.logicnetworks.side.north": "N",
+    "gui.logicnetworks.side.south": "S",
+    "gui.logicnetworks.side.east": "E",
+    "gui.logicnetworks.side.west": "W",
+
   "gui.logicnetworks.redstone_control.always": "Always active",
   "gui.logicnetworks.redstone_control.high": "Active with redstone signal",
   "gui.logicnetworks.redstone_control.low": "Active without redstone signal",
   "gui.logicnetworks.redstone_control.never": "Never active",
+
+  "gui.logicnetworks.link.linked_to": "Linked to: %s",
+  "gui.logicnetworks.link.linked_side": "Side: %s",
+  "gui.logicnetworks.link.valid": "Ready",
+  "gui.logicnetworks.link.unloaded": "Unloaded",
+  "gui.logicnetworks.link.destroyed": "Removed",
+  "gui.logicnetworks.link.invalid": "Invalid",
+
+  "gui.logicnetworks.network_anchor.title": "Network Anchor",
+  "gui.logicnetworks.network_anchor.name_tooltip": "Anchor name",
+
   "gui.logicnetworks.network_controller.title": "Network Controller",
   "gui.logicnetworks.network_controller.ticks_per_operation": "Ticks per operation",
   "gui.logicnetworks.network_controller.edit_network": "Edit network",
@@ -15,16 +34,15 @@
   "gui.logicnetworks.nodes.analog_invert": "Analog Invert",
   "gui.logicnetworks.nodes.analog_add": "Analog Add",
   "gui.logicnetworks.nodes.analog_subtract": "Analog Subtract",
-  "gui.logicnetworks.nodes.analog_multiply":  "Analog Multiply",
-  "gui.logicnetworks.nodes.analog_divide":  "Analog Divide",
-  "gui.logicnetworks.nodes.analog_modulo":  "Analog Modulo",
+  "gui.logicnetworks.nodes.analog_multiply": "Analog Multiply",
+  "gui.logicnetworks.nodes.analog_divide": "Analog Divide",
+  "gui.logicnetworks.nodes.analog_modulo": "Analog Modulo",
 
-
-  "gui.logicnetworks.nodes.boolean_invert":  "NOT",
-  "gui.logicnetworks.nodes.boolean_and":  "AND",
-  "gui.logicnetworks.nodes.boolean_or":  "OR",
-  "gui.logicnetworks.nodes.boolean_xor":  "XOR",
-  "gui.logicnetworks.nodes.boolean_nand":  "NAND",
-  "gui.logicnetworks.nodes.boolean_nor":  "NOR",
-  "gui.logicnetworks.nodes.boolean_xnor":  "XNOR"
+  "gui.logicnetworks.nodes.boolean_invert": "NOT",
+  "gui.logicnetworks.nodes.boolean_and": "AND",
+  "gui.logicnetworks.nodes.boolean_or": "OR",
+  "gui.logicnetworks.nodes.boolean_xor": "XOR",
+  "gui.logicnetworks.nodes.boolean_nand": "NAND",
+  "gui.logicnetworks.nodes.boolean_nor": "NOR",
+  "gui.logicnetworks.nodes.boolean_xnor": "XNOR"
 }

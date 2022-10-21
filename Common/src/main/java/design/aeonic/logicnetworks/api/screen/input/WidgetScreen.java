@@ -16,7 +16,11 @@ public interface WidgetScreen {
 
     @Nullable InputWidget getFocusedWidget();
 
-    void setFocus(InputWidget widget);
+    default void setFocus(InputWidget widget) {
+        if (getFocusedWidget() != null) getFocusedWidget().onLostFocus(this);
+    }
 
-    void clearFocus(InputWidget widget);
+    default void clearFocus(InputWidget widget) {
+        if (getFocusedWidget() != null) getFocusedWidget().onLostFocus(this);
+    }
 }

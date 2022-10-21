@@ -7,8 +7,7 @@ import design.aeonic.logicnetworks.api.screen.input.WidgetScreen;
 import design.aeonic.logicnetworks.api.util.Texture;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.util.Mth;
-
-import java.awt.event.KeyEvent;
+import org.lwjgl.glfw.GLFW;
 
 public class IntInputWidget extends AbstractInputWidget {
     public static final Texture HIGHLIGHT = new Texture("logicnetworks:textures/gui/input_widgets.png", 64, 64, 12, 14, 0, 24);
@@ -74,7 +73,7 @@ public class IntInputWidget extends AbstractInputWidget {
     @Override
     public boolean keyDown(WidgetScreen screen, int keyCode, int scanCode, int modifiers) {
         switch (keyCode) {
-            case KeyEvent.VK_MINUS -> {
+            case GLFW.GLFW_KEY_MINUS -> {
                 if (minValue >= 0) break;
 
                 if (stringValue.isEmpty()) stringValue = "-";
@@ -97,21 +96,21 @@ public class IntInputWidget extends AbstractInputWidget {
                 }
                 return true;
             }
-            case KeyEvent.VK_ENTER -> {
+            case GLFW.GLFW_KEY_ENTER -> {
                 // TODO: This one isn't recognized, find the actual key value like backspace above
                 screen.clearFocus(this);
                 return true;
             }
             default -> {
-                if (keyCode >= KeyEvent.VK_0 && keyCode <= KeyEvent.VK_9) {
+                if (keyCode >= GLFW.GLFW_KEY_0 && keyCode <= GLFW.GLFW_KEY_9) {
                     if (stringValue.equals("1") && !edited) {
                         edited = true;
-                        stringValue = Mth.clamp(keyCode - KeyEvent.VK_0, minValue, maxValue) + "";
+                        stringValue = Mth.clamp(keyCode - GLFW.GLFW_KEY_0, minValue, maxValue) + "";
                     }
-                    else if (stringValue.equals("-0")) stringValue = Mth.clamp(Integer.parseInt("-" + (keyCode - KeyEvent.VK_0)), minValue, maxValue) + "";
+                    else if (stringValue.equals("-0")) stringValue = Mth.clamp(Integer.parseInt("-" + (keyCode - GLFW.GLFW_KEY_0)), minValue, maxValue) + "";
                     else if (stringValue.length() + 1 <= maxDigits) {
-                        if (stringValue.isEmpty()) stringValue = keyCode - KeyEvent.VK_0 + "";
-                        else stringValue = Mth.clamp(Integer.parseInt(stringValue + (keyCode - KeyEvent.VK_0)), minValue, maxValue) + "";
+                        if (stringValue.isEmpty()) stringValue = keyCode - GLFW.GLFW_KEY_0 + "";
+                        else stringValue = Mth.clamp(Integer.parseInt(stringValue + (keyCode - GLFW.GLFW_KEY_0)), minValue, maxValue) + "";
                     }
                     return true;
                 }
