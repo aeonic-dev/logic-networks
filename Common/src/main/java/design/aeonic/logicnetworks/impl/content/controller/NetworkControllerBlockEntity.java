@@ -1,10 +1,10 @@
 package design.aeonic.logicnetworks.impl.content.controller;
 
-import design.aeonic.logicnetworks.api.logic.RedstoneControl;
 import design.aeonic.logicnetworks.api.core.Translations;
+import design.aeonic.logicnetworks.api.logic.NetworkController;
+import design.aeonic.logicnetworks.api.logic.RedstoneControl;
 import design.aeonic.logicnetworks.api.logic.network.CompiledNetwork;
 import design.aeonic.logicnetworks.api.logic.network.Network;
-import design.aeonic.logicnetworks.api.logic.NetworkController;
 import design.aeonic.logicnetworks.api.networking.container.ContainerFields;
 import design.aeonic.logicnetworks.api.networking.container.field.BlockPosField;
 import design.aeonic.logicnetworks.api.networking.container.field.EnumField;
@@ -18,6 +18,7 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.network.protocol.Packet;
 import net.minecraft.network.protocol.game.ClientGamePacketListener;
 import net.minecraft.network.protocol.game.ClientboundBlockEntityDataPacket;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.MenuProvider;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
@@ -34,9 +35,16 @@ public class NetworkControllerBlockEntity extends BlockEntity implements MenuPro
 
     private RedstoneControl redstoneControl = RedstoneControl.ALWAYS;
     private int ticksPerOperation = 20;
+    private int timer = 0;
 
     public NetworkControllerBlockEntity(BlockPos pos, BlockState state) {
         super(NetworkBlockEntities.NETWORK_CONTROLLER, pos, state);
+    }
+
+    @Override
+    public void setChanged() {
+        super.setChanged();
+        level.setBlock(getBlockPos(), getBlockState(), Block.UPDATE_CLIENTS);
     }
 
     @Nullable
@@ -52,17 +60,17 @@ public class NetworkControllerBlockEntity extends BlockEntity implements MenuPro
         return tag;
     }
 
-    public void networkTick() {
+    public void serverTick(ServerLevel level) {
         if (redstoneControl.shouldRun(level, worldPosition)) {
-            if (level.getGameTime() % ticksPerOperation == 0) {
-                getCompiledNetwork().tick();
+            if (ticksPerOperation != 0 && ++timer % ticksPerOperation == 0) {
+                getCompiledNetwork().tick(this);
             }
         }
     }
 
     public CompiledNetwork getCompiledNetwork() {
         if (level == null || level.isClientSide) return CompiledNetwork.EMPTY;
-        if (compiledNetwork == null) compiledNetwork = network.compile();
+        if (compiledNetwork == null) compiledNetwork = getNetwork().compile();
         return compiledNetwork;
     }
 
@@ -83,6 +91,7 @@ public class NetworkControllerBlockEntity extends BlockEntity implements MenuPro
 
     public void setNetwork(Network network) {
         this.network = network;
+        network.getNodes().forEach(node -> node.loadOnServer(this));
         this.compiledNetwork = network.compile();
         setChanged();
         level.setBlock(getBlockPos(), getBlockState(), Block.UPDATE_CLIENTS);
@@ -111,6 +120,10 @@ public class NetworkControllerBlockEntity extends BlockEntity implements MenuPro
 
         if (tag.contains("network")) {
             network = Network.deserialize(tag.getCompound("network"));
+            if (level != null && !level.isClientSide) {
+                network.getNodes().forEach(node -> node.loadOnServer(this));
+                setChanged();
+            }
         }
     }
 

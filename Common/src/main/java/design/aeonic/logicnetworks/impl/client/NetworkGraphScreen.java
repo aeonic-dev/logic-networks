@@ -78,10 +78,15 @@ public class NetworkGraphScreen extends AbstractWidgetScreen {
         this.leftPos = (this.width - window.width()) / 2;
         this.topPos = (this.height - window.height()) / 2;
 
-        addNode(BuiltinNodeTypes.ANALOG_ADD.createNode(UUID.randomUUID(), 0, 0));
-        addNode(BuiltinNodeTypes.ANALOG_INVERT.createNode(UUID.randomUUID(), 50, 0));
-        addNode(BuiltinNodeTypes.BOOLEAN_AND.createNode(UUID.randomUUID(), 50, 50));
-        addNode(BuiltinNodeTypes.BOOLEAN_XNOR.createNode(UUID.randomUUID(), 100, 50));
+        if (network.getNodes().findAny().isEmpty()) {
+            addNode(BuiltinNodeTypes.ANALOG_READ.createNode(UUID.randomUUID(), 0, -100));
+            addNode(BuiltinNodeTypes.ANALOG_READ.createNode(UUID.randomUUID(), 0, -100));
+            addNode(BuiltinNodeTypes.ANALOG_WRITE.createNode(UUID.randomUUID(), 100, -100));
+            addNode(BuiltinNodeTypes.ANALOG_ADD.createNode(UUID.randomUUID(), 0, 0));
+            addNode(BuiltinNodeTypes.ANALOG_INVERT.createNode(UUID.randomUUID(), 50, 0));
+        }
+//        addNode(BuiltinNodeTypes.BOOLEAN_AND.createNode(UUID.randomUUID(), 50, 50));
+//        addNode(BuiltinNodeTypes.BOOLEAN_XNOR.createNode(UUID.randomUUID(), 100, 50));
 
         network.getNodes().forEach(node -> {
             int x = node.getX();
@@ -108,13 +113,13 @@ public class NetworkGraphScreen extends AbstractWidgetScreen {
     }
 
     @Override
-    public int getLeftPos() {
-        return leftPos;
+    public int getRenderLeftPos() {
+        return leftPos + graphX + window.width() / 2;
     }
 
     @Override
-    public int getTopPos() {
-        return topPos;
+    public int getRenderTopPos() {
+        return topPos + graphY + window.height() / 2;
     }
 
     @Override
@@ -224,10 +229,6 @@ public class NetworkGraphScreen extends AbstractWidgetScreen {
     public boolean mouseDragged(double mouseX, double mouseY, int key, double $$3, double $$4) {
         if (super.mouseDragged(mouseX, mouseY, key, $$3, $$4)) return true;
 
-        if (key == 0 && (dragging != null || connecting != null)) {
-
-        }
-
         if (key == 0 || (graphDragging && key == 1)) {
             int mx = adjustMouseX((int) mouseX);
             int my = adjustMouseY((int) mouseY);
@@ -272,10 +273,12 @@ public class NetworkGraphScreen extends AbstractWidgetScreen {
     @Nullable
     @Override
     public InputWidget getWidgetAt(int x, int y) {
+        List<InputWidget> checked = new ArrayList<>();
         InputWidget highestWidget = null;
         int highestLayer = -1;
         for (var entry : nodeWidgets.entries()) {
             InputWidget widget = entry.getValue();
+            checked.add(widget);
             if (widget.isWithinBounds(x, y)) {
                 int layer = getNodeLayer(entry.getKey());
                 if (highestWidget == null || layer > highestLayer) {
@@ -283,6 +286,10 @@ public class NetworkGraphScreen extends AbstractWidgetScreen {
                     highestLayer = layer;
                 }
             }
+        }
+
+        for (InputWidget widget : inputWidgets.stream().filter(widget -> !checked.contains(widget)).toList()) {
+            if (widget.isWithinBounds(x, y)) return widget;
         }
 
         Node<?> node = getNodeAt(x, y);
@@ -307,6 +314,14 @@ public class NetworkGraphScreen extends AbstractWidgetScreen {
 
     @Override
     public void render(PoseStack stack, int mouseX, int mouseY, float partialTick) {
+        if (dragging != null || connecting != null) {
+            if (mouseX <= leftPos + boundLowerX + 20) graphX += 5;
+            if (mouseX >= leftPos + boundUpperX - 20) graphX -= 5;
+            if (mouseY <= topPos + boundLowerY + 20) graphY += 5;
+            if (mouseY >= topPos + boundUpperY - 20) graphY -= 5;
+            mouseDragged(mouseX, mouseY, 0, 0, 0);
+        }
+
         int mx = adjustMouseX(mouseX);
         int my = adjustMouseY(mouseY);
         double scale = minecraft.getWindow().getGuiScale();
@@ -337,6 +352,7 @@ public class NetworkGraphScreen extends AbstractWidgetScreen {
         });
 
         // Nodes
+        List<InputWidget> renderedWidgets = new ArrayList<>();
         List<Node<?>> nodes = network.getNodes().sorted(Comparator.comparingInt(node -> this.getNodeLayer(node.getUUID()))).toList();
         Node<?> hoveredNode = getNodeAt(mx, my);
         InputWidget hoveredWidget = getWidgetAt(mx, my);
@@ -384,6 +400,7 @@ public class NetworkGraphScreen extends AbstractWidgetScreen {
             }
             for (InputWidget widget : nodeWidgets.get(node.getUUID())) {
                 widget.draw(stack, this, mx, my, partialTick);
+                renderedWidgets.add(widget);
             }
         }
 
@@ -418,6 +435,13 @@ public class NetworkGraphScreen extends AbstractWidgetScreen {
         RenderSystem.disableScissor();
         renderWindow(stack, mouseX, mouseY, partialTick);
         renderLabel(stack, mouseX, mouseY, partialTick);
+
+        stack.pushPose();
+        stack.translate(leftPos + window.width() / 2 + graphX, topPos + window.height() / 2 + graphY, 0);
+        for (InputWidget widget : inputWidgets.stream().filter(widget -> !renderedWidgets.contains(widget)).toList()) {
+            widget.draw(stack, this, mx, my, partialTick);
+        }
+        stack.popPose();
     }
 
     public void renderConnection(PoseStack stack, int fromX, int fromY, int toX, int toY, int fromColor, int toColor) {

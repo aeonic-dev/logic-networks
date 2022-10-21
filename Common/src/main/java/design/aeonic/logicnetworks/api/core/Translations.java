@@ -77,6 +77,8 @@ public final class Translations {
     }
 
     public static final class Nodes {
+        public static final Component ANALOG_READ = Component.translatable("gui.logicnetworks.nodes.analog_read");
+        public static final Component ANALOG_WRITE = Component.translatable("gui.logicnetworks.nodes.analog_write");
         public static final Component ANALOG_INVERT = Component.translatable("gui.logicnetworks.nodes.analog_invert");
         public static final Component ANALOG_ADD = Component.translatable("gui.logicnetworks.nodes.analog_add");
         public static final Component ANALOG_SUBTRACT = Component.translatable("gui.logicnetworks.nodes.analog_subtract");
@@ -84,7 +86,8 @@ public final class Translations {
         public static final Component ANALOG_DIVIDE = Component.translatable("gui.logicnetworks.nodes.analog_divide");
         public static final Component ANALOG_MODULO = Component.translatable("gui.logicnetworks.nodes.analog_modulo");
 
-
+        public static final Component BOOLEAN_READ = Component.translatable("gui.logicnetworks.nodes.boolean_read");
+        public static final Component BOOLEAN_WRITE = Component.translatable("gui.logicnetworks.nodes.boolean_write");
         public static final Component BOOLEAN_INVERT = Component.translatable("gui.logicnetworks.nodes.boolean_invert");
         public static final Component BOOLEAN_AND = Component.translatable("gui.logicnetworks.nodes.boolean_and");
         public static final Component BOOLEAN_OR = Component.translatable("gui.logicnetworks.nodes.boolean_or");

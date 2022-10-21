@@ -19,7 +19,6 @@ import net.minecraft.world.MenuProvider;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.AbstractContainerMenu;
-import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 
@@ -54,9 +53,13 @@ public class NetworkAnchorBlockEntity extends BlockEntity implements MenuProvide
     }
 
     @Override
-    public void setRedstone(Direction side, int signal, int updateFlag) {
+    public void setRedstone(Direction side, int signal) {
+        if (level == null || level.isClientSide) return;
         redstoneSignals.put(side, signal);
-        if (updateFlag != Block.UPDATE_NONE) level.setBlock(getBlockPos(), getBlockState(), updateFlag);
+        setChanged();
+//        BlockPos relative = getBlockPos().relative(side);
+        level.updateNeighborsAt(getBlockPos(), getBlockState().getBlock());
+//        if (updateFlag != Block.UPDATE_NONE) level.setBlock(getBlockPos(), getBlockState(), updateFlag);
     }
 
     @Override
@@ -86,12 +89,23 @@ public class NetworkAnchorBlockEntity extends BlockEntity implements MenuProvide
     public void load(CompoundTag $$0) {
         super.load($$0);
         if ($$0.contains("Name", Tag.TAG_STRING)) name = $$0.getString("Name");
+
+        CompoundTag redstoneSignalTag = $$0.getCompound("Signals");
+        for (String key : redstoneSignalTag.getAllKeys()) {
+            redstoneSignals.put(Direction.byName(key), redstoneSignalTag.getInt(key));
+        }
     }
 
     @Override
     protected void saveAdditional(CompoundTag $$0) {
         super.saveAdditional($$0);
         $$0.putString("Name", name);
+
+        CompoundTag redstoneSignalTag = new CompoundTag();
+        for (Direction side : Direction.values()) {
+            redstoneSignalTag.putInt(side.getName(), getRedstone(side));
+        }
+        $$0.put("Signals", redstoneSignalTag);
     }
 
     @Nullable

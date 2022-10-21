@@ -160,7 +160,7 @@ public class NetworkAnchorMenu extends BaseContainerMenu<NetworkAnchorMenu> {
         @Override
         public void setChanged() {
             String literalName = getName();
-            String name = literalName.equals("") || literalName.equals("Network Anchor") ? Component.Serializer.toJson(Component.literal(literalName).withStyle(ChatFormatting.RESET)) : null;
+            String name = literalName.equals("") || literalName.equals("Network Anchor") ? null : Component.Serializer.toJson(Component.literal(literalName).withStyle(ChatFormatting.RESET));
             for (int i = 0; i < cache.length; i++) {
                 cache[i] = LinkingCardItem.create(getPos(), directions[i]);
                 if (name != null) cache[i].getOrCreateTagElement("display").putString("Name", name);

@@ -36,6 +36,14 @@ public class TabsInputWidget extends AbstractInputWidget {
         this.tabs = tabs;
     }
 
+    public int getSelected() {
+        return selected;
+    }
+
+    public void setSelected(int selected) {
+        this.selected = selected;
+    }
+
     @Override
     public boolean mouseDown(WidgetScreen screen, int mouseX, int mouseY, int button) {
         if (button == 0) {

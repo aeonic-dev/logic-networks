@@ -7,9 +7,13 @@ import design.aeonic.logicnetworks.api.screen.input.WidgetScreen;
 import design.aeonic.logicnetworks.api.screen.input.widgets.StringInputWidget;
 import design.aeonic.logicnetworks.api.screen.input.widgets.TabsInputWidget;
 import design.aeonic.logicnetworks.api.util.Texture;
+import net.minecraft.client.Minecraft;
+import net.minecraft.core.Direction;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.inventory.ContainerListener;
+import net.minecraft.world.phys.BlockHitResult;
+import org.apache.commons.lang3.ArrayUtils;
 
 import javax.annotation.Nullable;
 import java.util.List;
@@ -17,6 +21,7 @@ import java.util.List;
 public class NetworkAnchorScreen extends WidgetContainerScreen<NetworkAnchorMenu> {
     public static final Texture BACKGROUND = new Texture("logicnetworks:textures/gui/containers/network_anchor.png", 256, 256, 176, 142);
 
+    private final Direction[] directions = new Direction[]{Direction.UP, Direction.DOWN, Direction.NORTH, Direction.SOUTH, Direction.EAST, Direction.WEST};
     private final TabsInputWidget tabs = new TabsInputWidget(2, -14, 2, 1, this::onSelectTab,
             Translations.Side.UP, Translations.Side.DOWN, Translations.Side.NORTH, Translations.Side.SOUTH, Translations.Side.EAST, Translations.Side.WEST);
 
@@ -58,10 +63,14 @@ public class NetworkAnchorScreen extends WidgetContainerScreen<NetworkAnchorMenu
     @Override
     protected void init() {
         super.init();
-
         menu.addSlotListener(listener);
-
         addWidgets(tabs, nameWidget);
+
+        if (Minecraft.getInstance().hitResult instanceof BlockHitResult result) {
+            int index = ArrayUtils.indexOf(directions, result.getDirection());
+            tabs.setSelected(index);
+            onSelectTab(index);
+        }
     }
 
     @Override

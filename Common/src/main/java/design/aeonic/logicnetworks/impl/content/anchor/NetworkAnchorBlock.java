@@ -25,14 +25,21 @@ public class NetworkAnchorBlock extends BaseEntityBlock {
         return true;
     }
 
+//    @Override
+//    public int getDirectSignal(BlockState $$0, BlockGetter $$1, BlockPos $$2, Direction $$3) {
+//        return getSignal($$0, $$1, $$2, $$3);
+//    }
+
     @Override
     public int getSignal(BlockState $$0, BlockGetter $$1, BlockPos $$2, Direction $$3) {
         BlockEntity blockEntity = $$1.getBlockEntity($$2);
-        if (blockEntity instanceof NetworkAnchorBlockEntity) {
-            return ((NetworkAnchorBlockEntity) blockEntity).getRedstone($$3);
+        if (blockEntity instanceof NetworkAnchorBlockEntity anchor) {
+            return anchor.getRedstone($$3.getOpposite());
         }
         return 0;
     }
+
+
 
     @Override
     public InteractionResult use(BlockState state, Level level, BlockPos pos, Player player, InteractionHand hand, BlockHitResult res) {

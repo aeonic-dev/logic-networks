@@ -1,14 +1,16 @@
 {
+  "item.logicnetworks.linking_card": "Linking Card",
+
   "gui.logicnetworks.generic.ticks": "Ticks/operation",
   "gui.logicnetworks.generic.redstone_control": "Redstone control",
   "gui.logicnetworks.generic.clamps": "Clamps the output",
 
   "gui.logicnetworks.side.up": "U",
-    "gui.logicnetworks.side.down": "D",
-    "gui.logicnetworks.side.north": "N",
-    "gui.logicnetworks.side.south": "S",
-    "gui.logicnetworks.side.east": "E",
-    "gui.logicnetworks.side.west": "W",
+  "gui.logicnetworks.side.down": "D",
+  "gui.logicnetworks.side.north": "N",
+  "gui.logicnetworks.side.south": "S",
+  "gui.logicnetworks.side.east": "E",
+  "gui.logicnetworks.side.west": "W",
 
   "gui.logicnetworks.redstone_control.always": "Always active",
   "gui.logicnetworks.redstone_control.high": "Active with redstone signal",
@@ -31,6 +33,8 @@
   "gui.logicnetworks.network_controller.edit_network_tooltip": "Open the graph editor",
   "gui.logicnetworks.network_graph.title": "Network Graph",
 
+  "gui.logicnetworks.nodes.analog_read": "Analog Read",
+  "gui.logicnetworks.nodes.analog_write": "Analog Write",
   "gui.logicnetworks.nodes.analog_invert": "Analog Invert",
   "gui.logicnetworks.nodes.analog_add": "Analog Add",
   "gui.logicnetworks.nodes.analog_subtract": "Analog Subtract",
@@ -38,6 +42,8 @@
   "gui.logicnetworks.nodes.analog_divide": "Analog Divide",
   "gui.logicnetworks.nodes.analog_modulo": "Analog Modulo",
 
+  "gui.logicnetworks.nodes.digital_read": "Boolean Read",
+  "gui.logicnetworks.nodes.digital_write": "Boolean Write",
   "gui.logicnetworks.nodes.boolean_invert": "NOT",
   "gui.logicnetworks.nodes.boolean_and": "AND",
   "gui.logicnetworks.nodes.boolean_or": "OR",
