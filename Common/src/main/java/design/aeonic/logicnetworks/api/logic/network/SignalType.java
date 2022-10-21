@@ -1,12 +1,15 @@
 package design.aeonic.logicnetworks.api.logic.network;
 
+import design.aeonic.logicnetworks.api.logic.NetworkAnchor;
+import net.minecraft.core.Direction;
+
 /**
  * A type of signal that can be processed by a logic network.
  * ie: item containers, redstone, etc.<br><br>
  * One instance will exist for each type of signal and is registered at runtime.
  * @param <T> The underlying type of the signal's mutable value.
  */
-public class SignalType<T> {
+public abstract class SignalType<T> {
     public final Class<T> type;
     public final int color;
 
@@ -18,6 +21,17 @@ public class SignalType<T> {
         this.type = type;
         this.color = color;
     }
+
+    /**
+     * Writes to the world. The given position is actually the position of the network anchor that's currently writing;
+     * the side parameter is a given side relative to the network anchor block.
+     */
+    public abstract void write(NetworkAnchor anchor, Direction side, T value);
+
+    /**
+     * Reads from the world. See {@link #write(NetworkAnchor, Direction, Object)}
+     */
+    public abstract T read(NetworkAnchor anchor, Direction side);
 
     public SignalType<?>[] arrayOf() {
         return new SignalType<?>[]{this};
