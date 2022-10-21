@@ -28,8 +28,11 @@ public class StringField extends DataField<String> {
     @Override
     protected short[] encode(String value) {
         short[] data = new short[maxLength];
-        for (int i = 0; i < maxLength; i++) {
+        for (int i = 0; i < value.length(); i++) {
             data[i] = DataUtils.shortFromChar(value.charAt(i));
+        }
+        for (int i = value.length(); i < maxLength; i++) {
+            data[i] = DataUtils.shortFromChar('\0');
         }
         return data;
     }
@@ -40,7 +43,7 @@ public class StringField extends DataField<String> {
         for (int i = 0; i < data.length; i++) {
             chars[i] = DataUtils.charFromShort(data[i]);
         }
-        return new String(chars);
+        return new String(chars).replace("\0", "");
     }
 
     @Override
