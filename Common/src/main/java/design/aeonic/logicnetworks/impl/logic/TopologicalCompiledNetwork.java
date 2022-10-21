@@ -1,5 +1,6 @@
 package design.aeonic.logicnetworks.impl.logic;
 
+import design.aeonic.logicnetworks.api.logic.NetworkController;
 import design.aeonic.logicnetworks.api.logic.network.Edge;
 import design.aeonic.logicnetworks.api.logic.network.Network;
 import design.aeonic.logicnetworks.api.logic.network.node.Node;
@@ -20,7 +21,7 @@ public class TopologicalCompiledNetwork implements CompiledNetwork {
     }
 
     @Override
-    public void tick() {
+    public void tick(NetworkController controller) {
         for (List<Node<?>> layer : layers) {
             for (Node<?> node : layer) {
                 if (node instanceof SinkNode<?> sink) {
@@ -29,9 +30,9 @@ public class TopologicalCompiledNetwork implements CompiledNetwork {
                     for (Object obj : input) {
                         if (obj == null) return;
                     }
-                    sink.accept(input);
+                    sink.accept(controller, input);
                 } else if (node instanceof SourceNode<?> source){
-                    Object[] output = source.get();
+                    Object[] output = source.get(controller);
                     for (Edge edge: connections.get(node.getUUID())) {
                         inputBuffer.get(edge.getToNode())[edge.getToIndex()] = output[edge.getFromIndex()];
                     }
@@ -59,6 +60,7 @@ public class TopologicalCompiledNetwork implements CompiledNetwork {
         if (oldLayer != -1 && oldLayer < depth) layers.get(oldLayer).remove(node);
 
         layers.get(depth).add(node);
+        inputBuffer.put(node.getUUID(), new Object[node.getInputSlots().length]);
         Edge[] edges = network.getEdgesFrom(node).toArray(Edge[]::new);
         connections.put(node.getUUID(), edges);
 

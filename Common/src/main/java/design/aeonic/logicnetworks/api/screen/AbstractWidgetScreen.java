@@ -23,10 +23,6 @@ public abstract class AbstractWidgetScreen extends Screen implements WidgetScree
         super(component);
     }
 
-    public abstract int getLeftPos();
-
-    public abstract int getTopPos();
-
     @Override
     public void onClose() {
         inputWidgets.forEach(widget -> widget.onClose(this));
@@ -38,15 +34,15 @@ public abstract class AbstractWidgetScreen extends Screen implements WidgetScree
         super.render(stack, mouseX, mouseY, partialTick);
 
         stack.pushPose();
-        stack.translate(getLeftPos(), getTopPos(), 0);
+        stack.translate(getRenderLeftPos(), getRenderTopPos(), 0);
         for (InputWidget widget : inputWidgets) {
-            widget.draw(stack, this, mouseX - getLeftPos(), mouseY - getTopPos(), partialTick);
+            widget.draw(stack, this, mouseX - getRenderLeftPos(), mouseY - getRenderTopPos(), partialTick);
         }
         stack.popPose();
 
         InputWidget hovered = getHoveredWidget(mouseX, mouseY);
         if (hovered != null) {
-            var tooltip = hovered.getTooltip(this, mouseX - getLeftPos(), mouseY - getTopPos());
+            var tooltip = hovered.getTooltip(this, mouseX - getRenderLeftPos(), mouseY - getRenderTopPos());
             if (tooltip != null) renderTooltip(stack, mouseX, mouseY, tooltip);
         }
     }
@@ -73,14 +69,14 @@ public abstract class AbstractWidgetScreen extends Screen implements WidgetScree
     public boolean mouseClicked(double mouseX, double mouseY, int button) {
         InputWidget widget = getHoveredWidget((int) mouseX, (int) mouseY);
         if (widget != null && widget.isEnabled()) {
-            if (widget.mouseDown(this, (int) mouseX - getLeftPos(), (int) mouseY - getTopPos(), button)) return true;
+            if (widget.mouseDown(this, (int) mouseX - getRenderLeftPos(), (int) mouseY - getRenderTopPos(), button)) return true;
         } else if (button == 0) clearFocus(getFocusedWidget());
         return super.mouseClicked(mouseX, mouseY, button);
     }
 
     @Override
     public boolean mouseReleased(double mouseX, double mouseY, int button) {
-        if (inputWidgets.stream().anyMatch(widget -> widget.mouseUp(this, (int) mouseX - getLeftPos(), (int) mouseY - getTopPos(), button))) return true;
+        if (inputWidgets.stream().anyMatch(widget -> widget.mouseUp(this, (int) mouseX - getRenderLeftPos(), (int) mouseY - getRenderTopPos(), button))) return true;
         return super.mouseReleased(mouseX, mouseY, button);
     }
 
@@ -103,9 +99,9 @@ public abstract class AbstractWidgetScreen extends Screen implements WidgetScree
     @Override
     public boolean mouseScrolled(double mouseX, double mouseY, double scrollDelta) {
         InputWidget widget = getHoveredWidget((int) mouseX, (int) mouseY);
-        if (widget != null && widget.isEnabled() && widget.mouseScrolled(this, (int) mouseX - getLeftPos(), (int) mouseY - getTopPos(), scrollDelta)) return true;
+        if (widget != null && widget.isEnabled() && widget.mouseScrolled(this, (int) mouseX - getRenderLeftPos(), (int) mouseY - getRenderTopPos(), scrollDelta)) return true;
         else if (super.mouseScrolled(mouseX, mouseY, scrollDelta)) return true;
-        else return focusedWidget != null && focusedWidget.mouseScrolled(this, (int) mouseX - getLeftPos(), (int) mouseY - getTopPos(), scrollDelta);
+        else return focusedWidget != null && focusedWidget.mouseScrolled(this, (int) mouseX - getRenderLeftPos(), (int) mouseY - getRenderTopPos(), scrollDelta);
     }
 
     public void addWidgets(InputWidget... widgets) {
@@ -127,7 +123,7 @@ public abstract class AbstractWidgetScreen extends Screen implements WidgetScree
     }
 
     public InputWidget getHoveredWidget(int mouseX, int mouseY) {
-        return getWidgetAt(mouseX - getLeftPos(), mouseY - getTopPos());
+        return getWidgetAt(mouseX - getRenderLeftPos(), mouseY - getRenderTopPos());
     }
 
     @Nullable

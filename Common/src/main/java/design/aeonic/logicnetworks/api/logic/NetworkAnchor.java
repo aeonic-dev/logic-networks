@@ -17,7 +17,7 @@ public interface NetworkAnchor {
     /**
      * Janky redstone signal cache for per-side values.
      */
-    void setRedstone(Direction side, int signal, int updateFlag);
+    void setRedstone(Direction side, int signal);
 
     /**
      * Only use if you need access to a *different* signal. By default this just defers to {@link SignalType#read}.

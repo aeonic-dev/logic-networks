@@ -1,5 +1,6 @@
 package design.aeonic.logicnetworks.api.logic.network.node;
 
+import design.aeonic.logicnetworks.api.logic.NetworkController;
 import design.aeonic.logicnetworks.api.logic.network.NodeType;
 import design.aeonic.logicnetworks.api.logic.network.SignalType;
 import design.aeonic.logicnetworks.api.screen.input.InputWidget;
@@ -90,5 +91,11 @@ public interface Node<T extends Node<T>> {
     default void saveAdditional(CompoundTag tag) {}
 
     default void readAdditional(CompoundTag tag) {}
+
+    /**
+     * Called on the server after the network is reconstructed from a client's modification packet or from disk.
+     * As an example, this is used by anchor nodes to check their link status.
+     */
+    default void loadOnServer(NetworkController controller) {}
 
 }

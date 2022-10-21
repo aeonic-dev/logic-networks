@@ -1,5 +1,6 @@
 package design.aeonic.logicnetworks.api.logic.network.node;
 
+import design.aeonic.logicnetworks.api.logic.NetworkController;
 import design.aeonic.logicnetworks.api.logic.network.SignalType;
 import it.unimi.dsi.fastutil.ints.IntArrays;
 
@@ -8,7 +9,7 @@ public interface SourceNode<T extends SourceNode<T>> extends Node<T> {
     /**
      * Reads the signals of this source node, matching the descriptor returned from {@link #getOutputSlots()}.
      */
-    Object[] get();
+    Object[] get(NetworkController controller);
 
     @Override
     default int[] getInputPositions() {
@@ -17,6 +18,6 @@ public interface SourceNode<T extends SourceNode<T>> extends Node<T> {
 
     @Override
     default SignalType<?>[] getInputSlots() {
-        return null;
+        return new SignalType[0];
     }
 }
