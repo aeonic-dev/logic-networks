@@ -16,6 +16,22 @@ public interface WidgetScreen {
 
     @Nullable InputWidget getFocusedWidget();
 
+    /**
+     * You generally won't need this as the posestack is translated before rendering and mouse positions are relative
+     * to the screen's left position; however, if you're calling external rendering methods (such as from an {@link net.minecraft.client.renderer.entity.ItemRenderer})
+     * it might be useful.
+     * @return
+     */
+    int getRenderLeftPos();
+
+    /**
+     * You generally won't need this as the posestack is translated before rendering and mouse positions are relative
+     * to the screen's top position; however, if you're calling external rendering methods (such as from an {@link net.minecraft.client.renderer.entity.ItemRenderer})
+     * it might be useful.
+     * @return
+     */
+    int getRenderTopPos();
+
     default void setFocus(InputWidget widget) {
         if (getFocusedWidget() != null) getFocusedWidget().onLostFocus(this);
     }

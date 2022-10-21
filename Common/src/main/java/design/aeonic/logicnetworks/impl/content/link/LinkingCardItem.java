@@ -56,6 +56,7 @@ public class LinkingCardItem extends Item implements LinkCard {
         return pos == null ? "[]" : "[" + pos.getX() + ", " + pos.getY() + ", " + pos.getZ() + "]";
     }
 
+    @Override
     public void checkStatus(Level level, ItemStack stack) {
         if (level.isClientSide) return;
 

@@ -52,6 +52,16 @@ public abstract class WidgetContainerScreen<T extends AbstractContainerMenu> ext
         renderTooltip(stack, mouseX, mouseY);
     }
 
+    @Override
+    public int getRenderLeftPos() {
+        return leftPos;
+    }
+
+    @Override
+    public int getRenderTopPos() {
+        return topPos;
+    }
+
     public void renderTooltip(PoseStack stack, int mouseX, int mouseY, List<Component> tooltip) {
         int x = mouseX + 6;
         int y = mouseY + 12;
