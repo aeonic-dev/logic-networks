@@ -7,9 +7,9 @@ import com.mojang.blaze3d.vertex.PoseStack;
 import design.aeonic.logicnetworks.api.builtin.BuiltinNodeTypes;
 import design.aeonic.logicnetworks.api.core.Constants;
 import design.aeonic.logicnetworks.api.core.Translations;
-import design.aeonic.logicnetworks.api.logic.Edge;
-import design.aeonic.logicnetworks.api.logic.Network;
-import design.aeonic.logicnetworks.api.logic.node.Node;
+import design.aeonic.logicnetworks.api.logic.network.Edge;
+import design.aeonic.logicnetworks.api.logic.network.Network;
+import design.aeonic.logicnetworks.api.logic.network.node.Node;
 import design.aeonic.logicnetworks.api.screen.AbstractWidgetScreen;
 import design.aeonic.logicnetworks.api.screen.input.InputWidget;
 import design.aeonic.logicnetworks.api.util.RenderUtils;
@@ -224,6 +224,10 @@ public class NetworkGraphScreen extends AbstractWidgetScreen {
     public boolean mouseDragged(double mouseX, double mouseY, int key, double $$3, double $$4) {
         if (super.mouseDragged(mouseX, mouseY, key, $$3, $$4)) return true;
 
+        if (key == 0 && (dragging != null || connecting != null)) {
+
+        }
+
         if (key == 0 || (graphDragging && key == 1)) {
             int mx = adjustMouseX((int) mouseX);
             int my = adjustMouseY((int) mouseY);
@@ -332,21 +336,6 @@ public class NetworkGraphScreen extends AbstractWidgetScreen {
             renderConnection(stack, fromX, fromY, toX, toY, fromColor, toColor);
         });
 
-        // Dragging connection
-        if (connecting != null) {
-            if (connectingOutput) {
-                int fromX = connecting.getX() + connecting.getWidth();
-                int fromY = connecting.getY() + connecting.getOutputPositions()[connectingSocket];
-                int fromColor = connecting.getOutputSlots()[connectingSocket].color;
-                renderConnection(stack, fromX, fromY, mx, my, fromColor, fromColor);
-            } else {
-                int toX = connecting.getX();
-                int toY = connecting.getY() + connecting.getInputPositions()[connectingSocket];
-                int toColor = connecting.getInputSlots()[connectingSocket].color;
-                renderConnection(stack, mx, my, toX, toY, toColor, toColor);
-            }
-        }
-
         // Nodes
         List<Node<?>> nodes = network.getNodes().sorted(Comparator.comparingInt(node -> this.getNodeLayer(node.getUUID()))).toList();
         Node<?> hoveredNode = getNodeAt(mx, my);
@@ -358,12 +347,64 @@ public class NetworkGraphScreen extends AbstractWidgetScreen {
             else hoveredWidget = null;
         }
 
+        Node<?> hoveredSocketNode = null;
+        boolean hoveredOutput = false;
+        int hoveredSocket = -1;
+
         for (Node<?> node : nodes) {
             RenderUtils.drawRect(stack, node == hoveredNode ? NODE_HOVERED : NODE, node.getX(), node.getY(), getBlitOffset(), node.getWidth(), node.getHeight());
             font.draw(stack, node.getName(), node.getX() + 6, node.getY() + 5, 0x232323);
-            renderNodeSockets(stack, node, mx, my, partialTick);
+
+            int[] inputPositions = node.getInputPositions();
+            int[] outputPositions = node.getOutputPositions();
+            int inputHovered = getHoveredInputSocket(node, mx, my);
+            int outputHovered = getHoveredOutputSocket(node, mx, my);
+            boolean hovered;
+
+            float[] rgba = new float[4];
+            for (int i = 0; i < node.getInputSlots().length; i++) {
+                RenderUtils.unpackRGBA(node.getInputSlots()[i].color, rgba);
+                hovered = i == inputHovered && shouldHighlightSocket(node, false, i, mx, my);
+                if (hovered) {
+                    hoveredSocketNode = node;
+                    hoveredOutput = false;
+                    hoveredSocket = i;
+                }
+                renderSocket(stack, node.getX() - SOCKET.width() / 2, node.getY() + inputPositions[i] - SOCKET.height() / 2, rgba[0], rgba[1], rgba[2], rgba[3], hovered);
+            }
+            for (int i = 0; i < node.getOutputSlots().length; i++) {
+                RenderUtils.unpackRGBA(node.getOutputSlots()[i].color, rgba);
+                hovered = i == outputHovered && shouldHighlightSocket(node, true, i, mx, my);
+                if (hovered) {
+                    hoveredSocketNode = node;
+                    hoveredOutput = true;
+                    hoveredSocket = i;
+                }
+                renderSocket(stack, node.getX() + node.getWidth() - SOCKET.width() / 2 - 1, node.getY() + outputPositions[i] - SOCKET.height() / 2, rgba[0], rgba[1], rgba[2], rgba[3], hovered);
+            }
             for (InputWidget widget : nodeWidgets.get(node.getUUID())) {
                 widget.draw(stack, this, mx, my, partialTick);
+            }
+        }
+
+        // Dragging connection
+        if (connecting != null) {
+            if (connectingOutput) {
+                int fromX = connecting.getX() + connecting.getWidth();
+                int fromY = connecting.getY() + connecting.getOutputPositions()[connectingSocket];
+                int toX = (hoveredSocketNode == null || hoveredOutput) ? mx : hoveredSocketNode.getX();
+                int toY = (hoveredSocketNode == null || hoveredOutput) ? my : hoveredSocketNode.getY() + hoveredSocketNode.getInputPositions()[hoveredSocket];
+                int fromColor = connecting.getOutputSlots()[connectingSocket].color;
+                int toColor = (hoveredSocketNode == null || hoveredOutput) ? fromColor : hoveredSocketNode.getInputSlots()[hoveredSocket].color;
+                renderConnection(stack, fromX, fromY, toX, toY, fromColor, toColor);
+            } else {
+                int toX = connecting.getX();
+                int toY = connecting.getY() + connecting.getInputPositions()[connectingSocket];
+                int fromX = (hoveredSocketNode == null || !hoveredOutput) ? mx : hoveredSocketNode.getX() + hoveredSocketNode.getWidth();
+                int fromY = (hoveredSocketNode == null || !hoveredOutput) ? my : hoveredSocketNode.getY() + hoveredSocketNode.getOutputPositions()[hoveredSocket];
+                int toColor = connecting.getInputSlots()[connectingSocket].color;
+                int fromColor = (hoveredSocketNode == null || !hoveredOutput) ? toColor : hoveredSocketNode.getOutputSlots()[hoveredSocket].color;
+                renderConnection(stack, fromX, fromY, toX, toY, fromColor, toColor);
             }
         }
 
@@ -380,8 +421,7 @@ public class NetworkGraphScreen extends AbstractWidgetScreen {
     }
 
     public void renderConnection(PoseStack stack, int fromX, int fromY, int toX, int toY, int fromColor, int toColor) {
-        // TODO: Line color blending
-        RenderUtils.renderLine(stack, fromX, fromY - 1, toX, toY - 1, getBlitOffset(), fromColor);
+        RenderUtils.renderLine(stack, fromX + 2, fromY - 1, toX - 2, toY - 1, getBlitOffset(), fromColor, toColor);
     }
 
     public void renderBackgroundTiles(PoseStack stack, int mouseX, int mouseY, float partialTick) {
@@ -408,25 +448,6 @@ public class NetworkGraphScreen extends AbstractWidgetScreen {
 
     public void renderLabel(PoseStack stack, int mouseX, int mouseY, float partialTick) {
         font.draw(stack, title, leftPos + 8, topPos + 6, 0x404040);
-    }
-
-    public void renderNodeSockets(PoseStack stack, Node<?> node, int mouseX, int mouseY, float partialTick) {
-        int[] inputPositions = node.getInputPositions();
-        int[] outputPositions = node.getOutputPositions();
-        int inputHovered = getHoveredInputSocket(node, mouseX, mouseY);
-        int outputHovered = getHoveredOutputSocket(node, mouseX, mouseY);
-
-        float[] rgba = new float[4];
-        for (int i = 0; i < node.getInputSlots().length; i++) {
-            RenderUtils.unpackRGBA(node.getInputSlots()[i].color, rgba);
-            boolean hovered = i == inputHovered && shouldHighlightSocket(node, false, i, mouseX, mouseY);
-            renderSocket(stack, node.getX() - SOCKET.width() / 2, node.getY() + inputPositions[i] - SOCKET.height() / 2, rgba[0], rgba[1], rgba[2], rgba[3], hovered);
-        }
-        for (int i = 0; i < node.getOutputSlots().length; i++) {
-            RenderUtils.unpackRGBA(node.getOutputSlots()[i].color, rgba);
-            boolean hovered = i == outputHovered && shouldHighlightSocket(node, true, i, mouseX, mouseY);
-            renderSocket(stack, node.getX() + node.getWidth() - SOCKET.width() / 2 - 1, node.getY() + outputPositions[i] - SOCKET.height() / 2, rgba[0], rgba[1], rgba[2], rgba[3], hovered);
-        }
     }
 
     public boolean shouldHighlightSocket(Node<?> node, boolean isOutputSocket, int socket, int mx, int my) {
