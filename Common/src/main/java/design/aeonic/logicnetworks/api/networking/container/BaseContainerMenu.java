@@ -15,10 +15,11 @@ public abstract class BaseContainerMenu<T extends BaseContainerMenu<T>> extends 
         super(menuType, syncId);
         this.containerCount = containerCount;
         this.playerInventory = playerInventory;
-
-        addPlayerSlots();
     }
 
+    /**
+     * Not actually called automatically; just a convenience method.
+     */
     protected void addPlayerSlots() {
         int i;
         for (i = 0; i < 3; ++i) {

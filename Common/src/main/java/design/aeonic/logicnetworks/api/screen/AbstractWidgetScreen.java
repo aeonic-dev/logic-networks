@@ -144,11 +144,13 @@ public abstract class AbstractWidgetScreen extends Screen implements WidgetScree
 
     @Override
     public void setFocus(InputWidget widget) {
+        WidgetScreen.super.setFocus(widget);
         focusedWidget = widget;
     }
 
     @Override
     public void clearFocus(InputWidget widget) {
+        WidgetScreen.super.clearFocus(widget);
         if (focusedWidget == widget) {
             focusedWidget = null;
         }
