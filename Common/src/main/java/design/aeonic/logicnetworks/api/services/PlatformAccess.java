@@ -1,8 +1,10 @@
 package design.aeonic.logicnetworks.api.services;
 
+import design.aeonic.logicnetworks.api.networking.container.MovableSlot;
 import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.chat.Component;
+import net.minecraft.world.Container;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.inventory.MenuType;
@@ -17,6 +19,8 @@ public interface PlatformAccess {
     <T extends AbstractContainerMenu> MenuType<T> menuType(MenuSupplier<T> menuSupplier);
 
     <M extends AbstractContainerMenu, S extends AbstractContainerScreen<M>> void registerScreen(MenuType<M> menuType, ScreenSupplier<M, S> screenSupplier);
+
+    MovableSlot movableSlot(Container container, int index, int x, int y);
 
     @FunctionalInterface
     interface MenuSupplier<T extends AbstractContainerMenu> {
