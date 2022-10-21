@@ -7,8 +7,7 @@ import design.aeonic.logicnetworks.api.util.Texture;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.network.chat.Component;
-
-import java.awt.event.KeyEvent;
+import org.lwjgl.glfw.GLFW;
 
 public class ButtonInputWidget extends AbstractInputWidget {
     public static final Texture HIGHLIGHT = new Texture("logicnetworks:textures/gui/input_widgets.png", 64, 64, 12, 14, 0, 24);
@@ -72,7 +71,7 @@ public class ButtonInputWidget extends AbstractInputWidget {
 
     @Override
     public boolean keyDown(WidgetScreen screen, int keyCode, int scanCode, int modifiers) {
-        if (keyCode == KeyEvent.VK_SPACE) {
+        if (keyCode == GLFW.GLFW_KEY_SPACE) {
             if (Screen.hasShiftDown()) {
                 shiftAction.run();
             } else {
