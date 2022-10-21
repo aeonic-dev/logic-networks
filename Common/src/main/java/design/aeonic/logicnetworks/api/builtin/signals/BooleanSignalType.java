@@ -6,7 +6,6 @@ import design.aeonic.logicnetworks.api.logic.network.SignalType;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.world.level.Level;
-import net.minecraft.world.level.block.Block;
 
 public class BooleanSignalType extends SignalType<Boolean> {
     public BooleanSignalType(int color) {
@@ -17,7 +16,7 @@ public class BooleanSignalType extends SignalType<Boolean> {
     public void write(NetworkAnchor anchor, Direction side, Boolean value) {
         Level level = anchor.getLevel();
         BlockPos pos = anchor.getBlockPos();
-        anchor.setRedstone(side, value ? 15 : 0, Block.UPDATE_ALL);
+        anchor.setRedstone(side, value ? 15 : 0);
     }
 
     @Override

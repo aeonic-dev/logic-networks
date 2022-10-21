@@ -6,7 +6,6 @@ import design.aeonic.logicnetworks.api.logic.network.SignalType;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.world.level.Level;
-import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockState;
 
 public class AnalogSignalType extends SignalType<Integer> {
@@ -18,7 +17,7 @@ public class AnalogSignalType extends SignalType<Integer> {
     public void write(NetworkAnchor anchor, Direction side, Integer value) {
         Level level = anchor.getLevel();
         BlockPos pos = anchor.getBlockPos();
-        anchor.setRedstone(side, value, Block.UPDATE_ALL);
+        anchor.setRedstone(side, value);
     }
 
     @Override
