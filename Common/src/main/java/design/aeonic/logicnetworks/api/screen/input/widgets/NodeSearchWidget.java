@@ -161,9 +161,17 @@ public class NodeSearchWidget extends StringInputWidget {
     }
 
     public List<Map.Entry<String, NodeType<?>>> search(String query) {
+        String lower = query.toLowerCase();
         return nodeTypes.entrySet().stream()
-                .filter(entry -> entry.getKey().toLowerCase().contains(query.toLowerCase()) && filter.test(entry.getValue()))
+                .filter(entry -> entry.getKey().toLowerCase().contains(lower) && filter.test(entry.getValue()))
+                .sorted((m, n) -> compare(m, n, lower))
                 .toList();
+    }
+
+    private int compare(Map.Entry<String, ?> m, Map.Entry<String, ?> n, String query) {
+        if (m.getKey().equals(n.getKey())) return 0;
+        if (m.getKey().replace(" ", "").equals(query.replace(" ", ""))) return 1;
+        return -1;
     }
 
     @FunctionalInterface
