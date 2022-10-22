@@ -100,6 +100,7 @@ public class NodeSearchWidget extends StringInputWidget {
 
     @Override
     public boolean keyDown(WidgetScreen screen, int keyCode, int scanCode, int modifiers) {
+        selected = Mth.clamp(selected, 0, results.size() - 1);
         if (keyCode == GLFW.GLFW_KEY_UP) {
             selected = Mth.clamp(selected - 1, 0, results.size() - 1);
             return true;
