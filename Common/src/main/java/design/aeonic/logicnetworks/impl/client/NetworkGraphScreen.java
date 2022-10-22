@@ -128,10 +128,11 @@ public class NetworkGraphScreen extends AbstractWidgetScreen {
         if (minecraft.options.keyInventory.matches($$0, $$1)) {
             this.onClose();
         }
-        if ($$0 == GLFW.GLFW_KEY_DELETE) {
+        if ($$0 == GLFW.GLFW_KEY_DELETE || $$0 == GLFW.GLFW_KEY_BACKSPACE) {
             Node<?> node = getNodeAt(adjustMouseX(currentMouseX), adjustMouseY(currentMouseY));
             if (node != null) {
                 network.removeNode(node.getUUID());
+                network.getEdges().filter(edge -> edge.getFromNode().equals(node.getUUID()) || edge.getToNode().equals(node.getUUID())).forEach(network::removeEdge);
                 layerMap.remove(node.getUUID());
                 nodeWidgets.get(node.getUUID()).forEach(this::removeWidget);
                 nodeWidgets.removeAll(node.getUUID());
