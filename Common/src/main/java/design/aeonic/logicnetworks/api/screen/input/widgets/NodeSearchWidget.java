@@ -167,9 +167,8 @@ public class NodeSearchWidget extends StringInputWidget {
     }
 
     private int compare(Map.Entry<String, ?> m, Map.Entry<String, ?> n, String query) {
-        if (m.getKey().equals(n.getKey())) return 0;
         if (m.getKey().replace(" ", "").equals(query.replace(" ", ""))) return 1;
-        return -1;
+        return m.getKey().compareTo(n.getKey());
     }
 
     @FunctionalInterface
