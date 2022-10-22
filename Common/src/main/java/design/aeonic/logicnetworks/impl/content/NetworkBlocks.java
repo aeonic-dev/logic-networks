@@ -12,7 +12,7 @@ public final class NetworkBlocks {
             .of(Material.METAL).strength(5.0F, 6.0F).sound(SoundType.COPPER));
 
     public static final NetworkAnchorBlock NETWORK_ANCHOR = new NetworkAnchorBlock(Block.Properties
-            .of(Material.METAL).strength(5.0F, 6.0F).sound(SoundType.COPPER));
+            .of(Material.METAL).isRedstoneConductor(($, $$, $$$) -> true).strength(5.0F, 6.0F).sound(SoundType.COPPER));
 
     public static void register(Registrar<Block> registrar) {
         registrar.accept("network_controller", NETWORK_CONTROLLER);

@@ -8,6 +8,7 @@ import net.minecraft.world.MenuProvider;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.BaseEntityBlock;
+import net.minecraft.world.level.block.RenderShape;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityTicker;
 import net.minecraft.world.level.block.entity.BlockEntityType;
@@ -20,6 +21,11 @@ import javax.annotation.Nullable;
 public class NetworkControllerBlock extends BaseEntityBlock {
     public NetworkControllerBlock(BlockBehaviour.Properties properties) {
         super(properties);
+    }
+
+    @Override
+    public RenderShape getRenderShape(BlockState $$0) {
+        return RenderShape.MODEL;
     }
 
     @Override

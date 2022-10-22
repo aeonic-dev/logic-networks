@@ -8,13 +8,17 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.BaseEntityBlock;
+import net.minecraft.world.level.block.RenderShape;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.BlockHitResult;
+import net.minecraft.world.phys.shapes.CollisionContext;
+import net.minecraft.world.phys.shapes.VoxelShape;
 
 import javax.annotation.Nullable;
 
 public class NetworkAnchorBlock extends BaseEntityBlock {
+    private final VoxelShape shape = box(5, 5, 5, 11, 11, 11);
 
     public NetworkAnchorBlock(Properties properties) {
         super(properties);
@@ -25,10 +29,20 @@ public class NetworkAnchorBlock extends BaseEntityBlock {
         return true;
     }
 
-//    @Override
-//    public int getDirectSignal(BlockState $$0, BlockGetter $$1, BlockPos $$2, Direction $$3) {
-//        return getSignal($$0, $$1, $$2, $$3);
-//    }
+    @Override
+    public RenderShape getRenderShape(BlockState $$0) {
+        return RenderShape.MODEL;
+    }
+
+    @Override
+    public VoxelShape getShape(BlockState $$0, BlockGetter $$1, BlockPos $$2, CollisionContext $$3) {
+        return shape;
+    }
+
+    @Override
+    public VoxelShape getVisualShape(BlockState $$0, BlockGetter $$1, BlockPos $$2, CollisionContext $$3) {
+        return shape;
+    }
 
     @Override
     public int getSignal(BlockState $$0, BlockGetter $$1, BlockPos $$2, Direction $$3) {
