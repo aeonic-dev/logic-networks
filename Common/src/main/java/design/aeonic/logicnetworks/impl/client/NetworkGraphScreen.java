@@ -132,7 +132,11 @@ public class NetworkGraphScreen extends AbstractWidgetScreen {
             Node<?> node = getNodeAt(adjustMouseX(currentMouseX), adjustMouseY(currentMouseY));
             if (node != null) {
                 network.removeNode(node.getUUID());
-                network.getEdges().filter(edge -> edge.getFromNode().equals(node.getUUID()) || edge.getToNode().equals(node.getUUID())).forEach(network::removeEdge);
+                network.getEdges().toList().forEach(edge -> {
+                    if (edge.getFromNode().equals(node.getUUID()) || edge.getToNode().equals(node.getUUID())) {
+                        network.removeEdge(edge);
+                    }
+                });
                 layerMap.remove(node.getUUID());
                 nodeWidgets.get(node.getUUID()).forEach(this::removeWidget);
                 nodeWidgets.removeAll(node.getUUID());
