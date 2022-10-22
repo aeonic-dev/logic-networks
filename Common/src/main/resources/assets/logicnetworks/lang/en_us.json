@@ -1,4 +1,6 @@
 {
+  "block.logicnetworks.network_anchor": "Network Anchor",
+  "block.logicnetworks.network_controller": "Network Controller",
   "item.logicnetworks.linking_card": "Linking Card",
 
   "gui.logicnetworks.generic.ticks": "Ticks/operation",

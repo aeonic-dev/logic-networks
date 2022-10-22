@@ -1,0 +1,7 @@
+{
+  "variants": {
+    "": {
+      "model": "logicnetworks:block/network_anchor"
+    }
+  }
+}
