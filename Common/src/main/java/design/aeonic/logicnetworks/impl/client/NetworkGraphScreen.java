@@ -4,7 +4,6 @@ import com.google.common.collect.HashMultimap;
 import com.google.common.collect.Multimap;
 import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.PoseStack;
-import design.aeonic.logicnetworks.api.builtin.BuiltinNodeTypes;
 import design.aeonic.logicnetworks.api.core.Constants;
 import design.aeonic.logicnetworks.api.core.Translations;
 import design.aeonic.logicnetworks.api.logic.network.Edge;
@@ -12,6 +11,7 @@ import design.aeonic.logicnetworks.api.logic.network.Network;
 import design.aeonic.logicnetworks.api.logic.network.node.Node;
 import design.aeonic.logicnetworks.api.screen.AbstractWidgetScreen;
 import design.aeonic.logicnetworks.api.screen.input.InputWidget;
+import design.aeonic.logicnetworks.api.screen.input.widgets.NodeSearchWidget;
 import design.aeonic.logicnetworks.api.util.RenderUtils;
 import design.aeonic.logicnetworks.api.util.Texture;
 import net.minecraft.client.Minecraft;
@@ -52,6 +52,8 @@ public class NetworkGraphScreen extends AbstractWidgetScreen {
     private int graphY = 0;
     private float graphScale = 1;
 
+    private int currentMouseX = 0;
+    private int currentMouseY = 0;
     private int lastMouseX = 0;
     private int lastMouseY = 0;
     private int dragMouseX = 0;
@@ -78,16 +80,6 @@ public class NetworkGraphScreen extends AbstractWidgetScreen {
         this.leftPos = (this.width - window.width()) / 2;
         this.topPos = (this.height - window.height()) / 2;
 
-        if (network.getNodes().findAny().isEmpty()) {
-            addNode(BuiltinNodeTypes.ANALOG_READ.createNode(UUID.randomUUID(), 0, -100));
-            addNode(BuiltinNodeTypes.ANALOG_READ.createNode(UUID.randomUUID(), 0, -100));
-            addNode(BuiltinNodeTypes.ANALOG_WRITE.createNode(UUID.randomUUID(), 100, -100));
-            addNode(BuiltinNodeTypes.ANALOG_ADD.createNode(UUID.randomUUID(), 0, 0));
-            addNode(BuiltinNodeTypes.ANALOG_INVERT.createNode(UUID.randomUUID(), 50, 0));
-        }
-//        addNode(BuiltinNodeTypes.BOOLEAN_AND.createNode(UUID.randomUUID(), 50, 50));
-//        addNode(BuiltinNodeTypes.BOOLEAN_XNOR.createNode(UUID.randomUUID(), 100, 50));
-
         network.getNodes().forEach(node -> {
             int x = node.getX();
             int y = node.getY();
@@ -104,6 +96,13 @@ public class NetworkGraphScreen extends AbstractWidgetScreen {
     public void addNode(Node<?> node) {
         network.addNode(node);
         layerMap.put(node.getUUID(), layerMap.values().stream().min(Comparator.naturalOrder()).orElse(0) - 1);
+        node.getInputWidgets().forEach(widget -> {
+            widget.setX(node.getX() + widget.getX());
+            widget.setY(node.getY() + widget.getY());
+            // Add to the default widget list for interactions; actually only rendered by the widget multimap
+            addWidget(widget);
+            nodeWidgets.put(node.getUUID(), widget);
+        });
     }
 
     @Override
@@ -129,7 +128,29 @@ public class NetworkGraphScreen extends AbstractWidgetScreen {
         if (minecraft.options.keyInventory.matches($$0, $$1)) {
             this.onClose();
         }
+        if ($$0 == GLFW.GLFW_KEY_DELETE) {
+            Node<?> node = getNodeAt(adjustMouseX(currentMouseX), adjustMouseY(currentMouseY));
+            if (node != null) {
+                network.removeNode(node.getUUID());
+                layerMap.remove(node.getUUID());
+                nodeWidgets.get(node.getUUID()).forEach(this::removeWidget);
+                nodeWidgets.removeAll(node.getUUID());
+            }
+        } else if ($$0 == GLFW.GLFW_KEY_SPACE) {
+            int mx = currentMouseX - getRenderLeftPos();
+            int my = currentMouseY - getRenderTopPos();
+            addWidget(NodeSearchWidget.create(this, mx, my, nodeType -> {
+                if (nodeType != null) addNode(nodeType.createNode(UUID.randomUUID(), mx, my));
+            }, $ -> true));
+        }
         return true;
+    }
+
+    @Override
+    public void mouseMoved(double $$0, double $$1) {
+        super.mouseMoved($$0, $$1);
+        currentMouseX = (int) $$0;
+        currentMouseY = (int) $$1;
     }
 
     @Override

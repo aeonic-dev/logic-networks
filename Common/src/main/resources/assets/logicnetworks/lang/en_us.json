@@ -42,8 +42,8 @@
   "gui.logicnetworks.nodes.analog_divide": "Analog Divide",
   "gui.logicnetworks.nodes.analog_modulo": "Analog Modulo",
 
-  "gui.logicnetworks.nodes.digital_read": "Boolean Read",
-  "gui.logicnetworks.nodes.digital_write": "Boolean Write",
+  "gui.logicnetworks.nodes.boolean_read": "Boolean Read",
+  "gui.logicnetworks.nodes.boolean_write": "Boolean Write",
   "gui.logicnetworks.nodes.boolean_invert": "NOT",
   "gui.logicnetworks.nodes.boolean_and": "AND",
   "gui.logicnetworks.nodes.boolean_or": "OR",

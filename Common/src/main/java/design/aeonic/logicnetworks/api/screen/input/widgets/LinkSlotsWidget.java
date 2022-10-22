@@ -41,6 +41,7 @@ public class LinkSlotsWidget extends AbstractInputWidget {
             int highlighted = getHighlighted(mouseX, mouseY);
             if (highlighted != -1) {
                 onSelect.accept(itemStacks.get(highlighted));
+                playClickSound();
             }
             return true;
         }
