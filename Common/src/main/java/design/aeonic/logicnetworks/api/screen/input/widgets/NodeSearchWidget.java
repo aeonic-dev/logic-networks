@@ -9,14 +9,10 @@ import design.aeonic.logicnetworks.api.screen.input.WidgetScreen;
 import design.aeonic.logicnetworks.api.util.Texture;
 import net.minecraft.client.Minecraft;
 import net.minecraft.util.Mth;
-import org.apache.commons.lang3.ArrayUtils;
 import org.lwjgl.glfw.GLFW;
 
 import javax.annotation.Nullable;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.UUID;
+import java.util.*;
 import java.util.function.Predicate;
 
 public class NodeSearchWidget extends StringInputWidget {
@@ -44,12 +40,14 @@ public class NodeSearchWidget extends StringInputWidget {
 
     public static NodeSearchWidget createForInput(WidgetScreen screen, int x, int y, SelectCallback callback, SignalType<?> inputType) {
         setup();
-        return create(screen, x, y, callback, type -> ArrayUtils.contains(nodeInstances.get(type).getInputSlots(), inputType));
+        return create(screen, x, y, callback, type -> Arrays.stream(nodeInstances.get(type).getInputSlots()).anyMatch(
+                slot -> slot.canConnect(inputType)));
     }
 
     public static NodeSearchWidget createForOutput(WidgetScreen screen, int x, int y, SelectCallback callback, SignalType<?> outputType) {
         setup();
-        return create(screen, x, y, callback, type -> ArrayUtils.contains(nodeInstances.get(type).getOutputSlots(), outputType));
+        return create(screen, x, y, callback, type -> Arrays.stream(nodeInstances.get(type).getOutputSlots()).anyMatch(
+                slot -> slot.canConnect(outputType)));
     }
 
     public static NodeSearchWidget create(WidgetScreen screen, int x, int y, SelectCallback callback, Predicate<NodeType<?>> filter) {
