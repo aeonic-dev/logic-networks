@@ -91,6 +91,7 @@ public class NetworkAnchorScreen extends WidgetContainerScreen<NetworkAnchorMenu
 
     @Override
     protected void renderBg(PoseStack var1, float var2, int var3, int var4) {
+        renderBackground(var1, 0);
         BACKGROUND.draw(var1, leftPos, topPos, getBlitOffset());
     }
 

@@ -378,6 +378,7 @@ public class NetworkGraphScreen extends AbstractWidgetScreen {
 
     @Override
     public void render(PoseStack stack, int mouseX, int mouseY, float partialTick) {
+        renderBackground(stack, 0);
         if (dragging != null || connecting != null) {
             if (mouseX <= leftPos + boundLowerX + 20) graphX += 5;
             if (mouseX >= leftPos + boundUpperX - 20) graphX -= 5;
@@ -468,6 +469,15 @@ public class NetworkGraphScreen extends AbstractWidgetScreen {
             }
         }
 
+        if (hoveredWidget != null) {
+            // TODO: Only render the top-level widget; only here because that wasn't working
+            var tooltip = hoveredWidget.getTooltip(this, mx, my);
+            if (tooltip != null) {
+                Constants.LOG.info("Rendering tooltip: {}", tooltip);
+                renderTooltip(stack, mx, my, tooltip);
+            }
+        }
+
         // Dragging connection
         if (connecting != null) {
             if (connectingOutput) {
@@ -490,11 +500,6 @@ public class NetworkGraphScreen extends AbstractWidgetScreen {
         }
 
         stack.popPose();
-
-        if (hoveredWidget != null) {
-            var tooltip = hoveredWidget.getTooltip(this, mx, my);
-            if (tooltip != null) renderTooltip(stack, mouseX, mouseY, tooltip);
-        }
 
         RenderSystem.disableScissor();
         renderWindow(stack, mouseX, mouseY, partialTick);

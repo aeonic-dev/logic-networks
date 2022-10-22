@@ -102,17 +102,13 @@ public class NetworkControllerScreen extends WidgetContainerScreen<NetworkContro
 
     @Override
     protected void renderBg(PoseStack var1, float var2, int var3, int var4) {
+        renderBackground(var1, 0);
         BACKGROUND.draw(var1, leftPos, topPos, 0);
-//        redstoneControlInputWidget.setValue(menu.getRedstoneControl());
-//        ticksPerOperationInput.setValue(menu.getTicksPerOperation());
     }
 
     @Override
     protected void renderLabels(PoseStack $$0, int $$1, int $$2) {
         font.draw($$0, this.title, (float)this.titleLabelX, (float)this.titleLabelY, 0x404040);
-
-//        drawNextTo($$0, redstoneControlInputWidget, Translations.InputLabels.REDSTONE_CONTROL, 3, 0, 0x555555);
-//        drawNextTo($$0, ticksPerOperationInput, Translations.InputLabels.TICKS, 3, 0, 0x555555);
     }
 
     protected void drawNextTo(PoseStack stack, InputWidget widget, Component label, int offsetX, int offsetY, int color) {
