@@ -41,6 +41,7 @@
 
   "gui.logicnetworks.nodes.analog_read": "Analog Read",
   "gui.logicnetworks.nodes.analog_write": "Analog Write",
+  "gui.logicnetworks.nodes.analog_constant": "Analog Constant",
   "gui.logicnetworks.nodes.analog_invert": "Analog Invert",
   "gui.logicnetworks.nodes.analog_add": "Analog Add",
   "gui.logicnetworks.nodes.analog_subtract": "Analog Subtract",
@@ -50,6 +51,7 @@
 
   "gui.logicnetworks.nodes.boolean_read": "Boolean Read",
   "gui.logicnetworks.nodes.boolean_write": "Boolean Write",
+    "gui.logicnetworks.nodes.boolean_constant": "Boolean Constant",
   "gui.logicnetworks.nodes.boolean_invert": "NOT",
   "gui.logicnetworks.nodes.boolean_and": "AND",
   "gui.logicnetworks.nodes.boolean_or": "OR",

@@ -24,8 +24,9 @@ public class AnalogSignalType extends SignalType<Integer> {
     public Integer read(NetworkAnchor anchor, Direction side) {
         Level level = anchor.getLevel();
         BlockPos pos = anchor.getBlockPos();
-        BlockState state = level.getBlockState(pos);
-        return state.hasAnalogOutputSignal() ? state.getAnalogOutputSignal(level, pos) : level.getSignal(pos, side);
+        BlockPos relative = pos.relative(side);
+        BlockState relativeState = level.getBlockState(relative);
+        return relativeState.hasAnalogOutputSignal() ? relativeState.getAnalogOutputSignal(level, relative) : level.getSignal(pos, side);
     }
 
     @Override

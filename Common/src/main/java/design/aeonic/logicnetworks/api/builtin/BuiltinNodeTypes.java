@@ -10,6 +10,7 @@ import net.minecraft.resources.ResourceLocation;
 public final class BuiltinNodeTypes {
     public static final NodeType<AnalogReadNode> ANALOG_READ = new BaseNodeType<>(AnalogReadNode::new);
     public static final NodeType<AnalogWriteNode> ANALOG_WRITE = new BaseNodeType<>(AnalogWriteNode::new);
+    public static final NodeType<AnalogConstantNode> ANALOG_CONSTANT = new BaseNodeType<>(AnalogConstantNode::new);
     public static final NodeType<AnalogInvertNode> ANALOG_INVERT = new BaseNodeType<>(AnalogInvertNode::new);
     public static final NodeType<AnalogAddNode> ANALOG_ADD = new BaseNodeType<>(AnalogAddNode::new);
     public static final NodeType<AnalogSubtractNode> ANALOG_SUBTRACT = new BaseNodeType<>(AnalogSubtractNode::new);
@@ -18,6 +19,7 @@ public final class BuiltinNodeTypes {
 
     public static final NodeType<BooleanReadNode> BOOLEAN_READ = new BaseNodeType<>(BooleanReadNode::new);
     public static final NodeType<BooleanWriteNode> BOOLEAN_WRITE = new BaseNodeType<>(BooleanWriteNode::new);
+    public static final NodeType<BooleanConstantNode> BOOLEAN_CONSTANT = new BaseNodeType<>(BooleanConstantNode::new);
     public static final NodeType<BooleanLogicNode> BOOLEAN_NOT = new BaseNodeType<>(BooleanLogicNode.Not::new);
     public static final NodeType<BooleanLogicNode> BOOLEAN_AND = new BaseNodeType<>(BooleanLogicNode.And::new);
     public static final NodeType<BooleanLogicNode> BOOLEAN_OR = new BaseNodeType<>(BooleanLogicNode.Or::new);
@@ -29,6 +31,7 @@ public final class BuiltinNodeTypes {
     public static void register() {
         CommonRegistries.NODE_TYPES.register(new ResourceLocation(Constants.MOD_ID, "analog_read"), ANALOG_READ);
         CommonRegistries.NODE_TYPES.register(new ResourceLocation(Constants.MOD_ID, "analog_write"), ANALOG_WRITE);
+        CommonRegistries.NODE_TYPES.register(new ResourceLocation(Constants.MOD_ID, "analog_constant"), ANALOG_CONSTANT);
         CommonRegistries.NODE_TYPES.register(new ResourceLocation(Constants.MOD_ID, "analog_invert"), ANALOG_INVERT);
         CommonRegistries.NODE_TYPES.register(new ResourceLocation(Constants.MOD_ID, "analog_add"), ANALOG_ADD);
         CommonRegistries.NODE_TYPES.register(new ResourceLocation(Constants.MOD_ID, "analog_subtract"), ANALOG_SUBTRACT);
@@ -37,6 +40,7 @@ public final class BuiltinNodeTypes {
 
         CommonRegistries.NODE_TYPES.register(new ResourceLocation(Constants.MOD_ID, "boolean_read"), BOOLEAN_READ);
         CommonRegistries.NODE_TYPES.register(new ResourceLocation(Constants.MOD_ID, "boolean_write"), BOOLEAN_WRITE);
+        CommonRegistries.NODE_TYPES.register(new ResourceLocation(Constants.MOD_ID, "boolean_constant"), BOOLEAN_CONSTANT);
         CommonRegistries.NODE_TYPES.register(new ResourceLocation(Constants.MOD_ID, "boolean_not"), BOOLEAN_NOT);
         CommonRegistries.NODE_TYPES.register(new ResourceLocation(Constants.MOD_ID, "boolean_and"), BOOLEAN_AND);
         CommonRegistries.NODE_TYPES.register(new ResourceLocation(Constants.MOD_ID, "boolean_or"), BOOLEAN_OR);
