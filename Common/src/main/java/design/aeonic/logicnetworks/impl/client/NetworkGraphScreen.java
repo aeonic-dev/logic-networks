@@ -224,18 +224,56 @@ public class NetworkGraphScreen extends AbstractWidgetScreen {
                 int mx = adjustMouseX((int) mouseX);
                 int my = adjustMouseY((int) mouseY);
 
+                boolean connected = false;
                 for (Node<?> node : network.getNodes().toList()) {
                     int inputSocket = getHoveredInputSocket(node, mx, my);
                     if (inputSocket != -1 && connectingOutput) {
                         // Network validates edges for us; nothing happens if we pass an invalid edge
                         network.addEdge(Edge.of(connecting, connectingSocket, node, inputSocket));
+                        connected = true;
                         break;
                     } else if (!connectingOutput) {
                         int outputSocket = getHoveredOutputSocket(node, mx, my);
                         if (outputSocket != -1) {
                             network.addEdge(Edge.of(node, outputSocket, connecting, connectingSocket));
+                            connected = true;
                             break;
                         }
+                    }
+                }
+                if (!connected) {
+                    final Node<?> localConnecting = connecting;
+                    final int localConnectingSocket = connectingSocket;
+                    if (connectingOutput) {
+                        addWidget(NodeSearchWidget.createForInput(this, mx, my, nodeType -> {
+                            if (nodeType != null) {
+                                var node = nodeType.createNode(UUID.randomUUID(), mx, my);
+                                int index = 0;
+                                for (int i = 0; i < node.getInputSlots().length; i++) {
+                                    if (localConnecting.getOutputSlots()[localConnectingSocket].canConnect(node.getInputSlots()[i])) {
+                                        index = i;
+                                        break;
+                                    }
+                                }
+                                addNode(node);
+                                network.addEdge(Edge.of(localConnecting, localConnectingSocket, node, index));
+                            }
+                        }, connecting.getOutputSlots()[connectingSocket]));
+                    } else {
+                        addWidget(NodeSearchWidget.createForOutput(this, mx, my, nodeType -> {
+                            if (nodeType != null) {
+                                var node = nodeType.createNode(UUID.randomUUID(), mx, my);
+                                int index = 0;
+                                for (int i = 0; i < node.getOutputSlots().length; i++) {
+                                    if (node.getOutputSlots()[i].canConnect(localConnecting.getInputSlots()[localConnectingSocket])) {
+                                        index = i;
+                                        break;
+                                    }
+                                }
+                                addNode(node);
+                                network.addEdge(Edge.of(node, index, localConnecting, localConnectingSocket));
+                            }
+                        }, connecting.getInputSlots()[connectingSocket]));
                     }
                 }
                 connecting = null;
