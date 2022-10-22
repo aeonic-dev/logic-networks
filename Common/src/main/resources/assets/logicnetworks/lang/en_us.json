@@ -7,6 +7,7 @@
   "block.logicnetworks.network_controller": "Network Controller",
   "item.logicnetworks.linking_card": "Linking Card",
 
+  "gui.logicnetworks.generic.constant": "Constant input",
   "gui.logicnetworks.generic.ticks": "Ticks/operation",
   "gui.logicnetworks.generic.redstone_control": "Redstone control",
   "gui.logicnetworks.generic.clamps": "Clamps the output",
@@ -51,7 +52,7 @@
 
   "gui.logicnetworks.nodes.boolean_read": "Boolean Read",
   "gui.logicnetworks.nodes.boolean_write": "Boolean Write",
-    "gui.logicnetworks.nodes.boolean_constant": "Boolean Constant",
+  "gui.logicnetworks.nodes.boolean_constant": "Boolean Constant",
   "gui.logicnetworks.nodes.boolean_invert": "NOT",
   "gui.logicnetworks.nodes.boolean_and": "AND",
   "gui.logicnetworks.nodes.boolean_or": "OR",

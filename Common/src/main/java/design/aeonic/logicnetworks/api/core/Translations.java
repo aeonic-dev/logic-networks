@@ -10,6 +10,7 @@ import java.util.function.Function;
 
 public final class Translations {
     public static final class Generic {
+        public static final Component CONSTANT = Component.translatable("gui.logicnetworks.generic.constant");
         public static final Component TICKS = Component.translatable("gui.logicnetworks.generic.ticks");
         public static final Component REDSTONE_CONTROL = Component.translatable("gui.logicnetworks.generic.redstone_control");
         public static final Component CLAMPS = Component.translatable("gui.logicnetworks.generic.clamps");

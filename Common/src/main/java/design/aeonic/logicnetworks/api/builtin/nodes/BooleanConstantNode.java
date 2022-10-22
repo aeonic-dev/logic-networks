@@ -7,6 +7,7 @@ import design.aeonic.logicnetworks.api.logic.network.NodeType;
 import design.aeonic.logicnetworks.api.logic.network.SignalType;
 import design.aeonic.logicnetworks.api.logic.network.node.base.AbstractSourceNode;
 import design.aeonic.logicnetworks.api.screen.input.InputWidget;
+import design.aeonic.logicnetworks.api.screen.input.WidgetScreen;
 import design.aeonic.logicnetworks.api.screen.input.widgets.CheckboxInputWidget;
 import net.minecraft.client.Minecraft;
 import net.minecraft.nbt.CompoundTag;
@@ -26,7 +27,12 @@ public class BooleanConstantNode extends AbstractSourceNode<BooleanConstantNode>
 
     @Override
     public List<InputWidget> getInputWidgets() {
-        return List.of(input = new CheckboxInputWidget(6, 15, value));
+        return List.of(input = new CheckboxInputWidget(6, 15, value) {
+            @Override
+            public List<Component> getTooltip(WidgetScreen screen, int mouseX, int mouseY) {
+                return List.of(Translations.Generic.CONSTANT);
+            }
+        });
     }
 
     @Override
