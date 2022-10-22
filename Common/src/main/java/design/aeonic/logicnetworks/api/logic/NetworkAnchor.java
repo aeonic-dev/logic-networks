@@ -3,6 +3,7 @@ package design.aeonic.logicnetworks.api.logic;
 import design.aeonic.logicnetworks.api.logic.network.SignalType;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.nbt.CompoundTag;
 import net.minecraft.world.level.Level;
 
 /**
@@ -10,9 +11,9 @@ import net.minecraft.world.level.Level;
  */
 public interface NetworkAnchor {
 
-    Level getLevel();
+    Level getAnchorLevel();
 
-    BlockPos getBlockPos();
+    BlockPos getAnchorPos();
 
     /**
      * Janky redstone signal cache for per-side values.
@@ -28,4 +29,15 @@ public interface NetworkAnchor {
      * Only use if you need access to a *different* signal. By default this just defers to {@link SignalType#write}.
      */
     <T> void write(Direction side, SignalType<T> type, T value);
+
+    /**
+     * An extension applied per-platform for extra functionality. IE on Forge, this caches capabilities.
+     * Used to avoid registering different block entity classes on either platform.
+     */
+    interface Extension {
+
+        void deserialize(CompoundTag tag);
+
+        void serialize(CompoundTag tag);
+    }
 }

@@ -42,7 +42,7 @@ public abstract class AnchorSinkNode<T extends AnchorSinkNode<T>> extends Abstra
     @Override
     public void accept(NetworkController controller, Object... inputs) {
         if (linkStack != null && !linkStack.isEmpty() && linkStack.getItem() instanceof LinkCard item) {
-            if (item.getLinkStatus(linkStack) == LinkStatus.VALID && controller.getLevel().getBlockEntity(item.getLink(linkStack)) instanceof NetworkAnchor anchor) {
+            if (item.getLinkStatus(linkStack) == LinkStatus.VALID && controller.getControllerLevel().getBlockEntity(item.getLink(linkStack)) instanceof NetworkAnchor anchor) {
                 for (int i = 0; i < getInputSlots().length; i++) {
                     writeSingle(anchor, item.getDirection(linkStack), getInputSlots()[i], inputs[i]);
                 }
@@ -70,6 +70,6 @@ public abstract class AnchorSinkNode<T extends AnchorSinkNode<T>> extends Abstra
 
     @Override
     public void loadOnServer(NetworkController controller) {
-        if (linkStack != null && linkStack.getItem() instanceof LinkCard card) card.checkStatus(controller.getLevel(), linkStack);
+        if (linkStack != null && linkStack.getItem() instanceof LinkCard card) card.checkStatus(controller.getControllerLevel(), linkStack);
     }
 }

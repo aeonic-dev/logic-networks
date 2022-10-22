@@ -15,15 +15,15 @@ public class AnalogSignalType extends SignalType<Integer> {
 
     @Override
     public void write(NetworkAnchor anchor, Direction side, Integer value) {
-        Level level = anchor.getLevel();
-        BlockPos pos = anchor.getBlockPos();
+        Level level = anchor.getAnchorLevel();
+        BlockPos pos = anchor.getAnchorPos();
         anchor.setRedstone(side, value);
     }
 
     @Override
     public Integer read(NetworkAnchor anchor, Direction side) {
-        Level level = anchor.getLevel();
-        BlockPos pos = anchor.getBlockPos();
+        Level level = anchor.getAnchorLevel();
+        BlockPos pos = anchor.getAnchorPos();
         BlockPos relative = pos.relative(side);
         BlockState relativeState = level.getBlockState(relative);
         return relativeState.hasAnalogOutputSignal() ? relativeState.getAnalogOutputSignal(level, relative) : level.getSignal(pos, side);

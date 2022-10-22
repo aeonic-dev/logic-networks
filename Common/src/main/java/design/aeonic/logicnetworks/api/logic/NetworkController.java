@@ -8,5 +8,5 @@ public interface NetworkController {
 
     void setNetwork(Network network);
 
-    Level getLevel();
+    Level getControllerLevel();
 }

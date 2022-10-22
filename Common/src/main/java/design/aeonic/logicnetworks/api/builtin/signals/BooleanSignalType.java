@@ -14,14 +14,14 @@ public class BooleanSignalType extends SignalType<Boolean> {
 
     @Override
     public void write(NetworkAnchor anchor, Direction side, Boolean value) {
-        Level level = anchor.getLevel();
-        BlockPos pos = anchor.getBlockPos();
+        Level level = anchor.getAnchorLevel();
+        BlockPos pos = anchor.getAnchorPos();
         anchor.setRedstone(side, value ? 15 : 0);
     }
 
     @Override
     public Boolean read(NetworkAnchor anchor, Direction side) {
-        return anchor.getLevel().getSignal(anchor.getBlockPos(), side) > 0;
+        return anchor.getAnchorLevel().getSignal(anchor.getAnchorPos(), side) > 0;
     }
 
     @Override

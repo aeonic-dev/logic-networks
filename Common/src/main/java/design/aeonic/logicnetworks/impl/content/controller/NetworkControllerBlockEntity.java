@@ -23,6 +23,7 @@ import net.minecraft.world.MenuProvider;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.AbstractContainerMenu;
+import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
@@ -39,6 +40,12 @@ public class NetworkControllerBlockEntity extends BlockEntity implements MenuPro
 
     public NetworkControllerBlockEntity(BlockPos pos, BlockState state) {
         super(NetworkBlockEntities.NETWORK_CONTROLLER, pos, state);
+    }
+
+    @Nullable
+    @Override
+    public Level getControllerLevel() {
+        return super.getLevel();
     }
 
     @Override

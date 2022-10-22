@@ -40,7 +40,7 @@ public abstract class AnchorSourceNode<T extends AnchorSourceNode<T>> extends Ab
     @Override
     public Object[] get(NetworkController controller) {
         if (linkStack != null && !linkStack.isEmpty() && linkStack.getItem() instanceof LinkCard item) {
-            if (item.getLinkStatus(linkStack) == LinkStatus.VALID && controller.getLevel().getBlockEntity(item.getLink(linkStack)) instanceof NetworkAnchor anchor) {
+            if (item.getLinkStatus(linkStack) == LinkStatus.VALID && controller.getControllerLevel().getBlockEntity(item.getLink(linkStack)) instanceof NetworkAnchor anchor) {
                 var ret = new Object[getOutputSlots().length];
                 for (int i = 0; i < getOutputSlots().length; i++) {
                     ret[i] = getOutputSlots()[i].read(anchor, item.getDirection(linkStack));
@@ -67,6 +67,6 @@ public abstract class AnchorSourceNode<T extends AnchorSourceNode<T>> extends Ab
 
     @Override
     public void loadOnServer(NetworkController controller) {
-        if (linkStack != null && linkStack.getItem() instanceof LinkCard card) card.checkStatus(controller.getLevel(), linkStack);
+        if (linkStack != null && linkStack.getItem() instanceof LinkCard card) card.checkStatus(controller.getControllerLevel(), linkStack);
     }
 }
