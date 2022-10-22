@@ -3,12 +3,15 @@ package design.aeonic.logicnetworks;
 import design.aeonic.logicnetworks.api.core.Constants;
 import design.aeonic.logicnetworks.api.util.Registrar;
 import design.aeonic.logicnetworks.impl.LogicNetworks;
+import design.aeonic.logicnetworks.impl.client.NetworkKeybinds;
 import design.aeonic.logicnetworks.impl.content.NetworkBlockEntities;
 import design.aeonic.logicnetworks.impl.content.NetworkBlocks;
 import design.aeonic.logicnetworks.impl.content.NetworkItems;
 import design.aeonic.logicnetworks.impl.content.NetworkMenus;
 import net.minecraft.core.Registry;
 import net.minecraft.resources.ResourceKey;
+import net.minecraftforge.client.event.RegisterKeyMappingsEvent;
+import net.minecraftforge.client.settings.KeyConflictContext;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
@@ -30,7 +33,16 @@ public class ForgeLogicNetworks {
             NetworkMenus.register(registrar(event, ForgeRegistries.Keys.MENU_TYPES));
         });
 
-        modBus.addListener((FMLClientSetupEvent event) -> LogicNetworks.clientInit(event::enqueueWork));
+        modBus.addListener((FMLClientSetupEvent event) -> {
+            LogicNetworks.clientInit(event::enqueueWork);
+        });
+
+        modBus.addListener((RegisterKeyMappingsEvent event) -> {
+            NetworkKeybinds.register(($, mapping) -> {
+                mapping.setKeyConflictContext(KeyConflictContext.GUI);
+                event.register(mapping);
+            });
+        });
     }
 
     <T> Registrar<T> registrar(RegisterEvent event, ResourceKey<? extends Registry<T>> registry) {

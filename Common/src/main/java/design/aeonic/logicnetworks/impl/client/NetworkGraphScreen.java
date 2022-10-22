@@ -122,13 +122,13 @@ public class NetworkGraphScreen extends AbstractWidgetScreen {
     }
 
     @Override
-    public boolean keyPressed(int $$0, int $$1, int $$2) {
+    public boolean keyPressed(int key, int scanCode, int mods) {
         // Allow the inventory key to close the screen akin to a menu screen
-        if (super.keyPressed($$0, $$1, $$2)) return true;
-        if (minecraft.options.keyInventory.matches($$0, $$1)) {
+        if (super.keyPressed(key, scanCode, mods)) return true;
+        if (minecraft.options.keyInventory.matches(key, scanCode)) {
             this.onClose();
         }
-        if ($$0 == GLFW.GLFW_KEY_DELETE || $$0 == GLFW.GLFW_KEY_BACKSPACE) {
+        if (NetworkKeybinds.DELETE_NODE.matches(key, scanCode)) {
             Node<?> node = getNodeAt(adjustMouseX(currentMouseX), adjustMouseY(currentMouseY));
             if (node != null) {
                 network.removeNode(node.getUUID());
@@ -141,7 +141,7 @@ public class NetworkGraphScreen extends AbstractWidgetScreen {
                 nodeWidgets.get(node.getUUID()).forEach(this::removeWidget);
                 nodeWidgets.removeAll(node.getUUID());
             }
-        } else if ($$0 == GLFW.GLFW_KEY_SPACE) {
+        } else if (NetworkKeybinds.ADD_NODE.matches(key, scanCode)) {
             int mx = currentMouseX - getRenderLeftPos();
             int my = currentMouseY - getRenderTopPos();
             addWidget(NodeSearchWidget.create(this, mx, my, nodeType -> {

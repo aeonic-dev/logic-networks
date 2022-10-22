@@ -1,4 +1,8 @@
 {
+  "key.logicnetworks.add_node": "Add Node",
+  "key.logicnetworks.delete_node": "Delete Node",
+  "category.logicnetworks.graph": "Logic Networks: Node Graph",
+
   "block.logicnetworks.network_anchor": "Network Anchor",
   "block.logicnetworks.network_controller": "Network Controller",
   "item.logicnetworks.linking_card": "Linking Card",
