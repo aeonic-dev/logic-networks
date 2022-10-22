@@ -153,7 +153,7 @@ public class NodeSearchWidget extends StringInputWidget {
 
     public int getHovered(int mouseX, int mouseY) {
         if (mouseX >= getX() + 5 && mouseX <= getX() + getWidth() - 5) {
-            if (mouseY >= getY() + 20 && mouseY <= getY() + 20 + Math.min(results.size(), 6) * 12) {
+            if (mouseY >= getY() + 20 && mouseY <= getY() + 19 + Math.min(results.size(), 6) * 12) {
                 return (mouseY - (getY() + 20)) / 12;
             }
         }
