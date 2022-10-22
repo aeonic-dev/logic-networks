@@ -83,9 +83,7 @@ public class IntInputWidget extends AbstractInputWidget {
 
                 return true;
             }
-            case 259 -> {
-                // This one is backspace - VK_BACK_SPACE is not working for some reason
-                // This is the value used in vanilla's EditBox
+            case GLFW.GLFW_KEY_BACKSPACE -> {
                 if (stringValue.length() > 1) {
                     if (stringValue.charAt(0) == '-') stringValue = stringValue.substring(1);
                     else stringValue = Mth.clamp(Integer.parseInt(stringValue.substring(0, stringValue.length() - 1)), minValue, maxValue) + "";
@@ -97,13 +95,12 @@ public class IntInputWidget extends AbstractInputWidget {
                 return true;
             }
             case GLFW.GLFW_KEY_ENTER -> {
-                // TODO: This one isn't recognized, find the actual key value like backspace above
                 screen.clearFocus(this);
                 return true;
             }
             default -> {
                 if (keyCode >= GLFW.GLFW_KEY_0 && keyCode <= GLFW.GLFW_KEY_9) {
-                    if (stringValue.equals("1") && !edited) {
+                    if (stringValue.equals(Integer.toString(minValue)) && !edited) {
                         edited = true;
                         stringValue = Mth.clamp(keyCode - GLFW.GLFW_KEY_0, minValue, maxValue) + "";
                     }

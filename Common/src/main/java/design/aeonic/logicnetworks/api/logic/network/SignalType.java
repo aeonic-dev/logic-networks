@@ -65,6 +65,11 @@ public abstract class SignalType<T> {
         return is(other) || is(other.type);
     }
 
+    @SuppressWarnings("unchecked")
+    public final <S> S convertUnchecked(Object value, SignalType<S> type) {
+        return convert((T) value, type);
+    }
+
     public <S> S convert(T value, SignalType<S> type) {
         return type.cast(value);
     }
