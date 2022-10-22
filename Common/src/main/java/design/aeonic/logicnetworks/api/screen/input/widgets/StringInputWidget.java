@@ -18,13 +18,13 @@ public class StringInputWidget extends AbstractInputWidget {
 
     public static final Texture CURSOR = new Texture("logicnetworks:textures/gui/input_widgets_extended.png", 64, 64, 5, 3, 43, 12);
 
-    private final int maxLength;
-    private final String widthString;
-    private String value;
-    private int cursor;
-    private int selectionStart = -1;
-    private int selectionEnd = -1;
-    private boolean selectionNegative = false;
+    protected final int maxLength;
+    protected final String widthString;
+    protected String value;
+    protected int cursor;
+    protected int selectionStart = -1;
+    protected int selectionEnd = -1;
+    protected boolean selectionNegative = false;
 
     public StringInputWidget(int x, int y, int maxLength, String value) {
         super(x, y);

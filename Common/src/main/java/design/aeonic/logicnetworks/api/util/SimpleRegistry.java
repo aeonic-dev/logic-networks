@@ -2,6 +2,9 @@ package design.aeonic.logicnetworks.api.util;
 
 import net.minecraft.resources.ResourceLocation;
 
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentMap;
 
@@ -27,6 +30,12 @@ public interface SimpleRegistry<T> {
     T getOrNull(ResourceLocation key);
 
     ResourceLocation getKey(T value);
+
+    List<ResourceLocation> getKeys();
+
+    List<T> getValues();
+
+    Set<Map.Entry<ResourceLocation, T>> getEntries();
 
     class ConcurrentRegistry<T> implements SimpleRegistry<T> {
         private final ConcurrentMap<ResourceLocation, T> registry = new ConcurrentHashMap<>();
@@ -59,6 +68,21 @@ public interface SimpleRegistry<T> {
         @Override
         public ResourceLocation getKey(T value) {
             return inverse.get(value);
+        }
+
+        @Override
+        public List<ResourceLocation> getKeys() {
+            return List.copyOf(registry.keySet());
+        }
+
+        @Override
+        public List<T> getValues() {
+            return List.copyOf(registry.values());
+        }
+
+        @Override
+        public Set<Map.Entry<ResourceLocation, T>> getEntries() {
+            return registry.entrySet();
         }
     }
 }
