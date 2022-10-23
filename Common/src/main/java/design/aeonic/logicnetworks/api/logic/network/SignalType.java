@@ -2,6 +2,9 @@ package design.aeonic.logicnetworks.api.logic.network;
 
 import design.aeonic.logicnetworks.api.block.NetworkAnchor;
 import net.minecraft.core.Direction;
+import net.minecraft.network.chat.Component;
+
+import java.util.List;
 
 /**
  * A type of signal that can be processed by a logic network.
@@ -21,6 +24,8 @@ public abstract class SignalType<T> {
         this.type = type;
         this.color = color;
     }
+
+    public abstract List<Component> getSocketTooltip(boolean isOutput);
 
     /**
      * Writes to the world. The given position is actually the position of the network anchor that's currently writing;
