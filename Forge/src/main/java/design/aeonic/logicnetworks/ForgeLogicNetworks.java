@@ -1,5 +1,6 @@
 package design.aeonic.logicnetworks;
 
+import design.aeonic.logicnetworks.api.client.FacadeRenderer;
 import design.aeonic.logicnetworks.api.core.Constants;
 import design.aeonic.logicnetworks.api.util.Registrar;
 import design.aeonic.logicnetworks.impl.LogicNetworks;
@@ -10,6 +11,7 @@ import design.aeonic.logicnetworks.impl.content.NetworkItems;
 import design.aeonic.logicnetworks.impl.content.NetworkMenus;
 import net.minecraft.core.Registry;
 import net.minecraft.resources.ResourceKey;
+import net.minecraftforge.client.event.EntityRenderersEvent;
 import net.minecraftforge.client.event.RegisterKeyMappingsEvent;
 import net.minecraftforge.client.settings.KeyConflictContext;
 import net.minecraftforge.eventbus.api.IEventBus;
@@ -42,6 +44,10 @@ public class ForgeLogicNetworks {
                 mapping.setKeyConflictContext(KeyConflictContext.GUI);
                 event.register(mapping);
             });
+        });
+
+        modBus.addListener((EntityRenderersEvent.RegisterRenderers event) -> {
+            event.registerBlockEntityRenderer(NetworkBlockEntities.NETWORK_ANCHOR, FacadeRenderer::new);
         });
     }
 

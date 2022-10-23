@@ -1,7 +1,10 @@
 package design.aeonic.logicnetworks.impl.content.anchor;
 
+import com.mojang.datafixers.util.Pair;
+import design.aeonic.logicnetworks.api.block.FacadeHideable;
+import design.aeonic.logicnetworks.api.core.Constants;
 import design.aeonic.logicnetworks.api.core.Translations;
-import design.aeonic.logicnetworks.api.logic.NetworkAnchor;
+import design.aeonic.logicnetworks.api.block.NetworkAnchor;
 import design.aeonic.logicnetworks.api.logic.network.SignalType;
 import design.aeonic.logicnetworks.api.networking.container.ContainerFields;
 import design.aeonic.logicnetworks.api.networking.container.field.BlockPosField;
@@ -10,6 +13,7 @@ import design.aeonic.logicnetworks.impl.content.NetworkBlockEntities;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.nbt.CompoundTag;
+import net.minecraft.nbt.NbtOps;
 import net.minecraft.nbt.Tag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.protocol.Packet;
@@ -20,6 +24,7 @@ import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 
@@ -27,8 +32,9 @@ import javax.annotation.Nullable;
 import java.util.HashMap;
 import java.util.Map;
 
-public class NetworkAnchorBlockEntity extends BlockEntity implements MenuProvider, NetworkAnchor {
+public class NetworkAnchorBlockEntity extends BlockEntity implements MenuProvider, NetworkAnchor, FacadeHideable {
     private String name = "Network Anchor";
+    private BlockState facade = null;
     private Map<Direction, Integer> redstoneSignals = new HashMap<>();
 
     public NetworkAnchorBlockEntity(BlockPos pos, BlockState state) {
@@ -52,6 +58,16 @@ public class NetworkAnchorBlockEntity extends BlockEntity implements MenuProvide
     @Override
     public BlockPos getAnchorPos() {
         return getBlockPos();
+    }
+
+    public BlockState getFacade() {
+        return facade;
+    }
+
+    public void setFacade(BlockState facade) {
+        this.facade = facade;
+        setChanged();
+        level.setBlock(getBlockPos(), getBlockState(), Block.UPDATE_CLIENTS);
     }
 
     @Override
@@ -100,6 +116,7 @@ public class NetworkAnchorBlockEntity extends BlockEntity implements MenuProvide
     public void load(CompoundTag $$0) {
         super.load($$0);
         if ($$0.contains("Name", Tag.TAG_STRING)) name = $$0.getString("Name");
+        if ($$0.contains("Facade", Tag.TAG_COMPOUND)) facade = BlockState.CODEC.decode(NbtOps.INSTANCE, $$0.get("Facade")).result().map(Pair::getFirst).orElse(null);
 
         CompoundTag redstoneSignalTag = $$0.getCompound("Signals");
         for (String key : redstoneSignalTag.getAllKeys()) {
@@ -111,6 +128,7 @@ public class NetworkAnchorBlockEntity extends BlockEntity implements MenuProvide
     protected void saveAdditional(CompoundTag $$0) {
         super.saveAdditional($$0);
         $$0.putString("Name", name);
+        if (facade != null) $$0.put("Facade", BlockState.CODEC.encodeStart(NbtOps.INSTANCE, facade).getOrThrow(false, Constants.LOG::error));
 
         CompoundTag redstoneSignalTag = new CompoundTag();
         for (Direction side : Direction.values()) {

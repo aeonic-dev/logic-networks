@@ -1,5 +1,6 @@
 package design.aeonic.logicnetworks.impl.content.anchor;
 
+import design.aeonic.logicnetworks.api.block.FacadeHideable;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.world.InteractionHand;
@@ -35,12 +36,25 @@ public class NetworkAnchorBlock extends BaseEntityBlock {
     }
 
     @Override
+    public boolean hasDynamicShape() {
+        return true;
+    }
+
+    @Override
     public VoxelShape getShape(BlockState $$0, BlockGetter $$1, BlockPos $$2, CollisionContext $$3) {
+        if ($$1.getBlockEntity($$2) instanceof FacadeHideable facadeHideable) {
+            BlockState facade = facadeHideable.getFacade();
+            return facade == null ? shape : facade.getShape($$1, $$2, $$3);
+        }
         return shape;
     }
 
     @Override
     public VoxelShape getVisualShape(BlockState $$0, BlockGetter $$1, BlockPos $$2, CollisionContext $$3) {
+        if ($$1.getBlockEntity($$2) instanceof FacadeHideable facadeHideable) {
+            BlockState facade = facadeHideable.getFacade();
+            return facade == null ? shape : facade.getVisualShape($$1, $$2, $$3);
+        }
         return shape;
     }
 
@@ -53,10 +67,12 @@ public class NetworkAnchorBlock extends BaseEntityBlock {
         return 0;
     }
 
-
-
     @Override
     public InteractionResult use(BlockState state, Level level, BlockPos pos, Player player, InteractionHand hand, BlockHitResult res) {
+        var result = FacadeHideable.tryPutFacade(state, level, pos, player, hand, res);
+        if (result != InteractionResult.FAIL) return result;
+        else if ((result = FacadeHideable.tryRemoveFacade(state, level, pos, player, hand, res)) != InteractionResult.FAIL) return result;
+
         var prv = getMenuProvider(state, level, pos);
         if (!level.isClientSide()) {
             player.openMenu(prv);
