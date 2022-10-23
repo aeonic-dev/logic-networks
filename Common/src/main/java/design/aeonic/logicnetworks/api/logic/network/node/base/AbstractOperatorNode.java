@@ -2,7 +2,10 @@ package design.aeonic.logicnetworks.api.logic.network.node.base;
 
 import design.aeonic.logicnetworks.api.logic.network.NodeType;
 import design.aeonic.logicnetworks.api.logic.network.node.OperatorNode;
+import net.minecraft.network.chat.Component;
 
+import javax.annotation.Nullable;
+import java.util.List;
 import java.util.UUID;
 
 public abstract class AbstractOperatorNode<T extends AbstractOperatorNode<T>> implements OperatorNode<T> {
@@ -19,6 +22,22 @@ public abstract class AbstractOperatorNode<T extends AbstractOperatorNode<T>> im
         this.uuid = uuid;
         this.x = x;
         this.y = y;
+    }
+
+    @Nullable
+    protected Component getInputSocketName(int index) {
+        return null;
+    }
+
+    @Nullable
+    protected Component getOutputSocketName(int index) {
+        return null;
+    }
+
+    @Override
+    public List<Component> getSocketTooltip(boolean isOutput, int index) {
+        Component socket = isOutput ? getOutputSocketName(index) : getInputSocketName(index);
+        return socket == null ? OperatorNode.super.getSocketTooltip(isOutput, index) : List.of(socket, getSocketTooltipSignalComponent(isOutput, index));
     }
 
     @Override

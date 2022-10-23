@@ -474,7 +474,7 @@ public class NetworkGraphScreen extends AbstractWidgetScreen {
                 renderTooltip(stack, mx, my, tooltip);
             }
         } else if (hoveredSocketNode != null) {
-            var tooltip = (hoveredOutput ? hoveredSocketNode.getOutputSlots() : hoveredSocketNode.getInputSlots())[hoveredSocket].getSocketTooltip(hoveredOutput);
+            var tooltip = hoveredSocketNode.getSocketTooltip(hoveredOutput, hoveredSocket);
             if (tooltip != null) {
                 renderTooltip(stack, mx, my, tooltip);
             }

@@ -14,6 +14,7 @@ public final class Translations {
         public static final Component TICKS = Component.translatable("gui.logicnetworks.generic.ticks");
         public static final Component REDSTONE_CONTROL = Component.translatable("gui.logicnetworks.generic.redstone_control");
         public static final Component CLAMPS = Component.translatable("gui.logicnetworks.generic.clamps");
+        public static final Component SEED = Component.translatable("gui.logicnetworks.generic.seed");
     }
 
     public static final class Side {
@@ -79,7 +80,7 @@ public final class Translations {
 
     public static final class Signals {
         public static final Component INTEGER = Component.translatable("gui.logicnetworks.signals.integer");
-        public static final Component FLOAT = Component.translatable("gui.logicnetworks.signals.float");
+        public static final Component LONG = Component.translatable("gui.logicnetworks.signals.long");
         public static final Component ANALOG = Component.translatable("gui.logicnetworks.signals.analog");
         public static final Component BOOLEAN = Component.translatable("gui.logicnetworks.signals.boolean");
     }
@@ -98,6 +99,9 @@ public final class Translations {
         public static final Component INTEGER_EQUALS = Component.translatable("gui.logicnetworks.nodes.equals");
         public static final Component INTEGER_GREATER_THAN = Component.translatable("gui.logicnetworks.nodes.greater_than");
         public static final Component INTEGER_LESS_THAN = Component.translatable("gui.logicnetworks.nodes.less_than");
+
+        public static final Component CURRENT_TICK = Component.translatable("gui.logicnetworks.nodes.current_tick");
+        public static final Component RANDOM = Component.translatable("gui.logicnetworks.nodes.random");
 
         public static final Component ANALOG_READ = Component.translatable("gui.logicnetworks.nodes.analog_read");
         public static final Component ANALOG_WRITE = Component.translatable("gui.logicnetworks.nodes.analog_write");

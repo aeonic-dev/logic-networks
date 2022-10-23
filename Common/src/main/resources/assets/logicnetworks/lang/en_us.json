@@ -16,6 +16,7 @@
   "gui.logicnetworks.generic.ticks": "Ticks/operation",
   "gui.logicnetworks.generic.redstone_control": "Redstone control",
   "gui.logicnetworks.generic.clamps": "Clamps the output",
+  "gui.logicnetworks.generic.seed": "Random seed",
 
   "gui.logicnetworks.side.up": "U",
   "gui.logicnetworks.side.down": "D",
@@ -46,7 +47,7 @@
   "gui.logicnetworks.network_graph.title": "Network Graph",
 
   "gui.logicnetworks.signals.integer": "Integer",
-  "gui.logicnetworks.signals.float": "Float",
+  "gui.logicnetworks.signals.long": "Long",
   "gui.logicnetworks.signals.analog": "Analog 0-15",
   "gui.logicnetworks.signals.boolean": "Boolean",
 
@@ -62,8 +63,11 @@
   "gui.logicnetworks.nodes.integer_divide": "Integer Divide",
   "gui.logicnetworks.nodes.integer_modulo": "Integer Modulo",
   "gui.logicnetworks.nodes.integer_absolute": "Integer Abs",
-    "gui.logicnetworks.nodes.integer_negate": "Integer Negate",
+  "gui.logicnetworks.nodes.integer_negate": "Integer Negate",
   "gui.logicnetworks.nodes.integer_clamp": "Integer Clamp",
+
+  "gui.logicnetworks.nodes.current_tick": "Current Tick",
+  "gui.logicnetworks.nodes.random": "Random",
 
   "gui.logicnetworks.nodes.analog_read": "Analog Read",
   "gui.logicnetworks.nodes.analog_write": "Analog Write",
