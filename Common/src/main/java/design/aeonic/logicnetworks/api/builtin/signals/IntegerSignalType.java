@@ -11,16 +11,14 @@ import net.minecraft.util.Mth;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
 
-import java.util.List;
-
 public class IntegerSignalType extends SignalType<Integer> {
     public IntegerSignalType(int color) {
         super(Integer.class, color);
     }
 
     @Override
-    public List<Component> getSocketTooltip(boolean isOutput) {
-        return List.of(Translations.Signals.INTEGER);
+    public Component getSocketTooltip(boolean isOutput) {
+        return Translations.Signals.INTEGER;
     }
 
     @Override
@@ -40,11 +38,12 @@ public class IntegerSignalType extends SignalType<Integer> {
 
     @Override
     public <S> boolean canConnect(SignalType<S> other) {
-        return super.canConnect(other) || other.is(BuiltinSignalTypes.ANALOG);
+        return super.canConnect(other) || other.is(BuiltinSignalTypes.LONG) || other.is(BuiltinSignalTypes.ANALOG);
     }
 
     @Override
     public <S> S convert(Integer value, SignalType<S> type) {
+        if (type.is(BuiltinSignalTypes.LONG)) return type.cast(value.longValue());
         if (type.is(BuiltinSignalTypes.ANALOG)) return type.cast(Mth.clamp(value, 0, 15));
         return super.convert(value, type);
     }
