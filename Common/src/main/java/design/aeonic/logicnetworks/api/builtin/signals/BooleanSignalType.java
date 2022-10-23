@@ -3,9 +3,7 @@ package design.aeonic.logicnetworks.api.builtin.signals;
 import design.aeonic.logicnetworks.api.builtin.BuiltinSignalTypes;
 import design.aeonic.logicnetworks.api.logic.NetworkAnchor;
 import design.aeonic.logicnetworks.api.logic.network.SignalType;
-import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
-import net.minecraft.world.level.Level;
 
 public class BooleanSignalType extends SignalType<Boolean> {
     public BooleanSignalType(int color) {
@@ -14,14 +12,12 @@ public class BooleanSignalType extends SignalType<Boolean> {
 
     @Override
     public void write(NetworkAnchor anchor, Direction side, Boolean value) {
-        Level level = anchor.getAnchorLevel();
-        BlockPos pos = anchor.getAnchorPos();
         anchor.setRedstone(side, value ? 15 : 0);
     }
 
     @Override
     public Boolean read(NetworkAnchor anchor, Direction side) {
-        return anchor.getAnchorLevel().getSignal(anchor.getAnchorPos(), side) > 0;
+        return anchor.getAnchorLevel().getSignal(anchor.getAnchorPos().relative(side), side.getOpposite()) > 0;
     }
 
     @Override
