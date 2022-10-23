@@ -5,7 +5,12 @@
 
   "block.logicnetworks.network_anchor": "Network Anchor",
   "block.logicnetworks.network_controller": "Network Controller",
+
   "item.logicnetworks.linking_card": "Linking Card",
+  "item.logicnetworks.logic_core": "Logic Core",
+  "item.logicnetworks.control_circuit": "Control Circuit",
+
+  "itemGroup.logicnetworks:main": "Logic Networks",
 
   "gui.logicnetworks.generic.constant": "Constant input",
   "gui.logicnetworks.generic.ticks": "Ticks/operation",

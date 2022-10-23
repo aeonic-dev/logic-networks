@@ -1,0 +1,35 @@
+{
+    "type": "minecraft:crafting_shaped",
+    "pattern": [
+        "#LB",
+        "TNT",
+        "RLG"
+    ],
+    "key": {
+        "#": {
+            "item": "minecraft:chest"
+        },
+        "L": {
+            "item": "logicnetworks:control_circuit"
+        },
+        "B": {
+            "item": "minecraft:bucket"
+        },
+        "T": {
+            "item": "logicnetworks:network_anchor"
+        },
+        "N": {
+            "item": "logicnetworks:logic_core"
+        },
+        "R": {
+            "item": "minecraft:redstone_block"
+        },
+        "G": {
+            "item": "minecraft:glass"
+        }
+    },
+    "result": {
+        "item": "logicnetworks:network_controller",
+        "count": 1
+    }
+}

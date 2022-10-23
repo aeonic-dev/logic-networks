@@ -1,0 +1,23 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    " E ",
+    "CLC",
+    " E "
+  ],
+  "key": {
+    "E": {
+      "item": "minecraft:ender_pearl"
+    },
+    "C": {
+      "item": "minecraft:comparator"
+    },
+    "L": {
+      "item": "logicnetworks:logic_core"
+    }
+  },
+  "result": {
+    "item": "logicnetworks:network_anchor",
+    "count": 2
+  }
+}

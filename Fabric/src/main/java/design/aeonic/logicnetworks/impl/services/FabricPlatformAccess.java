@@ -4,16 +4,22 @@ import design.aeonic.logicnetworks.api.networking.container.MovableSlot;
 import design.aeonic.logicnetworks.api.services.PlatformAccess;
 import design.aeonic.logicnetworks.impl.networking.container.FabricMovableSlot;
 import net.fabricmc.fabric.api.blockrenderlayer.v1.BlockRenderLayerMap;
+import net.fabricmc.fabric.api.client.itemgroup.FabricItemGroupBuilder;
 import net.fabricmc.fabric.api.object.builder.v1.block.entity.FabricBlockEntityTypeBuilder;
 import net.minecraft.client.gui.screens.MenuScreens;
 import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
 import net.minecraft.client.renderer.RenderType;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.Container;
 import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.inventory.MenuType;
+import net.minecraft.world.item.CreativeModeTab;
+import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityType;
+
+import java.util.function.Supplier;
 
 public class FabricPlatformAccess implements PlatformAccess {
     @Override
@@ -39,5 +45,10 @@ public class FabricPlatformAccess implements PlatformAccess {
     @Override
     public void setRenderLayer(Block block, RenderType renderType) {
         BlockRenderLayerMap.INSTANCE.putBlock(block, renderType);
+    }
+
+    @Override
+    public CreativeModeTab registerCreativeTab(ResourceLocation id, Supplier<ItemStack> icon) {
+        return FabricItemGroupBuilder.create(id).icon(icon).build();
     }
 }

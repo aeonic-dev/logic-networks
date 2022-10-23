@@ -7,12 +7,17 @@ import net.minecraft.client.gui.screens.MenuScreens;
 import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
 import net.minecraft.client.renderer.ItemBlockRenderTypes;
 import net.minecraft.client.renderer.RenderType;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.Container;
 import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.inventory.MenuType;
+import net.minecraft.world.item.CreativeModeTab;
+import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityType;
+
+import java.util.function.Supplier;
 
 public class ForgePlatformAccess implements PlatformAccess {
     @Override
@@ -38,5 +43,15 @@ public class ForgePlatformAccess implements PlatformAccess {
     @Override
     public void setRenderLayer(Block block, RenderType renderType) {
         ItemBlockRenderTypes.setRenderLayer(block, renderType);
+    }
+
+    @Override
+    public CreativeModeTab registerCreativeTab(ResourceLocation id, Supplier<ItemStack> icon) {
+        return new CreativeModeTab(id.toString()) {
+            @Override
+            public ItemStack makeIcon() {
+                return icon.get();
+            }
+        };
     }
 }
