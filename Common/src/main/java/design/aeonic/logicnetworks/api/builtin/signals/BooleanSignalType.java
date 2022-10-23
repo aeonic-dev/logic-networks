@@ -1,13 +1,11 @@
 package design.aeonic.logicnetworks.api.builtin.signals;
 
-import design.aeonic.logicnetworks.api.builtin.BuiltinSignalTypes;
 import design.aeonic.logicnetworks.api.block.NetworkAnchor;
+import design.aeonic.logicnetworks.api.builtin.BuiltinSignalTypes;
 import design.aeonic.logicnetworks.api.core.Translations;
 import design.aeonic.logicnetworks.api.logic.network.SignalType;
 import net.minecraft.core.Direction;
 import net.minecraft.network.chat.Component;
-
-import java.util.List;
 
 public class BooleanSignalType extends SignalType<Boolean> {
     public BooleanSignalType(int color) {
@@ -15,8 +13,8 @@ public class BooleanSignalType extends SignalType<Boolean> {
     }
 
     @Override
-    public List<Component> getSocketTooltip(boolean isOutput) {
-        return List.of(Translations.Signals.BOOLEAN);
+    public Component getSocketTooltip(boolean isOutput) {
+        return Translations.Signals.BOOLEAN;
     }
 
     @Override

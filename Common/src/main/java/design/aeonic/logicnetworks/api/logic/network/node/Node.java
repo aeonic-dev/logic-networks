@@ -66,6 +66,14 @@ public interface Node<T extends Node<T>> {
      */
     int getHeight();
 
+    default List<Component> getSocketTooltip(boolean isOutput, int index) {
+        return List.of(getSocketTooltipSignalComponent(isOutput, index));
+    }
+
+    default Component getSocketTooltipSignalComponent(boolean isOutput, int index) {
+        return (isOutput ? getOutputSlots() : getInputSlots())[index].getSocketTooltip(isOutput);
+    }
+
     /**
      * Gets the y positions of input slots, respective to the return of {@link #getInputSlots()}. The node itself does not handle drawing these slots or the connections
      * to them; the network graph screen will take care of it for you.

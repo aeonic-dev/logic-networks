@@ -4,8 +4,6 @@ import design.aeonic.logicnetworks.api.block.NetworkAnchor;
 import net.minecraft.core.Direction;
 import net.minecraft.network.chat.Component;
 
-import java.util.List;
-
 /**
  * A type of signal that can be processed by a logic network.
  * ie: item containers, redstone, etc.<br><br>
@@ -25,7 +23,11 @@ public abstract class SignalType<T> {
         this.color = color;
     }
 
-    public abstract List<Component> getSocketTooltip(boolean isOutput);
+    /**
+     * Gets the part of the socket tooltip describing this signal. By default it's added to the tooltip returned
+     * by
+     */
+    public abstract Component getSocketTooltip(boolean isOutput);
 
     /**
      * Writes to the world. The given position is actually the position of the network anchor that's currently writing;

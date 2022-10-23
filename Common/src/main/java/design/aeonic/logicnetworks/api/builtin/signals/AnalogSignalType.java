@@ -1,7 +1,7 @@
 package design.aeonic.logicnetworks.api.builtin.signals;
 
-import design.aeonic.logicnetworks.api.builtin.BuiltinSignalTypes;
 import design.aeonic.logicnetworks.api.block.NetworkAnchor;
+import design.aeonic.logicnetworks.api.builtin.BuiltinSignalTypes;
 import design.aeonic.logicnetworks.api.core.Translations;
 import design.aeonic.logicnetworks.api.logic.network.SignalType;
 import net.minecraft.core.BlockPos;
@@ -10,16 +10,14 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
 
-import java.util.List;
-
 public class AnalogSignalType extends SignalType<Integer> {
     public AnalogSignalType(int color) {
         super(Integer.class, color);
     }
 
     @Override
-    public List<Component> getSocketTooltip(boolean isOutput) {
-        return List.of(Translations.Signals.ANALOG);
+    public Component getSocketTooltip(boolean isOutput) {
+        return Translations.Signals.ANALOG;
     }
 
     @Override
