@@ -32,14 +32,14 @@ public class TopologicalCompiledNetwork implements CompiledNetwork {
                     for (int i = 0; i < input.length; i++) {
                         Object obj = input[i];
                         if (obj == null) return;
-                        input[i] = inputTypeBuffer.get(sink.getUUID())[i].convertUnchecked(obj, sink.getInputSlots()[i]);
+                        if (!sink.getInputSlots()[i].is(obj.getClass()))
+                            input[i] = inputTypeBuffer.get(sink.getUUID())[i].convertUnchecked(obj, sink.getInputSlots()[i]);
                     }
                     sink.accept(controller, input);
                 } else if (node instanceof SourceNode<?> source){
                     Object[] output = source.get(controller);
                     for (Edge edge: connections.get(node.getUUID())) {
-                        SignalType<?>[] types = inputTypeBuffer.get(edge.getToNode());
-                        if (types[edge.getToIndex()] == null) types[edge.getToIndex()] = source.getOutputSlots()[edge.getFromIndex()];
+                        inputTypeBuffer.get(edge.getToNode())[edge.getToIndex()] = source.getOutputSlots()[edge.getFromIndex()];
                         inputBuffer.get(edge.getToNode())[edge.getToIndex()] = output[edge.getFromIndex()];
                     }
                 } else if (node instanceof OperatorNode<?> operator) {
@@ -48,7 +48,8 @@ public class TopologicalCompiledNetwork implements CompiledNetwork {
                     for (int i = 0; i < input.length; i++) {
                         Object obj = input[i];
                         if (obj == null) return;
-                        input[i] = inputTypeBuffer.get(operator.getUUID())[i].convertUnchecked(obj, operator.getInputSlots()[i]);
+                        if (!operator.getInputSlots()[i].is(obj.getClass()))
+                            input[i] = inputTypeBuffer.get(operator.getUUID())[i].convertUnchecked(obj, operator.getInputSlots()[i]);
                     }
 
                     // Validate operator inputs before continuing; should propagate the rest of the changes
@@ -56,8 +57,7 @@ public class TopologicalCompiledNetwork implements CompiledNetwork {
 
                     Object[] output = operator.evaluate(input);
                     for (Edge edge: connections.get(node.getUUID())) {
-                        SignalType<?>[] types = inputTypeBuffer.get(edge.getToNode());
-                        if (types[edge.getToIndex()] == null) types[edge.getToIndex()] = node.getOutputSlots()[edge.getFromIndex()];
+                        inputTypeBuffer.get(edge.getToNode())[edge.getToIndex()] = node.getOutputSlots()[edge.getFromIndex()];
                         inputBuffer.get(edge.getToNode())[edge.getToIndex()] = output[edge.getFromIndex()];
                     }
                 }

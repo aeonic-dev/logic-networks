@@ -31,12 +31,12 @@ public class AnalogSignalType extends SignalType<Integer> {
 
     @Override
     public <S> boolean canConnect(SignalType<S> other) {
-        return super.canConnect(other) || other == BuiltinSignalTypes.BOOLEAN;
+        return super.canConnect(other) || other.is(BuiltinSignalTypes.BOOLEAN);
     }
 
     @Override
     public <S> S convert(Integer value, SignalType<S> type) {
-        if (type == BuiltinSignalTypes.BOOLEAN) return type.cast(value > 0);
+        if (type.is(BuiltinSignalTypes.BOOLEAN)) return type.cast(value > 0);
         return super.convert(value, type);
     }
 }

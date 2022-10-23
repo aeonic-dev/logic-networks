@@ -26,12 +26,12 @@ public class BooleanSignalType extends SignalType<Boolean> {
 
     @Override
     public <S> boolean canConnect(SignalType<S> other) {
-        return super.canConnect(other) || other == BuiltinSignalTypes.ANALOG;
+        return super.canConnect(other) || other.is(BuiltinSignalTypes.ANALOG);
     }
 
     @Override
     public <S> S convert(Boolean value, SignalType<S> type) {
-        if (type == BuiltinSignalTypes.ANALOG) return type.cast(value ? 15 : 0);
+        if (type.is(BuiltinSignalTypes.ANALOG)) return type.cast(value ? 15 : 0);
         return super.convert(value, type);
     }
 }

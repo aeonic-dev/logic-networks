@@ -425,7 +425,6 @@ public class NetworkGraphScreen extends AbstractWidgetScreen {
         if (hoveredNode != null) {
             if (nodeWidgets.get(hoveredNode.getUUID()).contains(hoveredWidget)) hoveredNode = null;
             if (hoveredNode != null && (getHoveredInputSocket(hoveredNode, mx, my) != -1 || getHoveredOutputSocket(hoveredNode, mx, my) != -1)) hoveredNode = null;
-            else hoveredWidget = null;
         }
 
         Node<?> hoveredSocketNode = null;
