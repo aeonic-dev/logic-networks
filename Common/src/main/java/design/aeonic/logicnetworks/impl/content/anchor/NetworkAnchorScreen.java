@@ -2,10 +2,10 @@ package design.aeonic.logicnetworks.impl.content.anchor;
 
 import com.mojang.blaze3d.vertex.PoseStack;
 import design.aeonic.logicnetworks.api.core.Translations;
-import design.aeonic.logicnetworks.api.screen.WidgetContainerScreen;
-import design.aeonic.logicnetworks.api.screen.input.WidgetScreen;
-import design.aeonic.logicnetworks.api.screen.input.widgets.StringInputWidget;
-import design.aeonic.logicnetworks.api.screen.input.widgets.TabsInputWidget;
+import design.aeonic.logicnetworks.api.client.screen.WidgetContainerScreen;
+import design.aeonic.logicnetworks.api.client.screen.input.WidgetScreen;
+import design.aeonic.logicnetworks.api.client.screen.input.widgets.StringInputWidget;
+import design.aeonic.logicnetworks.api.client.screen.input.widgets.TabsInputWidget;
 import design.aeonic.logicnetworks.api.util.Texture;
 import net.minecraft.client.Minecraft;
 import net.minecraft.core.Direction;

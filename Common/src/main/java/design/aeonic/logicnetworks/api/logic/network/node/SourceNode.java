@@ -1,6 +1,6 @@
 package design.aeonic.logicnetworks.api.logic.network.node;
 
-import design.aeonic.logicnetworks.api.logic.NetworkController;
+import design.aeonic.logicnetworks.api.block.NetworkController;
 import design.aeonic.logicnetworks.api.logic.network.SignalType;
 import it.unimi.dsi.fastutil.ints.IntArrays;
 

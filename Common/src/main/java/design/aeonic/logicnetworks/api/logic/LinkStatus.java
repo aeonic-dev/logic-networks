@@ -1,5 +1,6 @@
 package design.aeonic.logicnetworks.api.logic;
 
+import design.aeonic.logicnetworks.api.block.NetworkAnchor;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.level.Level;
 

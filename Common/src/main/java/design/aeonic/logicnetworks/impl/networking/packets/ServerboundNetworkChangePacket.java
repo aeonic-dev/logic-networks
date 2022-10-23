@@ -2,7 +2,7 @@ package design.aeonic.logicnetworks.impl.networking.packets;
 
 import design.aeonic.logicnetworks.api.core.Constants;
 import design.aeonic.logicnetworks.api.logic.network.Network;
-import design.aeonic.logicnetworks.api.logic.NetworkController;
+import design.aeonic.logicnetworks.api.block.NetworkController;
 import design.aeonic.logicnetworks.api.networking.ServerboundPacketHandler;
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;

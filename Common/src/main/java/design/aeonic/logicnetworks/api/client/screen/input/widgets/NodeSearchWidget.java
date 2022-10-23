@@ -1,11 +1,11 @@
-package design.aeonic.logicnetworks.api.screen.input.widgets;
+package design.aeonic.logicnetworks.api.client.screen.input.widgets;
 
 import com.mojang.blaze3d.vertex.PoseStack;
 import design.aeonic.logicnetworks.api.core.CommonRegistries;
 import design.aeonic.logicnetworks.api.logic.network.NodeType;
 import design.aeonic.logicnetworks.api.logic.network.SignalType;
 import design.aeonic.logicnetworks.api.logic.network.node.Node;
-import design.aeonic.logicnetworks.api.screen.input.WidgetScreen;
+import design.aeonic.logicnetworks.api.client.screen.input.WidgetScreen;
 import design.aeonic.logicnetworks.api.util.Texture;
 import net.minecraft.client.Minecraft;
 import net.minecraft.util.Mth;

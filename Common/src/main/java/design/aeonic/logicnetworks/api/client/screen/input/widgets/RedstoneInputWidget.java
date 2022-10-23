@@ -1,10 +1,10 @@
-package design.aeonic.logicnetworks.api.screen.input.widgets;
+package design.aeonic.logicnetworks.api.client.screen.input.widgets;
 
 import com.mojang.blaze3d.vertex.PoseStack;
+import design.aeonic.logicnetworks.api.client.screen.input.AbstractInputWidget;
+import design.aeonic.logicnetworks.api.client.screen.input.WidgetScreen;
 import design.aeonic.logicnetworks.api.logic.RedstoneControl;
 import design.aeonic.logicnetworks.api.core.Translations;
-import design.aeonic.logicnetworks.api.screen.input.AbstractInputWidget;
-import design.aeonic.logicnetworks.api.screen.input.WidgetScreen;
 import design.aeonic.logicnetworks.api.util.Texture;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.network.chat.Component;

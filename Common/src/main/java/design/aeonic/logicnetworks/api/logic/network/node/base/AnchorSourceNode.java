@@ -2,11 +2,11 @@ package design.aeonic.logicnetworks.api.logic.network.node.base;
 
 import design.aeonic.logicnetworks.api.logic.LinkCard;
 import design.aeonic.logicnetworks.api.logic.LinkStatus;
-import design.aeonic.logicnetworks.api.logic.NetworkAnchor;
-import design.aeonic.logicnetworks.api.logic.NetworkController;
+import design.aeonic.logicnetworks.api.block.NetworkAnchor;
+import design.aeonic.logicnetworks.api.block.NetworkController;
 import design.aeonic.logicnetworks.api.logic.network.NodeType;
-import design.aeonic.logicnetworks.api.screen.input.InputWidget;
-import design.aeonic.logicnetworks.api.screen.input.widgets.SelectLinkWidget;
+import design.aeonic.logicnetworks.api.client.screen.input.InputWidget;
+import design.aeonic.logicnetworks.api.client.screen.input.widgets.SelectLinkWidget;
 import net.minecraft.client.Minecraft;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.world.item.ItemStack;

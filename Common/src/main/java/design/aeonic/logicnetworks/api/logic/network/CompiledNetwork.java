@@ -1,6 +1,6 @@
 package design.aeonic.logicnetworks.api.logic.network;
 
-import design.aeonic.logicnetworks.api.logic.NetworkController;
+import design.aeonic.logicnetworks.api.block.NetworkController;
 
 @FunctionalInterface
 public interface CompiledNetwork {

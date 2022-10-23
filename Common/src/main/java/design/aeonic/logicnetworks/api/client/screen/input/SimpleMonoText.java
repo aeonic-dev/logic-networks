@@ -1,4 +1,4 @@
-package design.aeonic.logicnetworks.api.screen.input;
+package design.aeonic.logicnetworks.api.client.screen.input;
 
 import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.PoseStack;

@@ -1,6 +1,6 @@
 package design.aeonic.logicnetworks.api.logic.network;
 
-import design.aeonic.logicnetworks.api.logic.NetworkAnchor;
+import design.aeonic.logicnetworks.api.block.NetworkAnchor;
 import net.minecraft.core.Direction;
 
 /**

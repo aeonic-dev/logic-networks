@@ -1,4 +1,4 @@
-package design.aeonic.logicnetworks.api.logic;
+package design.aeonic.logicnetworks.api.block;
 
 import design.aeonic.logicnetworks.api.logic.network.SignalType;
 import net.minecraft.core.BlockPos;

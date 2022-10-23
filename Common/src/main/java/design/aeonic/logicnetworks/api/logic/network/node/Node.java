@@ -1,9 +1,9 @@
 package design.aeonic.logicnetworks.api.logic.network.node;
 
-import design.aeonic.logicnetworks.api.logic.NetworkController;
+import design.aeonic.logicnetworks.api.block.NetworkController;
 import design.aeonic.logicnetworks.api.logic.network.NodeType;
 import design.aeonic.logicnetworks.api.logic.network.SignalType;
-import design.aeonic.logicnetworks.api.screen.input.InputWidget;
+import design.aeonic.logicnetworks.api.client.screen.input.InputWidget;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
 

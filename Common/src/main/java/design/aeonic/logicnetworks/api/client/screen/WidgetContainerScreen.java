@@ -1,26 +1,29 @@
-package design.aeonic.logicnetworks.api.screen;
+package design.aeonic.logicnetworks.api.client.screen;
 
 import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.PoseStack;
-import design.aeonic.logicnetworks.api.screen.input.InputWidget;
-import design.aeonic.logicnetworks.api.screen.input.WidgetScreen;
+import design.aeonic.logicnetworks.api.client.screen.input.InputWidget;
+import design.aeonic.logicnetworks.api.client.screen.input.WidgetScreen;
 import design.aeonic.logicnetworks.api.util.RenderUtils;
 import design.aeonic.logicnetworks.api.util.Texture;
-import net.minecraft.client.gui.screens.Screen;
+import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
 import net.minecraft.network.chat.Component;
+import net.minecraft.world.entity.player.Inventory;
+import net.minecraft.world.inventory.AbstractContainerMenu;
 
 import javax.annotation.Nullable;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
-public abstract class AbstractWidgetScreen extends Screen implements WidgetScreen {
+public abstract class WidgetContainerScreen<T extends AbstractContainerMenu> extends AbstractContainerScreen<T> implements WidgetScreen {
     public static final Texture TOOLTIP = new Texture("logicnetworks:textures/gui/tooltip.png", 16, 16, 16, 16);
 
-    protected final List<InputWidget> inputWidgets = new ArrayList<>();
-    protected InputWidget focusedWidget = null;
+    private final List<InputWidget> inputWidgets = new ArrayList<>();
+    private InputWidget focusedWidget = null;
 
-    public AbstractWidgetScreen(Component component) {
-        super(component);
+    public WidgetContainerScreen(T menu, Inventory playerInventory, Component component) {
+        super(menu, playerInventory, component);
     }
 
     @Override
@@ -34,17 +37,29 @@ public abstract class AbstractWidgetScreen extends Screen implements WidgetScree
         super.render(stack, mouseX, mouseY, partialTick);
 
         stack.pushPose();
-        stack.translate(getRenderLeftPos(), getRenderTopPos(), 0);
+        stack.translate(leftPos, topPos, 0);
         for (InputWidget widget : inputWidgets) {
-            widget.draw(stack, this, mouseX - getRenderLeftPos(), mouseY - getRenderTopPos(), partialTick);
+            widget.draw(stack, this, mouseX - leftPos, mouseY - topPos, partialTick);
         }
         stack.popPose();
 
-        InputWidget hovered = getHoveredWidget(mouseX, mouseY);
+        InputWidget hovered = getWidgetAt(mouseX - leftPos, mouseY - topPos);
         if (hovered != null) {
-            var tooltip = hovered.getTooltip(this, mouseX - getRenderLeftPos(), mouseY - getRenderTopPos());
+            var tooltip = hovered.getTooltip(this, mouseX - leftPos, mouseY - topPos);
             if (tooltip != null) renderTooltip(stack, mouseX, mouseY, tooltip);
         }
+
+        renderTooltip(stack, mouseX, mouseY);
+    }
+
+    @Override
+    public int getRenderLeftPos() {
+        return leftPos;
+    }
+
+    @Override
+    public int getRenderTopPos() {
+        return topPos;
     }
 
     public void renderTooltip(PoseStack stack, int mouseX, int mouseY, List<Component> tooltip) {
@@ -67,21 +82,26 @@ public abstract class AbstractWidgetScreen extends Screen implements WidgetScree
 
     @Override
     public boolean mouseClicked(double mouseX, double mouseY, int button) {
-        InputWidget widget = getHoveredWidget((int) mouseX, (int) mouseY);
+        InputWidget widget = getWidgetAt((int) mouseX - leftPos, (int) mouseY - topPos);
         if (widget != null && widget.isEnabled()) {
-            if (widget.mouseDown(this, (int) mouseX - getRenderLeftPos(), (int) mouseY - getRenderTopPos(), button)) return true;
-        } else if (button == 0) clearFocus(getFocusedWidget());
+            widget.mouseDown(this, (int) mouseX - leftPos, (int) mouseY - topPos, button);
+            return true;
+        } else clearFocus(getFocusedWidget());
         return super.mouseClicked(mouseX, mouseY, button);
     }
 
     @Override
     public boolean mouseReleased(double mouseX, double mouseY, int button) {
-        if (inputWidgets.stream().anyMatch(widget -> widget.mouseUp(this, (int) mouseX - getRenderLeftPos(), (int) mouseY - getRenderTopPos(), button))) return true;
+        if (inputWidgets.stream().anyMatch(widget -> widget.mouseUp(this, (int) mouseX - leftPos, (int) mouseY - topPos, button))) return true;
         return super.mouseReleased(mouseX, mouseY, button);
     }
 
     @Override
     public boolean keyPressed(int key, int scanCode, int mods) {
+//        if ((key  == 256 && this.shouldCloseOnEsc()) || Minecraft.getInstance().options.keyInventory.matches(key, scanCode)) {
+//            onClose();
+//            return true;
+//        }
         if (focusedWidget != null && focusedWidget.isEnabled()) {
             if (focusedWidget.keyDown(this, key, scanCode, mods)) return true;
         }
@@ -98,16 +118,14 @@ public abstract class AbstractWidgetScreen extends Screen implements WidgetScree
 
     @Override
     public boolean mouseScrolled(double mouseX, double mouseY, double scrollDelta) {
-        InputWidget widget = getHoveredWidget((int) mouseX, (int) mouseY);
-        if (widget != null && widget.isEnabled() && widget.mouseScrolled(this, (int) mouseX - getRenderLeftPos(), (int) mouseY - getRenderTopPos(), scrollDelta)) return true;
+        InputWidget widget = getWidgetAt((int) mouseX - leftPos, (int) mouseY - topPos);
+        if (widget != null && widget.isEnabled() && widget.mouseScrolled(this, (int) mouseX - leftPos, (int) mouseY - topPos, scrollDelta)) return true;
         else if (super.mouseScrolled(mouseX, mouseY, scrollDelta)) return true;
-        else return focusedWidget != null && focusedWidget.mouseScrolled(this, (int) mouseX - getRenderLeftPos(), (int) mouseY - getRenderTopPos(), scrollDelta);
+        else return focusedWidget != null && focusedWidget.mouseScrolled(this, (int) mouseX - leftPos, (int) mouseY - topPos, scrollDelta);
     }
 
     public void addWidgets(InputWidget... widgets) {
-        for (InputWidget widget : widgets) {
-            addWidget(widget);
-        }
+        inputWidgets.addAll(Arrays.asList(widgets));
     }
 
     @Override
@@ -120,10 +138,6 @@ public abstract class AbstractWidgetScreen extends Screen implements WidgetScree
     @Override
     public void removeWidget(InputWidget widget) {
         inputWidgets.remove(widget);
-    }
-
-    public InputWidget getHoveredWidget(int mouseX, int mouseY) {
-        return getWidgetAt(mouseX - getRenderLeftPos(), mouseY - getRenderTopPos());
     }
 
     @Nullable

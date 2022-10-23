@@ -1,6 +1,6 @@
 package design.aeonic.logicnetworks.impl.logic;
 
-import design.aeonic.logicnetworks.api.logic.NetworkController;
+import design.aeonic.logicnetworks.api.block.NetworkController;
 import design.aeonic.logicnetworks.api.logic.network.CompiledNetwork;
 import design.aeonic.logicnetworks.api.logic.network.Edge;
 import design.aeonic.logicnetworks.api.logic.network.Network;

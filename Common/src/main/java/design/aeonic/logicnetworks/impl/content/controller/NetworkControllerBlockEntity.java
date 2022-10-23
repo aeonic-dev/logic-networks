@@ -1,7 +1,7 @@
 package design.aeonic.logicnetworks.impl.content.controller;
 
 import design.aeonic.logicnetworks.api.core.Translations;
-import design.aeonic.logicnetworks.api.logic.NetworkController;
+import design.aeonic.logicnetworks.api.block.NetworkController;
 import design.aeonic.logicnetworks.api.logic.RedstoneControl;
 import design.aeonic.logicnetworks.api.logic.network.CompiledNetwork;
 import design.aeonic.logicnetworks.api.logic.network.Network;
