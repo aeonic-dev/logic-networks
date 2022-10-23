@@ -77,16 +77,32 @@ public final class Translations {
         public static final Component TITLE = Component.translatable("gui.logicnetworks.network_graph.title");
     }
 
+    public static final class Signals {
+        public static final Component INTEGER = Component.translatable("gui.logicnetworks.signals.integer");
+        public static final Component FLOAT = Component.translatable("gui.logicnetworks.signals.float");
+        public static final Component ANALOG = Component.translatable("gui.logicnetworks.signals.analog");
+        public static final Component BOOLEAN = Component.translatable("gui.logicnetworks.signals.boolean");
+    }
+
     public static final class Nodes {
+        public static final Component INTEGER_CONSTANT = Component.translatable("gui.logicnetworks.nodes.integer_constant");
+        public static final Component INTEGER_ADD = Component.translatable("gui.logicnetworks.nodes.integer_add");
+        public static final Component INTEGER_SUBTRACT = Component.translatable("gui.logicnetworks.nodes.integer_subtract");
+        public static final Component INTEGER_MULTIPLY = Component.translatable("gui.logicnetworks.nodes.integer_multiply");
+        public static final Component INTEGER_EXPONENT = Component.translatable("gui.logicnetworks.nodes.integer_exponent");
+        public static final Component INTEGER_DIVIDE = Component.translatable("gui.logicnetworks.nodes.integer_divide");
+        public static final Component INTEGER_MODULO = Component.translatable("gui.logicnetworks.nodes.integer_modulo");
+        public static final Component INTEGER_ABS = Component.translatable("gui.logicnetworks.nodes.integer_absolute");
+        public static final Component INTEGER_NEGATE = Component.translatable("gui.logicnetworks.nodes.integer_negate");
+        public static final Component INTEGER_CLAMP = Component.translatable("gui.logicnetworks.nodes.integer_clamp");
+        public static final Component INTEGER_EQUALS = Component.translatable("gui.logicnetworks.nodes.equals");
+        public static final Component INTEGER_GREATER_THAN = Component.translatable("gui.logicnetworks.nodes.greater_than");
+        public static final Component INTEGER_LESS_THAN = Component.translatable("gui.logicnetworks.nodes.less_than");
+
         public static final Component ANALOG_READ = Component.translatable("gui.logicnetworks.nodes.analog_read");
         public static final Component ANALOG_WRITE = Component.translatable("gui.logicnetworks.nodes.analog_write");
         public static final Component ANALOG_CONSTANT = Component.translatable("gui.logicnetworks.nodes.analog_constant");
         public static final Component ANALOG_INVERT = Component.translatable("gui.logicnetworks.nodes.analog_invert");
-        public static final Component ANALOG_ADD = Component.translatable("gui.logicnetworks.nodes.analog_add");
-        public static final Component ANALOG_SUBTRACT = Component.translatable("gui.logicnetworks.nodes.analog_subtract");
-        public static final Component ANALOG_MULTIPLY = Component.translatable("gui.logicnetworks.nodes.analog_multiply");
-        public static final Component ANALOG_DIVIDE = Component.translatable("gui.logicnetworks.nodes.analog_divide");
-        public static final Component ANALOG_MODULO = Component.translatable("gui.logicnetworks.nodes.analog_modulo");
 
         public static final Component BOOLEAN_READ = Component.translatable("gui.logicnetworks.nodes.boolean_read");
         public static final Component BOOLEAN_WRITE = Component.translatable("gui.logicnetworks.nodes.boolean_write");

@@ -469,10 +469,13 @@ public class NetworkGraphScreen extends AbstractWidgetScreen {
         }
 
         if (hoveredWidget != null) {
-            // TODO: Only render the top-level widget; only here because that wasn't working
             var tooltip = hoveredWidget.getTooltip(this, mx, my);
             if (tooltip != null) {
-                Constants.LOG.info("Rendering tooltip: {}", tooltip);
+                renderTooltip(stack, mx, my, tooltip);
+            }
+        } else if (hoveredSocketNode != null) {
+            var tooltip = (hoveredOutput ? hoveredSocketNode.getOutputSlots() : hoveredSocketNode.getInputSlots())[hoveredSocket].getSocketTooltip(hoveredOutput);
+            if (tooltip != null) {
                 renderTooltip(stack, mx, my, tooltip);
             }
         }
