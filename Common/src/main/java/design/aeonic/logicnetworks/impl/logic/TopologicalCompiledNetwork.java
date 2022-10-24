@@ -32,7 +32,7 @@ public class TopologicalCompiledNetwork implements CompiledNetwork {
                     if (!sink.validate(controller, input)) continue;
                     for (int i = 0; i < input.length; i++) {
                         Object obj = input[i];
-                        if (!sink.getInputSlots()[i].is(obj.getClass()))
+                        if (obj != null && !sink.getInputSlots()[i].is(obj.getClass()))
                             input[i] = inputTypeBuffer.get(sink.getUUID())[i].convertUnchecked(obj, sink.getInputSlots()[i]);
                     }
                     sink.accept(controller, input);
