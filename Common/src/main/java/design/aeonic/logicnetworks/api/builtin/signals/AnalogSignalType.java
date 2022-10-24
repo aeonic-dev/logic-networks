@@ -3,6 +3,7 @@ package design.aeonic.logicnetworks.api.builtin.signals;
 import design.aeonic.logicnetworks.api.block.NetworkAnchor;
 import design.aeonic.logicnetworks.api.builtin.BuiltinSignalTypes;
 import design.aeonic.logicnetworks.api.core.Translations;
+import design.aeonic.logicnetworks.api.logic.network.CacheWritableSignalType;
 import design.aeonic.logicnetworks.api.logic.network.SignalType;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -12,7 +13,7 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
 
-public class AnalogSignalType extends SignalType<Integer> {
+public class AnalogSignalType extends CacheWritableSignalType<Integer> {
     public AnalogSignalType(int color) {
         super(Integer.class, color);
     }

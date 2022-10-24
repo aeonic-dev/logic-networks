@@ -2,10 +2,7 @@ package design.aeonic.logicnetworks.api.logic.network;
 
 import design.aeonic.logicnetworks.api.block.NetworkAnchor;
 import net.minecraft.core.Direction;
-import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
-
-import javax.annotation.Nullable;
 
 /**
  * A type of signal that can be processed by a logic network.
@@ -66,17 +63,6 @@ public abstract class SignalType<T> {
     public final boolean is(SignalType<?> type) {
         return this == type;
     }
-
-    /**
-     * Write the given value to an NBT tag, for use within network caches.
-     */
-    public abstract void writeValue(CompoundTag tag, T value);
-
-    /**
-     * Read the given value from an NBT tag, for use within network caches.
-     */
-    @Nullable
-    public abstract T readValue(CompoundTag tag);
 
     public T cast(Object value) {
         return type.cast(value);

@@ -9,7 +9,7 @@ import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.Tag;
 import net.minecraft.network.chat.Component;
 
-public class BooleanSignalType extends SignalType<Boolean> {
+public class BooleanSignalType extends CacheWritableSignalType<Boolean> {
     public BooleanSignalType(int color) {
         super(Boolean.class, color);
     }

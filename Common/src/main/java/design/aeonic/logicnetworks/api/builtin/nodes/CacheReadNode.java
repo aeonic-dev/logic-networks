@@ -5,6 +5,7 @@ import design.aeonic.logicnetworks.api.block.NetworkCache;
 import design.aeonic.logicnetworks.api.block.NetworkController;
 import design.aeonic.logicnetworks.api.core.CommonRegistries;
 import design.aeonic.logicnetworks.api.core.Translations;
+import design.aeonic.logicnetworks.api.logic.network.CacheWritableSignalType;
 import design.aeonic.logicnetworks.api.logic.network.NodeType;
 import design.aeonic.logicnetworks.api.logic.network.SignalType;
 import design.aeonic.logicnetworks.api.logic.network.node.base.AnchorSourceNode;
@@ -14,12 +15,13 @@ import net.minecraft.network.chat.Component;
 import java.util.UUID;
 
 public class CacheReadNode extends AnchorSourceNode<CacheReadNode> {
-    private static SignalType<?>[] outputSlots = null;
+    private static CacheWritableSignalType<?>[] outputSlots = null;
     private NetworkCache cache = null;
 
     public CacheReadNode(NodeType<CacheReadNode> nodeType, UUID uuid, int x, int y) {
         super(nodeType, uuid, x, y);
-        if (outputSlots == null) outputSlots = CommonRegistries.SIGNAL_TYPES.getValues().toArray(SignalType[]::new);
+        if (outputSlots == null) outputSlots = CommonRegistries.SIGNAL_TYPES.getValues().stream().filter(
+                CacheWritableSignalType.class::isInstance).toArray(CacheWritableSignalType[]::new);
     }
 
     @Override

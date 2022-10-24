@@ -13,7 +13,7 @@ import net.minecraft.util.Mth;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
 
-public class IntegerSignalType extends SignalType<Integer> {
+public class IntegerSignalType extends CacheWritableSignalType<Integer> {
     public IntegerSignalType(int color) {
         super(Integer.class, color);
     }
