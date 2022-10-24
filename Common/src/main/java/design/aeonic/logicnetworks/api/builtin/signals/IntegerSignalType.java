@@ -3,6 +3,7 @@ package design.aeonic.logicnetworks.api.builtin.signals;
 import design.aeonic.logicnetworks.api.block.NetworkAnchor;
 import design.aeonic.logicnetworks.api.builtin.BuiltinSignalTypes;
 import design.aeonic.logicnetworks.api.core.Translations;
+import design.aeonic.logicnetworks.api.logic.network.CacheWritableSignalType;
 import design.aeonic.logicnetworks.api.logic.network.SignalType;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;

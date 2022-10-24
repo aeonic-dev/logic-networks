@@ -2,6 +2,7 @@ package design.aeonic.logicnetworks.impl.content.cache;
 
 import design.aeonic.logicnetworks.api.block.NetworkCache;
 import design.aeonic.logicnetworks.api.core.CommonRegistries;
+import design.aeonic.logicnetworks.api.logic.network.CacheWritableSignalType;
 import design.aeonic.logicnetworks.api.logic.network.SignalType;
 import design.aeonic.logicnetworks.impl.content.NetworkBlockEntities;
 import net.minecraft.core.BlockPos;
@@ -13,7 +14,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class NetworkCacheBlockEntity extends BlockEntity implements NetworkCache {
-    private final Map<SignalType<?>, Object> cache = new HashMap<>();
+    private final Map<CacheWritableSignalType<?>, Object> cache = new HashMap<>();
 
     public NetworkCacheBlockEntity(BlockPos pos, BlockState state) {
         super(NetworkBlockEntities.NETWORK_CACHE, pos, state);
@@ -21,8 +22,8 @@ public class NetworkCacheBlockEntity extends BlockEntity implements NetworkCache
 
     @Override
     public <T> void writeValue(SignalType<T> type, T value) {
-        if (value == null) return;
-        cache.put(type, value);
+        if (value == null || !(type instanceof CacheWritableSignalType<T> writable)) return;
+        cache.put(writable, value);
         setChanged();
     }
 
@@ -37,8 +38,10 @@ public class NetworkCacheBlockEntity extends BlockEntity implements NetworkCache
         super.load(tag);
         CompoundTag cacheTag = tag.getCompound("Cache");
         for (SignalType<?> type : CommonRegistries.SIGNAL_TYPES.getValues()) {
-            Object value = type.readValue(cacheTag);
-            if (value != null) cache.put(type, value);
+            if (type instanceof CacheWritableSignalType<?> writable) {
+                Object value = writable.readValue(cacheTag);
+                if (value != null) cache.put(writable, value);
+            }
         }
     }
 
@@ -46,14 +49,14 @@ public class NetworkCacheBlockEntity extends BlockEntity implements NetworkCache
     protected void saveAdditional(CompoundTag tag) {
         super.saveAdditional(tag);
         CompoundTag cacheTag = new CompoundTag();
-        for (Map.Entry<SignalType<?>, Object> entry : cache.entrySet()) {
+        for (Map.Entry<CacheWritableSignalType<?>, Object> entry : cache.entrySet()) {
             if (entry.getValue() != null) writeUnchecked(entry.getKey(), cacheTag, entry.getValue());
         }
         tag.put("Cache", cacheTag);
     }
 
     @SuppressWarnings("unchecked")
-    private <T> void writeUnchecked(SignalType<T> type, CompoundTag tag, Object value) {
+    private <T> void writeUnchecked(CacheWritableSignalType<T> type, CompoundTag tag, Object value) {
         type.writeValue(tag, (T) value);
     }
 }
