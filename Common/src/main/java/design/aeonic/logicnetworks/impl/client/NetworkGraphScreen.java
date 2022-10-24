@@ -251,30 +251,16 @@ public class NetworkGraphScreen extends AbstractWidgetScreen {
                         addWidget(NodeSearchWidget.createForInput(this, mx, my, nodeType -> {
                             if (nodeType != null) {
                                 var node = nodeType.createNode(UUID.randomUUID(), mx, my);
-                                int index = 0;
-                                for (int i = 0; i < node.getInputSlots().length; i++) {
-                                    if (localConnecting.getOutputSlots()[localConnectingSocket].canConnect(node.getInputSlots()[i])) {
-                                        index = i;
-                                        break;
-                                    }
-                                }
                                 addNode(node);
-                                network.addEdge(Edge.of(localConnecting, localConnectingSocket, node, index));
+                                network.addEdge(Edge.of(localConnecting, localConnectingSocket, node, node.findInputSlot(localConnecting.getOutputSlots()[localConnectingSocket])));
                             }
                         }, localConnecting.getOutputSlots()[localConnectingSocket]));
                     } else {
                         addWidget(NodeSearchWidget.createForOutput(this, mx, my, nodeType -> {
                             if (nodeType != null) {
                                 var node = nodeType.createNode(UUID.randomUUID(), mx, my);
-                                int index = 0;
-                                for (int i = 0; i < node.getOutputSlots().length; i++) {
-                                    if (node.getOutputSlots()[i].canConnect(localConnecting.getInputSlots()[localConnectingSocket])) {
-                                        index = i;
-                                        break;
-                                    }
-                                }
                                 addNode(node);
-                                network.addEdge(Edge.of(node, index, localConnecting, localConnectingSocket));
+                                network.addEdge(Edge.of(node, node.findOutputSlot(localConnecting.getInputSlots()[localConnectingSocket]), localConnecting, localConnectingSocket));
                             }
                         }, localConnecting.getInputSlots()[localConnectingSocket]));
                     }

@@ -87,6 +87,32 @@ public interface Node<T extends Node<T>> {
     int[] getOutputPositions();
 
     /**
+     * Gets the slot index that the given type should connect to. By default, this first slot for which {@link SignalType#canConnect(SignalType)}
+     * is true; the method is here in case you want to override this with a specific slot--for instance, the cache
+     * read/write nodes only connect to a slot exactly matching the given type for ease of use.
+     */
+    default int findInputSlot(SignalType<?> type) {
+        SignalType<?>[] slots = getInputSlots();
+        for (int i = 0; i < slots.length; i++) {
+            if (type.canConnect(slots[i])) return i;
+        }
+        return -1;
+    }
+
+    /**
+     * Gets the slot index that the given type should connect to. By default, this first slot for which {@link SignalType#canConnect(SignalType)}
+     * is true; the method is here in case you want to override this with a specific slot--for instance, the cache
+     * read/write nodes only connect to a slot exactly matching the given type for ease of use.
+     */
+    default int findOutputSlot(SignalType<?> type) {
+        SignalType<?>[] slots = getOutputSlots();
+        for (int i = 0; i < slots.length; i++) {
+            if (slots[i].canConnect(type)) return i;
+        }
+        return -1;
+    }
+
+    /**
      * Gets input socket types for this node. Can be empty or null if none.
      */
     SignalType<?>[] getInputSlots();
