@@ -1,5 +1,6 @@
 package design.aeonic.logicnetworks.api.core;
 
+import design.aeonic.logicnetworks.api.builtin.BuiltinSignalTypes;
 import design.aeonic.logicnetworks.api.logic.LinkStatus;
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.Direction;
@@ -17,6 +18,8 @@ public final class Translations {
         public static final Component SEED = Component.translatable("gui.logicnetworks.generic.seed");
         public static final Component MOST_SIGNIFICANT = Component.translatable("gui.logicnetworks.generic.most_significant");
         public static final Component LEAST_SIGNIFICANT = Component.translatable("gui.logicnetworks.generic.least_significant");
+        public static final Component MIN_VALUE = Component.translatable("gui.logicnetworks.generic.min_value");
+        public static final Component MAX_VALUE = Component.translatable("gui.logicnetworks.generic.max_value");
     }
 
     public static final class Side {
@@ -81,10 +84,14 @@ public final class Translations {
     }
 
     public static final class Signals {
-        public static final Component INTEGER = Component.translatable("gui.logicnetworks.signals.integer");
-        public static final Component LONG = Component.translatable("gui.logicnetworks.signals.long");
-        public static final Component ANALOG = Component.translatable("gui.logicnetworks.signals.analog");
-        public static final Component BOOLEAN = Component.translatable("gui.logicnetworks.signals.boolean");
+        public static final Component INTEGER = Component.translatable("gui.logicnetworks.signals.integer")
+                .withStyle(s -> s.withColor(BuiltinSignalTypes.INTEGER.color));
+        public static final Component LONG = Component.translatable("gui.logicnetworks.signals.long")
+                .withStyle(s -> s.withColor(BuiltinSignalTypes.LONG.color));
+        public static final Component ANALOG = Component.translatable("gui.logicnetworks.signals.analog")
+                .withStyle(s -> s.withColor(BuiltinSignalTypes.ANALOG.color));
+        public static final Component BOOLEAN = Component.translatable("gui.logicnetworks.signals.boolean")
+                .withStyle(s -> s.withColor(BuiltinSignalTypes.BOOLEAN.color));
     }
 
     public static final class Nodes {

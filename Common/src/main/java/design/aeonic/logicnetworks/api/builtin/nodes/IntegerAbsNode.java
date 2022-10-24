@@ -13,6 +13,11 @@ public class IntegerAbsNode extends SimpleOperatorNode<IntegerAbsNode> {
     }
 
     @Override
+    public int getHeight() {
+        return 16;
+    }
+
+    @Override
     public Object[] evaluate(Object[] inputs) {
         return new Object[]{Math.abs((Integer) inputs[0])};
     }

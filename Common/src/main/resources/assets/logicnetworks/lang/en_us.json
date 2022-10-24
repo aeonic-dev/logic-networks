@@ -19,6 +19,8 @@
   "gui.logicnetworks.generic.seed": "Random seed",
   "gui.logicnetworks.generic.most_significant": "Most significant bits",
   "gui.logicnetworks.generic.least_significant": "Least significant bits",
+  "gui.logicnetworks.generic.min_value": "Minimum value",
+    "gui.logicnetworks.generic.max_value": "Maximum value",
 
   "gui.logicnetworks.side.up": "U",
   "gui.logicnetworks.side.down": "D",
@@ -48,10 +50,10 @@
   "gui.logicnetworks.network_controller.edit_network_tooltip": "Open the graph editor",
   "gui.logicnetworks.network_graph.title": "Network Graph",
 
-  "gui.logicnetworks.signals.integer": "Integer",
-  "gui.logicnetworks.signals.long": "Long",
-  "gui.logicnetworks.signals.analog": "Analog 0-15",
-  "gui.logicnetworks.signals.boolean": "Boolean",
+  "gui.logicnetworks.signals.integer": "[Integer]",
+  "gui.logicnetworks.signals.long": "[Long]",
+  "gui.logicnetworks.signals.analog": "[Analog 0-15]",
+  "gui.logicnetworks.signals.boolean": "[Boolean]",
 
   "gui.logicnetworks.nodes.equals": "Equals",
   "gui.logicnetworks.nodes.greater_than": "Greater Than",
