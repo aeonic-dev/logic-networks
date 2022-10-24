@@ -36,7 +36,7 @@ public class NodeSearchWidget extends StringInputWidget {
         this.callback = callback;
         this.filter = filter;
 
-        search(value);
+        results = search(value);
     }
 
     public static NodeSearchWidget createForInput(WidgetScreen screen, int x, int y, SelectCallback callback, SignalType<?> inputType) {
