@@ -36,6 +36,8 @@ public final class BuiltinNodeTypes {
     public static final NodeType<AnalogWriteNode> ANALOG_WRITE = new BaseNodeType<>(AnalogWriteNode::new);
     public static final NodeType<AnalogConstantNode> ANALOG_CONSTANT = new BaseNodeType<>(AnalogConstantNode::new);
     public static final NodeType<AnalogInvertNode> ANALOG_INVERT = new BaseNodeType<>(AnalogInvertNode::new);
+    public static final NodeType<AnalogPackNode> ANALOG_PACK = new BaseNodeType<>(AnalogPackNode::new);
+    public static final NodeType<AnalogUnpackNode> ANALOG_UNPACK = new BaseNodeType<>(AnalogUnpackNode::new);
 
     public static final NodeType<BooleanReadNode> BOOLEAN_READ = new BaseNodeType<>(BooleanReadNode::new);
     public static final NodeType<BooleanWriteNode> BOOLEAN_WRITE = new BaseNodeType<>(BooleanWriteNode::new);
@@ -77,6 +79,8 @@ public final class BuiltinNodeTypes {
         CommonRegistries.NODE_TYPES.register(new ResourceLocation(Constants.MOD_ID, "analog_write"), ANALOG_WRITE);
         CommonRegistries.NODE_TYPES.register(new ResourceLocation(Constants.MOD_ID, "analog_constant"), ANALOG_CONSTANT);
         CommonRegistries.NODE_TYPES.register(new ResourceLocation(Constants.MOD_ID, "analog_invert"), ANALOG_INVERT);
+        CommonRegistries.NODE_TYPES.register(new ResourceLocation(Constants.MOD_ID, "analog_pack"), ANALOG_PACK);
+        CommonRegistries.NODE_TYPES.register(new ResourceLocation(Constants.MOD_ID, "analog_unpack"), ANALOG_UNPACK);
 
         CommonRegistries.NODE_TYPES.register(new ResourceLocation(Constants.MOD_ID, "boolean_read"), BOOLEAN_READ);
         CommonRegistries.NODE_TYPES.register(new ResourceLocation(Constants.MOD_ID, "boolean_write"), BOOLEAN_WRITE);

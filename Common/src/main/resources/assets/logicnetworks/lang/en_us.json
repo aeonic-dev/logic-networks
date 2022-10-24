@@ -25,6 +25,10 @@
   "gui.logicnetworks.generic.max_value": "Maximum value",
   "gui.logicnetworks.generic.tick_seed": "Randomize every read",
   "gui.logicnetworks.generic.anchor_link": "Anchor link",
+  "gui.logicnetworks.generic.bit_zero": "2^0 bit",
+  "gui.logicnetworks.generic.bit_one": "2^1 bit",
+  "gui.logicnetworks.generic.bit_two": "2^2 bit",
+  "gui.logicnetworks.generic.bit_three": "2^3 bit",
 
   "gui.logicnetworks.side.up": "U",
   "gui.logicnetworks.side.down": "D",
@@ -87,6 +91,8 @@
   "gui.logicnetworks.nodes.analog_write": "Analog Write",
   "gui.logicnetworks.nodes.analog_constant": "Analog Constant",
   "gui.logicnetworks.nodes.analog_invert": "Analog Invert",
+  "gui.logicnetworks.nodes.analog_pack": "Analog Pack",
+  "gui.logicnetworks.nodes.analog_unpack": "Analog Unpack",
 
   "gui.logicnetworks.nodes.boolean_read": "Boolean Read",
   "gui.logicnetworks.nodes.boolean_write": "Boolean Write",

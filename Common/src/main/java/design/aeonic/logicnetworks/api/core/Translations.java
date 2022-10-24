@@ -22,6 +22,11 @@ public final class Translations {
         public static final Component MAX_VALUE = Component.translatable("gui.logicnetworks.generic.max_value");
         public static final Component TICK_SEED = Component.translatable("gui.logicnetworks.generic.tick_seed");
         public static final Component ANCHOR_LINK = Component.translatable("gui.logicnetworks.generic.anchor_link");
+
+        public static final Component BIT_ZERO = Component.translatable("gui.logicnetworks.generic.bit_zero");
+        public static final Component BIT_ONE = Component.translatable("gui.logicnetworks.generic.bit_one");
+        public static final Component BIT_TWO = Component.translatable("gui.logicnetworks.generic.bit_two");
+        public static final Component BIT_THREE = Component.translatable("gui.logicnetworks.generic.bit_three");
     }
 
     public static final class Side {
@@ -125,6 +130,8 @@ public final class Translations {
         public static final Component ANALOG_WRITE = Component.translatable("gui.logicnetworks.nodes.analog_write");
         public static final Component ANALOG_CONSTANT = Component.translatable("gui.logicnetworks.nodes.analog_constant");
         public static final Component ANALOG_INVERT = Component.translatable("gui.logicnetworks.nodes.analog_invert");
+        public static final Component ANALOG_PACK = Component.translatable("gui.logicnetworks.nodes.analog_pack");
+        public static final Component ANALOG_UNPACK = Component.translatable("gui.logicnetworks.nodes.analog_unpack");
 
         public static final Component BOOLEAN_READ = Component.translatable("gui.logicnetworks.nodes.boolean_read");
         public static final Component BOOLEAN_WRITE = Component.translatable("gui.logicnetworks.nodes.boolean_write");
