@@ -20,6 +20,28 @@ public abstract class IntegerMathNode extends SimpleOperatorNode<IntegerMathNode
 
     public abstract Integer evaluateInternal(Integer a, Integer b);
 
+    public static class Max extends IntegerMathNode {
+        public Max(NodeType<IntegerMathNode> nodeType, UUID uuid, int x, int y) {
+            super(nodeType, Translations.Nodes.INTEGER_MAX, uuid, x, y);
+        }
+
+        @Override
+        public Integer evaluateInternal(Integer a, Integer b) {
+            return Math.max(a, b);
+        }
+    }
+
+    public static class Min extends IntegerMathNode {
+        public Min(NodeType<IntegerMathNode> nodeType, UUID uuid, int x, int y) {
+            super(nodeType, Translations.Nodes.INTEGER_MIN, uuid, x, y);
+        }
+
+        @Override
+        public Integer evaluateInternal(Integer a, Integer b) {
+            return Math.min(a, b);
+        }
+    }
+
     public static class Add extends IntegerMathNode {
         public Add(NodeType<IntegerMathNode> nodeType, UUID uuid, int x, int y) {
             super(nodeType, Translations.Nodes.INTEGER_ADD, uuid, x, y);

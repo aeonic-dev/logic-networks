@@ -60,6 +60,8 @@
   "gui.logicnetworks.nodes.less_than": "Less Than",
 
   "gui.logicnetworks.nodes.integer_constant": "Integer Constant",
+  "gui.logicnetworks.nodes.integer_max": "Integer Max",
+  "gui.logicnetworks.nodes.integer_min": "Integer Min",
   "gui.logicnetworks.nodes.integer_add": "Integer Add",
   "gui.logicnetworks.nodes.integer_subtract": "Integer Subtract",
   "gui.logicnetworks.nodes.integer_multiply": "Integer Multiply",

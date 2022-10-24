@@ -12,6 +12,8 @@ public final class BuiltinNodeTypes {
     public static final NodeType<IntegerComparisonNode> INTEGER_EQUALS = new BaseNodeType<>(IntegerComparisonNode.Equals::new);
     public static final NodeType<IntegerComparisonNode> INTEGER_GREATER_THAN = new BaseNodeType<>(IntegerComparisonNode.GreaterThan::new);
     public static final NodeType<IntegerComparisonNode> INTEGER_LESS_THAN = new BaseNodeType<>(IntegerComparisonNode.LessThan::new);
+    public static final NodeType<IntegerMathNode> INTEGER_MAX = new BaseNodeType<>(IntegerMathNode.Max::new);
+    public static final NodeType<IntegerMathNode> INTEGER_MIN = new BaseNodeType<>(IntegerMathNode.Min::new);
     public static final NodeType<IntegerMathNode> INTEGER_ADD = new BaseNodeType<>(IntegerMathNode.Add::new);
     public static final NodeType<IntegerMathNode> INTEGER_SUBTRACT = new BaseNodeType<>(IntegerMathNode.Subtract::new);
     public static final NodeType<IntegerMathNode> INTEGER_MULTIPLY = new BaseNodeType<>(IntegerMathNode.Multiply::new);
@@ -48,6 +50,8 @@ public final class BuiltinNodeTypes {
         CommonRegistries.NODE_TYPES.register(new ResourceLocation(Constants.MOD_ID, "integer_equals"), INTEGER_EQUALS);
         CommonRegistries.NODE_TYPES.register(new ResourceLocation(Constants.MOD_ID, "integer_greater_than"), INTEGER_GREATER_THAN);
         CommonRegistries.NODE_TYPES.register(new ResourceLocation(Constants.MOD_ID, "integer_less_than"), INTEGER_LESS_THAN);
+        CommonRegistries.NODE_TYPES.register(new ResourceLocation(Constants.MOD_ID, "integer_max"), INTEGER_MAX);
+        CommonRegistries.NODE_TYPES.register(new ResourceLocation(Constants.MOD_ID, "integer_min"), INTEGER_MIN);
         CommonRegistries.NODE_TYPES.register(new ResourceLocation(Constants.MOD_ID, "integer_add"), INTEGER_ADD);
         CommonRegistries.NODE_TYPES.register(new ResourceLocation(Constants.MOD_ID, "integer_subtract"), INTEGER_SUBTRACT);
         CommonRegistries.NODE_TYPES.register(new ResourceLocation(Constants.MOD_ID, "integer_multiply"), INTEGER_MULTIPLY);

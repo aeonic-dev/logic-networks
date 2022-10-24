@@ -96,6 +96,8 @@ public final class Translations {
 
     public static final class Nodes {
         public static final Component INTEGER_CONSTANT = Component.translatable("gui.logicnetworks.nodes.integer_constant");
+        public static final Component INTEGER_MAX = Component.translatable("gui.logicnetworks.nodes.integer_max");
+        public static final Component INTEGER_MIN = Component.translatable("gui.logicnetworks.nodes.integer_min");
         public static final Component INTEGER_ADD = Component.translatable("gui.logicnetworks.nodes.integer_add");
         public static final Component INTEGER_SUBTRACT = Component.translatable("gui.logicnetworks.nodes.integer_subtract");
         public static final Component INTEGER_MULTIPLY = Component.translatable("gui.logicnetworks.nodes.integer_multiply");
