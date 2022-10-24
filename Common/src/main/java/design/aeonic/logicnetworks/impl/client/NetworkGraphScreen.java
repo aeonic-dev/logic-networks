@@ -123,7 +123,10 @@ public class NetworkGraphScreen extends AbstractWidgetScreen {
 
     @Override
     public boolean keyPressed(int key, int scanCode, int mods) {
-        // Allow the inventory key to close the screen akin to a menu screen
+        if (key == GLFW.GLFW_KEY_ESCAPE && NodeSearchWidget.getInstance() != null) {
+            NodeSearchWidget.getInstance().close(this);
+            return true;
+        }
         if (super.keyPressed(key, scanCode, mods)) return true;
         if (minecraft.options.keyInventory.matches(key, scanCode)) {
             this.onClose();
