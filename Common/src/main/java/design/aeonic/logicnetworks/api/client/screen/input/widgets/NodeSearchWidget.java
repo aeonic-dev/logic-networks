@@ -17,7 +17,6 @@ import java.util.function.Predicate;
 
 public class NodeSearchWidget extends StringInputWidget {
     // TODO: Generally pretty bad implementation but whatever it works for now
-
     public static final Texture BOX = new Texture("logicnetworks:textures/gui/node_search_box.png", 128, 128, 96, 97);
     public static final Texture OPTION = new Texture("logicnetworks:textures/gui/node_search_box.png", 128, 128, 86, 12, 0, 104);
     public static final Texture OPTION_HOVERED = new Texture("logicnetworks:textures/gui/node_search_box.png", 128, 128, 86, 12, 0, 116);
@@ -36,6 +35,8 @@ public class NodeSearchWidget extends StringInputWidget {
         super(x, y, maxLength, "");
         this.callback = callback;
         this.filter = filter;
+
+        search(value);
     }
 
     public static NodeSearchWidget createForInput(WidgetScreen screen, int x, int y, SelectCallback callback, SignalType<?> inputType) {
@@ -74,10 +75,13 @@ public class NodeSearchWidget extends StringInputWidget {
         }
     }
 
+    public static NodeSearchWidget getInstance() {
+        return instance;
+    }
+
     @Override
     public void onLostFocus(WidgetScreen screen) {
-        callback.onSelect(null);
-        screen.removeWidget(this);
+        close(screen, true);
     }
 
     @Override
@@ -89,13 +93,22 @@ public class NodeSearchWidget extends StringInputWidget {
                     int index = (mouseY - (getY() + 20)) / 12;
                     callback.onSelect(results.get(index).getValue());
                     screen.clearFocus(this);
-                    screen.removeWidget(this);
-                    if (instance == this) instance = null;
+                    close(screen, false);
                     return true;
                 }
             }
         }
         return false;
+    }
+
+    public void close(WidgetScreen screen) {
+        close(screen, true);
+    }
+
+    private void close(WidgetScreen screen, boolean canceled) {
+        if (canceled) callback.onSelect(null);
+        screen.removeWidget(this);
+        if (instance == this) instance = null;
     }
 
     @Override
