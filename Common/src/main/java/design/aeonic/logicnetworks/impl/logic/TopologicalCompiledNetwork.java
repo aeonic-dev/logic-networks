@@ -28,10 +28,10 @@ public class TopologicalCompiledNetwork implements CompiledNetwork {
             for (Node<?> node : layer) {
                 if (node instanceof SinkNode<?> sink) {
                     Object[] input = inputBuffer.get(sink.getUUID());
-                    // Don't write to the sink if any input is null
+                    // Don't write to the sink if its input is invalid
+                    if (!sink.validate(controller, input)) continue;
                     for (int i = 0; i < input.length; i++) {
                         Object obj = input[i];
-                        if (obj == null) return;
                         if (!sink.getInputSlots()[i].is(obj.getClass()))
                             input[i] = inputTypeBuffer.get(sink.getUUID())[i].convertUnchecked(obj, sink.getInputSlots()[i]);
                     }
@@ -44,16 +44,16 @@ public class TopologicalCompiledNetwork implements CompiledNetwork {
                     }
                 } else if (node instanceof OperatorNode<?> operator) {
                     Object[] input = inputBuffer.get(operator.getUUID());
-                    if (input == null) return;
+                    if (input == null) continue;
                     for (int i = 0; i < input.length; i++) {
                         Object obj = input[i];
-                        if (obj == null) return;
+                        if (obj == null) continue;
                         if (!operator.getInputSlots()[i].is(obj.getClass()))
                             input[i] = inputTypeBuffer.get(operator.getUUID())[i].convertUnchecked(obj, operator.getInputSlots()[i]);
                     }
 
                     // Validate operator inputs before continuing; should propagate the rest of the changes
-                    if (!operator.validate(input)) return;
+                    if (!operator.validate(input)) continue;
 
                     Object[] output = operator.evaluate(input);
                     for (Edge edge: connections.get(node.getUUID())) {
