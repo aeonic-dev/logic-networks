@@ -3,12 +3,14 @@
   "key.logicnetworks.delete_node": "Delete Node",
   "category.logicnetworks.graph": "Logic Networks: Node Graph",
 
-  "block.logicnetworks.network_anchor": "Network Anchor",
   "block.logicnetworks.network_controller": "Network Controller",
+  "block.logicnetworks.network_anchor": "Network Anchor",
+  "block.logicnetworks.network_cache": "Network Cache",
 
   "item.logicnetworks.linking_card": "Linking Card",
   "item.logicnetworks.logic_core": "Logic Core",
   "item.logicnetworks.control_circuit": "Control Circuit",
+  "item.logicnetworks.wrench": "Wrench",
 
   "itemGroup.logicnetworks:main": "Logic Networks",
 

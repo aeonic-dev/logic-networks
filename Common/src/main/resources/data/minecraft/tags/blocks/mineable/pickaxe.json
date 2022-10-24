@@ -1,7 +1,8 @@
 {
   "replace": false,
   "values": [
+    "logicnetworks:network_controller",
     "logicnetworks:network_anchor",
-    "logicnetworks:network_controller"
+    "logicnetworks:network_cache"
   ]
 }

@@ -2,6 +2,7 @@ package design.aeonic.logicnetworks.impl.content;
 
 import design.aeonic.logicnetworks.api.util.Registrar;
 import design.aeonic.logicnetworks.impl.content.anchor.NetworkAnchorBlock;
+import design.aeonic.logicnetworks.impl.content.cache.NetworkCacheBlock;
 import design.aeonic.logicnetworks.impl.content.controller.NetworkControllerBlock;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.SoundType;
@@ -14,8 +15,12 @@ public final class NetworkBlocks {
     public static final NetworkAnchorBlock NETWORK_ANCHOR = new NetworkAnchorBlock(Block.Properties
             .of(Material.METAL).isRedstoneConductor(($, $$, $$$) -> true).strength(2F, 6.0F).sound(SoundType.COPPER).lightLevel(state -> 7).noOcclusion());
 
+    public static final NetworkCacheBlock NETWORK_CACHE = new NetworkCacheBlock(Block.Properties
+            .of(Material.METAL).strength(2F, 6.0F).sound(SoundType.COPPER).lightLevel(state -> 7).noOcclusion());
+
     public static void register(Registrar<Block> registrar) {
         registrar.accept("network_controller", NETWORK_CONTROLLER);
         registrar.accept("network_anchor", NETWORK_ANCHOR);
+        registrar.accept("network_cache", NETWORK_CACHE);
     }
 }
