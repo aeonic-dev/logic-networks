@@ -1,6 +1,7 @@
 package design.aeonic.logicnetworks.impl.content.anchor;
 
 import design.aeonic.logicnetworks.api.block.FacadeHideable;
+import design.aeonic.logicnetworks.api.block.WrenchableEntityBlock;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.world.InteractionHand;
@@ -8,7 +9,6 @@ import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
-import net.minecraft.world.level.block.BaseEntityBlock;
 import net.minecraft.world.level.block.RenderShape;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
@@ -18,7 +18,7 @@ import net.minecraft.world.phys.shapes.VoxelShape;
 
 import javax.annotation.Nullable;
 
-public class NetworkAnchorBlock extends BaseEntityBlock {
+public class NetworkAnchorBlock extends WrenchableEntityBlock {
     private final VoxelShape shape = box(5, 5, 5, 11, 11, 11);
 
     public NetworkAnchorBlock(Properties properties) {
@@ -71,6 +71,8 @@ public class NetworkAnchorBlock extends BaseEntityBlock {
     public InteractionResult use(BlockState state, Level level, BlockPos pos, Player player, InteractionHand hand, BlockHitResult res) {
         var result = FacadeHideable.tryPutFacade(state, level, pos, player, hand, res);
         if (result != InteractionResult.FAIL) return result;
+        result = super.use(state, level, pos, player, hand, res);
+        if (result != InteractionResult.PASS) return result;
         else if ((result = FacadeHideable.tryRemoveFacade(state, level, pos, player, hand, res)) != InteractionResult.FAIL) return result;
 
         var prv = getMenuProvider(state, level, pos);

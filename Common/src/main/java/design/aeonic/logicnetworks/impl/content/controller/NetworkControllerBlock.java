@@ -1,5 +1,6 @@
 package design.aeonic.logicnetworks.impl.content.controller;
 
+import design.aeonic.logicnetworks.api.block.WrenchableEntityBlock;
 import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.InteractionHand;
@@ -7,7 +8,6 @@ import net.minecraft.world.InteractionResult;
 import net.minecraft.world.MenuProvider;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
-import net.minecraft.world.level.block.BaseEntityBlock;
 import net.minecraft.world.level.block.RenderShape;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityTicker;
@@ -18,7 +18,7 @@ import net.minecraft.world.phys.BlockHitResult;
 
 import javax.annotation.Nullable;
 
-public class NetworkControllerBlock extends BaseEntityBlock {
+public class NetworkControllerBlock extends WrenchableEntityBlock {
     public NetworkControllerBlock(BlockBehaviour.Properties properties) {
         super(properties);
     }
@@ -30,6 +30,8 @@ public class NetworkControllerBlock extends BaseEntityBlock {
 
     @Override
     public InteractionResult use(BlockState state, Level level, BlockPos pos, Player player, InteractionHand hand, BlockHitResult res) {
+        InteractionResult result = super.use(state, level, pos, player, hand, res);
+        if (result != InteractionResult.PASS) return result;
         var prv = getMenuProvider(state, level, pos);
         if (!level.isClientSide()) {
             player.openMenu(prv);
