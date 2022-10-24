@@ -15,6 +15,14 @@ public class AnalogPackNode extends SimpleOperatorNode<AnalogPackNode> {
                 BuiltinSignalTypes.BOOLEAN.arrayOf(4), BuiltinSignalTypes.ANALOG.arrayOf(), uuid, x, y);
     }
 
+    @Override
+    public boolean validate(Object... inputs) {
+        for (Object object : inputs) {
+            if (object != null) return true;
+        }
+        return false;
+    }
+
     @Nullable
     @Override
     protected Component getInputSocketName(int index) {
@@ -29,6 +37,9 @@ public class AnalogPackNode extends SimpleOperatorNode<AnalogPackNode> {
 
     @Override
     public Object[] evaluate(Object[] inputs) {
-        return new Object[]{((Boolean) inputs[0] ? 8 : 0) + ((Boolean) inputs[1] ? 4 : 0) + ((Boolean) inputs[2] ? 2 : 0) + ((Boolean) inputs[3] ? 1 : 0)};
+        return new Object[]{(inputs[0] != null && (Boolean) inputs[0] ? 8 : 0) +
+                (inputs[1] != null && (Boolean) inputs[1] ? 4 : 0) +
+                (inputs[2] != null && (Boolean) inputs[2] ? 2 : 0) +
+                (inputs[3] != null && (Boolean) inputs[3] ? 1 : 0)};
     }
 }

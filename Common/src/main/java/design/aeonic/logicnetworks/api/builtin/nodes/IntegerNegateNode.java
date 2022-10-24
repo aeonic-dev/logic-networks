@@ -13,6 +13,11 @@ public class IntegerNegateNode extends SimpleOperatorNode<IntegerNegateNode> {
     }
 
     @Override
+    public int getHeight() {
+        return 16;
+    }
+
+    @Override
     public Object[] evaluate(Object[] inputs) {
         return new Object[]{-(Integer) inputs[0]};
     }
