@@ -17,6 +17,8 @@
   "gui.logicnetworks.generic.redstone_control": "Redstone control",
   "gui.logicnetworks.generic.clamps": "Clamps the output",
   "gui.logicnetworks.generic.seed": "Random seed",
+  "gui.logicnetworks.generic.most_significant": "Most significant bits",
+  "gui.logicnetworks.generic.least_significant": "Least significant bits",
 
   "gui.logicnetworks.side.up": "U",
   "gui.logicnetworks.side.down": "D",
@@ -68,6 +70,8 @@
 
   "gui.logicnetworks.nodes.current_tick": "Current Tick",
   "gui.logicnetworks.nodes.random": "Random",
+  "gui.logicnetworks.nodes.long_pack": "Long Pack",
+  "gui.logicnetworks.nodes.long_unpack": "Long Unpack",
 
   "gui.logicnetworks.nodes.analog_read": "Analog Read",
   "gui.logicnetworks.nodes.analog_write": "Analog Write",

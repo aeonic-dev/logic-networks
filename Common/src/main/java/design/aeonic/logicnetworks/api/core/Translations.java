@@ -15,6 +15,8 @@ public final class Translations {
         public static final Component REDSTONE_CONTROL = Component.translatable("gui.logicnetworks.generic.redstone_control");
         public static final Component CLAMPS = Component.translatable("gui.logicnetworks.generic.clamps");
         public static final Component SEED = Component.translatable("gui.logicnetworks.generic.seed");
+        public static final Component MOST_SIGNIFICANT = Component.translatable("gui.logicnetworks.generic.most_significant");
+        public static final Component LEAST_SIGNIFICANT = Component.translatable("gui.logicnetworks.generic.least_significant");
     }
 
     public static final class Side {
@@ -102,6 +104,8 @@ public final class Translations {
 
         public static final Component CURRENT_TICK = Component.translatable("gui.logicnetworks.nodes.current_tick");
         public static final Component RANDOM = Component.translatable("gui.logicnetworks.nodes.random");
+        public static final Component LONG_PACK = Component.translatable("gui.logicnetworks.nodes.long_pack");
+        public static final Component LONG_UNPACK = Component.translatable("gui.logicnetworks.nodes.long_unpack");
 
         public static final Component ANALOG_READ = Component.translatable("gui.logicnetworks.nodes.analog_read");
         public static final Component ANALOG_WRITE = Component.translatable("gui.logicnetworks.nodes.analog_write");

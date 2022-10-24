@@ -24,6 +24,8 @@ public final class BuiltinNodeTypes {
 
     public static final NodeType<LongCurrentTickNode> CURRENT_TICK = new BaseNodeType<>(LongCurrentTickNode::new);
     public static final NodeType<RandomNode> RANDOM = new BaseNodeType<>(RandomNode::new);
+    public static final NodeType<LongPackNode> LONG_PACK = new BaseNodeType<>(LongPackNode::new);
+    public static final NodeType<LongUnpackNode> LONG_UNPACK = new BaseNodeType<>(LongUnpackNode::new);
 
     public static final NodeType<AnalogReadNode> ANALOG_READ = new BaseNodeType<>(AnalogReadNode::new);
     public static final NodeType<AnalogWriteNode> ANALOG_WRITE = new BaseNodeType<>(AnalogWriteNode::new);
@@ -58,6 +60,8 @@ public final class BuiltinNodeTypes {
 
         CommonRegistries.NODE_TYPES.register(new ResourceLocation(Constants.MOD_ID, "current_tick"), CURRENT_TICK);
         CommonRegistries.NODE_TYPES.register(new ResourceLocation(Constants.MOD_ID, "random"), RANDOM);
+        CommonRegistries.NODE_TYPES.register(new ResourceLocation(Constants.MOD_ID, "long_pack"), LONG_PACK);
+        CommonRegistries.NODE_TYPES.register(new ResourceLocation(Constants.MOD_ID, "long_unpack"), LONG_UNPACK);
 
         CommonRegistries.NODE_TYPES.register(new ResourceLocation(Constants.MOD_ID, "analog_read"), ANALOG_READ);
         CommonRegistries.NODE_TYPES.register(new ResourceLocation(Constants.MOD_ID, "analog_write"), ANALOG_WRITE);
