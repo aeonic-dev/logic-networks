@@ -17,11 +17,12 @@ public class SimpleMonoText {
     public static final int HEIGHT = 12;
 
     private static final int left = 1;
-    private static final int top = 52;
+    private static final int top = 36;
     private static final int marginX = 9;
     private static final int marginY = 3;
 
     private static final String[] lines = new String[]{
+            "□!\"#$%&'()*+,-./",
             "0123456789:;<=>?",
             "@ABCDEFGHIJKLMNO",
             "PQRSTUVWXYZ[\\]^_",
