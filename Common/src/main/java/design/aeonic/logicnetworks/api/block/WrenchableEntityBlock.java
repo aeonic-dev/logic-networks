@@ -1,6 +1,5 @@
 package design.aeonic.logicnetworks.api.block;
 
-import design.aeonic.logicnetworks.api.core.Constants;
 import design.aeonic.logicnetworks.api.data.NetworkTags;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.InteractionHand;
@@ -29,7 +28,6 @@ public abstract class WrenchableEntityBlock extends BaseEntityBlock implements W
     @Override
     public InteractionResult wrench(Level level, BlockPos pos, BlockState state, Player player, InteractionHand hand) {
         ItemStack stack = player.getItemInHand(hand);
-        Constants.LOG.info("item {} tag {} is {} crouching {}", stack, NetworkTags.Items.WRENCH, stack.is(NetworkTags.Items.WRENCH), player.isShiftKeyDown());
         if (player.isShiftKeyDown()) {
             if (level.isClientSide) return InteractionResult.SUCCESS;
             level.destroyBlock(pos, true, player);

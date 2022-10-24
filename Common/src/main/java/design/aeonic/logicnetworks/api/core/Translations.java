@@ -21,6 +21,7 @@ public final class Translations {
         public static final Component MIN_VALUE = Component.translatable("gui.logicnetworks.generic.min_value");
         public static final Component MAX_VALUE = Component.translatable("gui.logicnetworks.generic.max_value");
         public static final Component TICK_SEED = Component.translatable("gui.logicnetworks.generic.tick_seed");
+        public static final Component ANCHOR_LINK = Component.translatable("gui.logicnetworks.generic.anchor_link");
     }
 
     public static final class Side {
@@ -96,6 +97,9 @@ public final class Translations {
     }
 
     public static final class Nodes {
+        public static final Component CACHE_READ = Component.translatable("gui.logicnetworks.nodes.cache_read");
+        public static final Component CACHE_WRITE = Component.translatable("gui.logicnetworks.nodes.cache_write");
+
         public static final Component INTEGER_CONSTANT = Component.translatable("gui.logicnetworks.nodes.integer_constant");
         public static final Component INTEGER_MAX = Component.translatable("gui.logicnetworks.nodes.integer_max");
         public static final Component INTEGER_MIN = Component.translatable("gui.logicnetworks.nodes.integer_min");

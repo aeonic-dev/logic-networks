@@ -3,10 +3,15 @@ package design.aeonic.logicnetworks.api.client.screen.input.widgets;
 import com.mojang.blaze3d.vertex.PoseStack;
 import design.aeonic.logicnetworks.api.client.screen.input.AbstractInputWidget;
 import design.aeonic.logicnetworks.api.client.screen.input.WidgetScreen;
+import design.aeonic.logicnetworks.api.core.Translations;
 import design.aeonic.logicnetworks.api.util.RenderUtils;
 import design.aeonic.logicnetworks.api.util.Texture;
 import net.minecraft.client.Minecraft;
+import net.minecraft.network.chat.Component;
 import net.minecraft.world.item.ItemStack;
+
+import javax.annotation.Nullable;
+import java.util.List;
 
 public class SelectLinkWidget extends AbstractInputWidget {
     public static final Texture SLOT = new Texture("logicnetworks:textures/gui/link_slot.png", 64, 64, 18, 18, 7, 12);
@@ -61,8 +66,14 @@ public class SelectLinkWidget extends AbstractInputWidget {
         if (!linkStack.isEmpty()) Minecraft.getInstance().getItemRenderer().renderGuiItem(linkStack, screen.getRenderLeftPos() + getX() + 1, screen.getRenderTopPos() + getY() + 1);
         if (isHighlighted(mouseX, mouseY)) {
             SLOT_HIGHLIGHT.draw(stack, getX(), getY(), 0);
-            if (!linkStack.isEmpty()) RenderUtils.renderTooltip(stack, linkStack, mouseX, mouseY);
+            if (linkStack != null && !linkStack.isEmpty()) RenderUtils.renderTooltip(stack, linkStack, mouseX, mouseY);
         }
+    }
+
+    @Nullable
+    @Override
+    public List<Component> getTooltip(WidgetScreen screen, int mouseX, int mouseY) {
+        return linkStack == null || linkStack.isEmpty() ? List.of(Translations.Generic.ANCHOR_LINK) : super.getTooltip(screen, mouseX, mouseY);
     }
 
     public boolean isHighlighted(int mouseX, int mouseY) {
