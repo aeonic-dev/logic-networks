@@ -14,6 +14,11 @@ public abstract class IntegerComparisonNode extends SimpleOperatorNode<IntegerCo
     }
 
     @Override
+    public int getHeight() {
+        return 16;
+    }
+
+    @Override
     public final Object[] evaluate(Object[] inputs) {
         return new Object[]{evaluateInternal((Integer) inputs[0], (Integer) inputs[1])};
     }
