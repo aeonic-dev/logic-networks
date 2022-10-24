@@ -23,6 +23,15 @@ public class CacheWriteNode extends AnchorSinkNode<CacheWriteNode> {
     }
 
     @Override
+    public boolean validate(NetworkController controller, Object... inputs) {
+        // Only accept input if at least one value is nonnull
+        for (Object object : inputs) {
+            if (object != null) return true;
+        }
+        return false;
+    }
+
+    @Override
     public int findInputSlot(SignalType<?> type) {
         for (int i = 0; i < inputSlots.length; i++) {
             if (inputSlots[i] == type) return i;
