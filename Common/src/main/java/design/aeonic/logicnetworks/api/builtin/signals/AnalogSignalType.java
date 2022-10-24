@@ -6,6 +6,7 @@ import design.aeonic.logicnetworks.api.core.Translations;
 import design.aeonic.logicnetworks.api.logic.network.SignalType;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
@@ -33,6 +34,16 @@ public class AnalogSignalType extends SignalType<Integer> {
         BlockPos relative = anchor.getAnchorPos().relative(side);
         BlockState relativeState = level.getBlockState(relative);
         return relativeState.hasAnalogOutputSignal() ? relativeState.getAnalogOutputSignal(level, relative) : level.getSignal(relative, side.getOpposite());
+    }
+
+    @Override
+    public void writeValue(CompoundTag tag, Integer value) {
+        tag.putInt("Analog", value);
+    }
+
+    @Override
+    public Integer readValue(CompoundTag tag) {
+        return tag.getInt("Analog");
     }
 
     @Override

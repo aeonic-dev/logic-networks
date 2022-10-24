@@ -4,6 +4,7 @@ import design.aeonic.logicnetworks.api.block.NetworkAnchor;
 import design.aeonic.logicnetworks.api.core.Translations;
 import design.aeonic.logicnetworks.api.logic.network.SignalType;
 import net.minecraft.core.Direction;
+import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
 
 public class LongSignalType extends SignalType<Long> {
@@ -22,5 +23,15 @@ public class LongSignalType extends SignalType<Long> {
     @Override
     public Long read(NetworkAnchor anchor, Direction side) {
         return null;
+    }
+
+    @Override
+    public void writeValue(CompoundTag tag, Long value) {
+        tag.putLong("Long", value);
+    }
+
+    @Override
+    public Long readValue(CompoundTag tag) {
+        return tag.getLong("Long");
     }
 }

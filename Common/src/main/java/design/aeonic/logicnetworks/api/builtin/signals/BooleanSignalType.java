@@ -5,6 +5,7 @@ import design.aeonic.logicnetworks.api.builtin.BuiltinSignalTypes;
 import design.aeonic.logicnetworks.api.core.Translations;
 import design.aeonic.logicnetworks.api.logic.network.SignalType;
 import net.minecraft.core.Direction;
+import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
 
 public class BooleanSignalType extends SignalType<Boolean> {
@@ -25,6 +26,16 @@ public class BooleanSignalType extends SignalType<Boolean> {
     @Override
     public Boolean read(NetworkAnchor anchor, Direction side) {
         return anchor.getAnchorLevel().getSignal(anchor.getAnchorPos().relative(side), side.getOpposite()) > 0;
+    }
+
+    @Override
+    public void writeValue(CompoundTag tag, Boolean value) {
+        tag.putBoolean("Boolean", value);
+    }
+
+    @Override
+    public Boolean readValue(CompoundTag tag) {
+        return tag.getBoolean("Boolean");
     }
 
     @Override
