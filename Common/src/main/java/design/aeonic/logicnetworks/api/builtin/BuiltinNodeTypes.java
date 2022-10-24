@@ -8,6 +8,9 @@ import design.aeonic.logicnetworks.api.logic.network.NodeType;
 import net.minecraft.resources.ResourceLocation;
 
 public final class BuiltinNodeTypes {
+    public static final NodeType<CacheReadNode> CACHE_READ = new BaseNodeType<>(CacheReadNode::new);
+    public static final NodeType<CacheWriteNode> CACHE_WRITE = new BaseNodeType<>(CacheWriteNode::new);
+
     public static final NodeType<IntegerConstantNode> INTEGER_CONSTANT = new BaseNodeType<>(IntegerConstantNode::new);
     public static final NodeType<IntegerComparisonNode> INTEGER_EQUALS = new BaseNodeType<>(IntegerComparisonNode.Equals::new);
     public static final NodeType<IntegerComparisonNode> INTEGER_GREATER_THAN = new BaseNodeType<>(IntegerComparisonNode.GreaterThan::new);
@@ -46,6 +49,9 @@ public final class BuiltinNodeTypes {
     public static final NodeType<BooleanLogicNode> BOOLEAN_XNOR = new BaseNodeType<>(BooleanLogicNode.Xnor::new);
 
     public static void register() {
+        CommonRegistries.NODE_TYPES.register(new ResourceLocation(Constants.MOD_ID, "cache_read"), CACHE_READ);
+        CommonRegistries.NODE_TYPES.register(new ResourceLocation(Constants.MOD_ID, "cache_write"), CACHE_WRITE);
+
         CommonRegistries.NODE_TYPES.register(new ResourceLocation(Constants.MOD_ID, "integer_constant"), INTEGER_CONSTANT);
         CommonRegistries.NODE_TYPES.register(new ResourceLocation(Constants.MOD_ID, "integer_equals"), INTEGER_EQUALS);
         CommonRegistries.NODE_TYPES.register(new ResourceLocation(Constants.MOD_ID, "integer_greater_than"), INTEGER_GREATER_THAN);

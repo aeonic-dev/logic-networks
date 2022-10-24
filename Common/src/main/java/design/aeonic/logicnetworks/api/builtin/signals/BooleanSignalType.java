@@ -6,6 +6,7 @@ import design.aeonic.logicnetworks.api.core.Translations;
 import design.aeonic.logicnetworks.api.logic.network.SignalType;
 import net.minecraft.core.Direction;
 import net.minecraft.nbt.CompoundTag;
+import net.minecraft.nbt.Tag;
 import net.minecraft.network.chat.Component;
 
 public class BooleanSignalType extends SignalType<Boolean> {
@@ -35,6 +36,7 @@ public class BooleanSignalType extends SignalType<Boolean> {
 
     @Override
     public Boolean readValue(CompoundTag tag) {
+        if (!tag.contains("Boolean", Tag.TAG_BYTE)) return null;
         return tag.getBoolean("Boolean");
     }
 

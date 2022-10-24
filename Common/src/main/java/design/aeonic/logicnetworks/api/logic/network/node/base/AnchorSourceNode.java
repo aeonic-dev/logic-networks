@@ -1,13 +1,15 @@
 package design.aeonic.logicnetworks.api.logic.network.node.base;
 
-import design.aeonic.logicnetworks.api.logic.LinkCard;
-import design.aeonic.logicnetworks.api.logic.LinkStatus;
 import design.aeonic.logicnetworks.api.block.NetworkAnchor;
 import design.aeonic.logicnetworks.api.block.NetworkController;
-import design.aeonic.logicnetworks.api.logic.network.NodeType;
 import design.aeonic.logicnetworks.api.client.screen.input.InputWidget;
 import design.aeonic.logicnetworks.api.client.screen.input.widgets.SelectLinkWidget;
+import design.aeonic.logicnetworks.api.logic.LinkCard;
+import design.aeonic.logicnetworks.api.logic.LinkStatus;
+import design.aeonic.logicnetworks.api.logic.network.NodeType;
+import design.aeonic.logicnetworks.api.logic.network.SignalType;
 import net.minecraft.client.Minecraft;
+import net.minecraft.core.Direction;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.world.item.ItemStack;
 
@@ -43,12 +45,16 @@ public abstract class AnchorSourceNode<T extends AnchorSourceNode<T>> extends Ab
             if (item.getLinkStatus(linkStack) == LinkStatus.VALID && controller.getControllerLevel().getBlockEntity(item.getLink(linkStack)) instanceof NetworkAnchor anchor) {
                 var ret = new Object[getOutputSlots().length];
                 for (int i = 0; i < getOutputSlots().length; i++) {
-                    ret[i] = getOutputSlots()[i].read(anchor, item.getDirection(linkStack));
+                    ret[i] = getSingle(anchor, item.getDirection(linkStack), getOutputSlots()[i]);
                 }
                 return ret;
             }
         }
         return new Object[getOutputSlots().length];
+    }
+
+    protected <S> S getSingle(NetworkAnchor anchor, Direction direction, SignalType<S> type) {
+        return type.read(anchor, direction);
     }
 
     @Override

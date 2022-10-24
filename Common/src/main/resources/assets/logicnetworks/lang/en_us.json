@@ -24,6 +24,7 @@
   "gui.logicnetworks.generic.min_value": "Minimum value",
   "gui.logicnetworks.generic.max_value": "Maximum value",
   "gui.logicnetworks.generic.tick_seed": "Randomize every read",
+  "gui.logicnetworks.generic.anchor_link": "Anchor link",
 
   "gui.logicnetworks.side.up": "U",
   "gui.logicnetworks.side.down": "D",
@@ -58,10 +59,12 @@
   "gui.logicnetworks.signals.analog": "[Analog 0-15]",
   "gui.logicnetworks.signals.boolean": "[Boolean]",
 
+  "gui.logicnetworks.nodes.cache_read": "Cache Read",
+  "gui.logicnetworks.nodes.cache_write": "Cache Write",
+
   "gui.logicnetworks.nodes.equals": "Equals",
   "gui.logicnetworks.nodes.greater_than": "Greater Than",
   "gui.logicnetworks.nodes.less_than": "Less Than",
-
   "gui.logicnetworks.nodes.integer_constant": "Integer Constant",
   "gui.logicnetworks.nodes.integer_max": "Integer Max",
   "gui.logicnetworks.nodes.integer_min": "Integer Min",

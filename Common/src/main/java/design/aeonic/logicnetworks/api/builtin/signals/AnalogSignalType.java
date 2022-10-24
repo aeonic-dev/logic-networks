@@ -7,6 +7,7 @@ import design.aeonic.logicnetworks.api.logic.network.SignalType;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.nbt.CompoundTag;
+import net.minecraft.nbt.Tag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
@@ -43,6 +44,7 @@ public class AnalogSignalType extends SignalType<Integer> {
 
     @Override
     public Integer readValue(CompoundTag tag) {
+        if (!tag.contains("Analog", Tag.TAG_INT)) return null;
         return tag.getInt("Analog");
     }
 
