@@ -87,6 +87,6 @@ public class SimpleMonoText {
 
     static void drawChar(PoseStack stack, int x, int y, int blitOffset, char character) {
         int[] coords = charCoords.get(character);
-        Screen.blit(stack, x, y, blitOffset, coords[0], coords[1], WIDTH, HEIGHT, 256, 256);
+        if (coords != null) Screen.blit(stack, x, y, blitOffset, coords[0], coords[1], WIDTH, HEIGHT, 256, 256);
     }
 }

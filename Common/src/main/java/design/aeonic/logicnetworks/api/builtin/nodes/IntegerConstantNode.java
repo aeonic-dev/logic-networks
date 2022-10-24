@@ -37,7 +37,7 @@ public class IntegerConstantNode extends AbstractSourceNode<IntegerConstantNode>
 
     @Override
     public Component getName() {
-        return Translations.Nodes.ANALOG_CONSTANT;
+        return Translations.Nodes.INTEGER_CONSTANT;
     }
 
     @Override

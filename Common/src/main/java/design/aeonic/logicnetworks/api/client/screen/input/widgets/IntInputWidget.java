@@ -107,7 +107,12 @@ public class IntInputWidget extends AbstractInputWidget {
                     else if (stringValue.equals("-0")) stringValue = Mth.clamp(Integer.parseInt("-" + (keyCode - GLFW.GLFW_KEY_0)), minValue, maxValue) + "";
                     else if (stringValue.length() + 1 <= maxDigits) {
                         if (stringValue.isEmpty()) stringValue = keyCode - GLFW.GLFW_KEY_0 + "";
-                        else stringValue = Mth.clamp(Integer.parseInt(stringValue + (keyCode - GLFW.GLFW_KEY_0)), minValue, maxValue) + "";
+                        else {
+                            if (maxDigits >= 10) {
+                                stringValue = Mth.clamp(Math.min(Long.parseLong(stringValue + (keyCode - GLFW.GLFW_KEY_0)), Integer.MAX_VALUE), minValue, maxValue) + "";
+                            }
+                            else stringValue = Mth.clamp(Integer.parseInt(stringValue + (keyCode - GLFW.GLFW_KEY_0)), minValue, maxValue) + "";
+                        }
                     }
                     return true;
                 }

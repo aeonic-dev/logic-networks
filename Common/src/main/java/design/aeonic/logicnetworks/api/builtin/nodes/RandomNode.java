@@ -25,10 +25,6 @@ public class RandomNode extends SimpleOperatorNode<RandomNode> {
         return index == 0 ? Translations.Generic.SEED : super.getInputSocketName(index);
     }
 
-    private long getSeed(Long inputSeed) {
-        return (uuid.getMostSignificantBits() ^ uuid.getLeastSignificantBits()) + inputSeed;
-    }
-
     @Override
     public Object[] evaluate(Object[] inputs) {
         random.setSeed(getSeed((Long) inputs[0]));
@@ -37,5 +33,9 @@ public class RandomNode extends SimpleOperatorNode<RandomNode> {
                 random.nextBoolean(),
                 random.nextInt()
         };
+    }
+
+    private long getSeed(Long inputSeed) {
+        return (uuid.getMostSignificantBits()) * inputSeed;
     }
 }
