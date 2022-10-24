@@ -20,7 +20,8 @@
   "gui.logicnetworks.generic.most_significant": "Most significant bits",
   "gui.logicnetworks.generic.least_significant": "Least significant bits",
   "gui.logicnetworks.generic.min_value": "Minimum value",
-    "gui.logicnetworks.generic.max_value": "Maximum value",
+  "gui.logicnetworks.generic.max_value": "Maximum value",
+  "gui.logicnetworks.generic.tick_seed": "Randomize every read",
 
   "gui.logicnetworks.side.up": "U",
   "gui.logicnetworks.side.down": "D",

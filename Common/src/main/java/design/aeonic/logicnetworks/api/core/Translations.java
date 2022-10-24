@@ -20,6 +20,7 @@ public final class Translations {
         public static final Component LEAST_SIGNIFICANT = Component.translatable("gui.logicnetworks.generic.least_significant");
         public static final Component MIN_VALUE = Component.translatable("gui.logicnetworks.generic.min_value");
         public static final Component MAX_VALUE = Component.translatable("gui.logicnetworks.generic.max_value");
+        public static final Component TICK_SEED = Component.translatable("gui.logicnetworks.generic.tick_seed");
     }
 
     public static final class Side {

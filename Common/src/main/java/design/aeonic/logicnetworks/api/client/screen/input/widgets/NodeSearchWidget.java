@@ -48,7 +48,7 @@ public class NodeSearchWidget extends StringInputWidget {
     public static NodeSearchWidget createForOutput(WidgetScreen screen, int x, int y, SelectCallback callback, SignalType<?> outputType) {
         setup();
         return create(screen, x, y, callback, type -> Arrays.stream(nodeInstances.get(type).getOutputSlots()).anyMatch(
-                outputType::canConnect));
+                slot -> slot.canConnect(outputType)));
     }
 
     public static NodeSearchWidget create(WidgetScreen screen, int x, int y, SelectCallback callback, Predicate<NodeType<?>> filter) {
