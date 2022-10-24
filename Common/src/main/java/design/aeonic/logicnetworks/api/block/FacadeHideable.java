@@ -1,6 +1,6 @@
 package design.aeonic.logicnetworks.api.block;
 
-import design.aeonic.logicnetworks.impl.data.NetworkTags;
+import design.aeonic.logicnetworks.api.data.NetworkTags;
 import net.minecraft.core.BlockPos;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
