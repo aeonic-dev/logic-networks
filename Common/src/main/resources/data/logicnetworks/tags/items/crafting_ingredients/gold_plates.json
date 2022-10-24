@@ -1,0 +1,14 @@
+{
+  "replace": false,
+  "values": [
+    "minecraft:light_weighted_pressure_plate",
+    {
+      "id": "#forge:plates/gold",
+      "required": false
+    },
+    {
+      "id": "#c:gold_plates",
+      "required": false
+    }
+  ]
+}

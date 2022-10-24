@@ -1,0 +1,17 @@
+{
+    "type": "minecraft:crafting_shaped",
+    "pattern": [
+        " I ",
+        " II",
+        "I  "
+    ],
+    "key": {
+        "I": {
+            "tag": "logicnetworks:crafting_ingredients/iron_ingots"
+        }
+    },
+    "result": {
+        "item": "logicnetworks:logic_core",
+        "count": 1
+    }
+}

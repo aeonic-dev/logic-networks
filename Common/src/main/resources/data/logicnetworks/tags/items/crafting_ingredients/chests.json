@@ -1,0 +1,13 @@
+{
+  "replace": false,
+  "values": [
+    {
+      "id": "#forge:chests",
+      "required": false
+    },
+    {
+      "id": "#c:chest",
+      "required": false
+    }
+  ]
+}

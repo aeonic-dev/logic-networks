@@ -1,0 +1,26 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    " E ",
+    "RLR",
+    " C "
+  ],
+  "key": {
+    "E": {
+      "item": "minecraft:redstone_torch"
+    },
+    "R": {
+      "item": "minecraft:comparator"
+    },
+    "L": {
+      "item": "logicnetworks:logic_core"
+    },
+    "C": {
+      "tag": "logicnetworks:crafting_ingredients/chests"
+    }
+  },
+  "result": {
+    "item": "logicnetworks:network_cache",
+    "count": 1
+  }
+}

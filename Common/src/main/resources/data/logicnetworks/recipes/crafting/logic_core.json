@@ -10,7 +10,7 @@
             "item": "minecraft:iron_bars"
         },
         "R": {
-            "item": "minecraft:redstone"
+            "tag": "logicnetworks:crafting_ingredients/redstone_dusts"
         },
         "P": {
             "item": "minecraft:piston"

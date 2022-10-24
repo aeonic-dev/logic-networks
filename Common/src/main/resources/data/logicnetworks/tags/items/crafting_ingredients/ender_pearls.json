@@ -1,0 +1,13 @@
+{
+  "replace": false,
+  "values": [
+    {
+      "id": "#forge:ender_pearls",
+      "required": false
+    },
+    {
+      "id": "#c:ender_pearls",
+      "required": false
+    }
+  ]
+}

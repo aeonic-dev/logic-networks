@@ -5,10 +5,10 @@
             "item": "minecraft:comparator"
         },
         {
-            "item": "minecraft:green_dye"
+            "tag": "logicnetworks:crafting_ingredients/green_dyes"
         },
         {
-            "item": "minecraft:light_weighted_pressure_plate"
+            "tag": "logicnetworks:crafting_ingredients/gold_plates"
         }
     ],
     "result": {

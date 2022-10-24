@@ -7,7 +7,7 @@
     ],
     "key": {
         "S": {
-            "item": "minecraft:chest"
+            "tag": "logicnetworks:crafting_ingredients/chests"
         },
         "C": {
             "item": "logicnetworks:control_circuit"
@@ -22,7 +22,7 @@
             "item": "logicnetworks:logic_core"
         },
         "R": {
-            "item": "minecraft:redstone_block"
+            "tag": "logicnetworks:crafting_ingredients/redstone_blocks"
         },
         "P": {
             "item": "minecraft:sticky_piston"

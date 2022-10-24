@@ -7,7 +7,7 @@
   ],
   "key": {
     "E": {
-      "item": "minecraft:ender_pearl"
+      "tag": "logicnetworks:crafting_ingredients/ender_pearls"
     },
     "C": {
       "item": "minecraft:comparator"
