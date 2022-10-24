@@ -261,7 +261,7 @@ public class NetworkGraphScreen extends AbstractWidgetScreen {
                                 addNode(node);
                                 network.addEdge(Edge.of(localConnecting, localConnectingSocket, node, index));
                             }
-                        }, connecting.getOutputSlots()[connectingSocket]));
+                        }, localConnecting.getOutputSlots()[localConnectingSocket]));
                     } else {
                         addWidget(NodeSearchWidget.createForOutput(this, mx, my, nodeType -> {
                             if (nodeType != null) {
@@ -276,7 +276,7 @@ public class NetworkGraphScreen extends AbstractWidgetScreen {
                                 addNode(node);
                                 network.addEdge(Edge.of(node, index, localConnecting, localConnectingSocket));
                             }
-                        }, connecting.getInputSlots()[connectingSocket]));
+                        }, localConnecting.getInputSlots()[localConnectingSocket]));
                     }
                 }
                 connecting = null;

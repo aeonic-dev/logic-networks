@@ -36,19 +36,19 @@ public class NodeSearchWidget extends StringInputWidget {
         this.callback = callback;
         this.filter = filter;
 
-        results = search(value);
+        results = search(getValue());
     }
 
     public static NodeSearchWidget createForInput(WidgetScreen screen, int x, int y, SelectCallback callback, SignalType<?> inputType) {
         setup();
         return create(screen, x, y, callback, type -> Arrays.stream(nodeInstances.get(type).getInputSlots()).anyMatch(
-                slot -> slot.canConnect(inputType)));
+                inputType::canConnect));
     }
 
     public static NodeSearchWidget createForOutput(WidgetScreen screen, int x, int y, SelectCallback callback, SignalType<?> outputType) {
         setup();
         return create(screen, x, y, callback, type -> Arrays.stream(nodeInstances.get(type).getOutputSlots()).anyMatch(
-                slot -> slot.canConnect(outputType)));
+                outputType::canConnect));
     }
 
     public static NodeSearchWidget create(WidgetScreen screen, int x, int y, SelectCallback callback, Predicate<NodeType<?>> filter) {
