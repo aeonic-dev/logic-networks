@@ -7,7 +7,7 @@ public interface PlatformInfo {
      *
      * @return The name of the current platform.
      */
-    String getPlatformName();
+    Platform getPlatform();
 
     /**
      * Checks if a mod with the given id is loaded.
@@ -23,4 +23,14 @@ public interface PlatformInfo {
      * @return True if in a development environment, false otherwise.
      */
     boolean isDevelopmentEnvironment();
+
+    enum Platform {
+        FORGE,
+        // Forgen't
+        NOT_FORGE;
+
+        public boolean isForge() {
+            return this == FORGE;
+        }
+    }
 }

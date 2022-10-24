@@ -6,8 +6,8 @@ import net.fabricmc.loader.api.FabricLoader;
 public class FabricPlatformInfo implements PlatformInfo {
 
     @Override
-    public String getPlatformName() {
-        return "Fabric";
+    public Platform getPlatform() {
+        return Platform.NOT_FORGE;
     }
 
     @Override
