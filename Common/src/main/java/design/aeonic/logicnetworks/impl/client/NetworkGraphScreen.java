@@ -4,15 +4,16 @@ import com.google.common.collect.HashMultimap;
 import com.google.common.collect.Multimap;
 import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.PoseStack;
+import design.aeonic.logicnetworks.api.client.RenderUtils;
+import design.aeonic.logicnetworks.api.client.screen.AbstractWidgetScreen;
+import design.aeonic.logicnetworks.api.client.screen.LineSet;
+import design.aeonic.logicnetworks.api.client.screen.input.InputWidget;
+import design.aeonic.logicnetworks.api.client.screen.input.widgets.NodeSearchWidget;
 import design.aeonic.logicnetworks.api.core.Constants;
 import design.aeonic.logicnetworks.api.core.Translations;
 import design.aeonic.logicnetworks.api.logic.network.Edge;
 import design.aeonic.logicnetworks.api.logic.network.Network;
 import design.aeonic.logicnetworks.api.logic.network.node.Node;
-import design.aeonic.logicnetworks.api.client.screen.AbstractWidgetScreen;
-import design.aeonic.logicnetworks.api.client.screen.input.InputWidget;
-import design.aeonic.logicnetworks.api.client.screen.input.widgets.NodeSearchWidget;
-import design.aeonic.logicnetworks.api.util.RenderUtils;
 import design.aeonic.logicnetworks.api.util.Texture;
 import net.minecraft.client.Minecraft;
 import net.minecraft.network.chat.Component;
@@ -402,7 +403,7 @@ public class NetworkGraphScreen extends AbstractWidgetScreen {
             int fromColor = from.getOutputSlots()[edge.getFromIndex()].color;
             int toColor = to.getInputSlots()[edge.getToIndex()].color;
 
-            renderConnection(stack, fromX, fromY, toX, toY, fromColor, toColor);
+            renderConnection(from.getOutputSlots()[edge.getFromIndex()].getLineSet(), stack, fromX, fromY, toX, toY, fromColor, toColor);
         });
 
         // Nodes
@@ -478,7 +479,7 @@ public class NetworkGraphScreen extends AbstractWidgetScreen {
                 int toY = (hoveredSocketNode == null || hoveredOutput) ? my : hoveredSocketNode.getY() + hoveredSocketNode.getInputPositions()[hoveredSocket];
                 int fromColor = connecting.getOutputSlots()[connectingSocket].color;
                 int toColor = (hoveredSocketNode == null || hoveredOutput) ? fromColor : hoveredSocketNode.getInputSlots()[hoveredSocket].color;
-                renderConnection(stack, fromX, fromY, toX, toY, fromColor, toColor);
+                renderConnection(connecting.getOutputSlots()[connectingSocket].getLineSet(), stack, fromX, fromY, toX, toY, fromColor, toColor);
             } else {
                 int toX = connecting.getX();
                 int toY = connecting.getY() + connecting.getInputPositions()[connectingSocket];
@@ -486,7 +487,7 @@ public class NetworkGraphScreen extends AbstractWidgetScreen {
                 int fromY = (hoveredSocketNode == null || !hoveredOutput) ? my : hoveredSocketNode.getY() + hoveredSocketNode.getOutputPositions()[hoveredSocket];
                 int toColor = connecting.getInputSlots()[connectingSocket].color;
                 int fromColor = (hoveredSocketNode == null || !hoveredOutput) ? toColor : hoveredSocketNode.getOutputSlots()[hoveredSocket].color;
-                renderConnection(stack, fromX, fromY, toX, toY, fromColor, toColor);
+                renderConnection(connecting.getInputSlots()[connectingSocket].getLineSet(), stack, fromX, fromY, toX, toY, fromColor, toColor);
             }
         }
 
@@ -504,8 +505,8 @@ public class NetworkGraphScreen extends AbstractWidgetScreen {
         stack.popPose();
     }
 
-    public void renderConnection(PoseStack stack, int fromX, int fromY, int toX, int toY, int fromColor, int toColor) {
-        RenderUtils.renderLine(stack, fromX + 2, fromY - 1, toX - 2, toY - 1, getBlitOffset(), fromColor, toColor);
+    public void renderConnection(LineSet set, PoseStack stack, int fromX, int fromY, int toX, int toY, int fromColor, int toColor) {
+        RenderUtils.renderLine(set, stack, fromX + 2, fromY - 1, toX - 2, toY - 1, getBlitOffset(), fromColor, toColor);
     }
 
     public void renderBackgroundTiles(PoseStack stack, int mouseX, int mouseY, float partialTick) {

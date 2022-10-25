@@ -2,7 +2,7 @@ package design.aeonic.logicnetworks.api.client.screen.input;
 
 import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.PoseStack;
-import design.aeonic.logicnetworks.api.util.RenderUtils;
+import design.aeonic.logicnetworks.api.client.RenderUtils;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.client.renderer.GameRenderer;
 import net.minecraft.resources.ResourceLocation;

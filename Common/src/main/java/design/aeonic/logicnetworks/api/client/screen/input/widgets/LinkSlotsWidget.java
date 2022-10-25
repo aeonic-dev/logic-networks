@@ -4,7 +4,7 @@ import com.mojang.blaze3d.vertex.PoseStack;
 import design.aeonic.logicnetworks.api.client.screen.input.AbstractInputWidget;
 import design.aeonic.logicnetworks.api.client.screen.input.WidgetScreen;
 import design.aeonic.logicnetworks.api.logic.LinkCard;
-import design.aeonic.logicnetworks.api.util.RenderUtils;
+import design.aeonic.logicnetworks.api.client.RenderUtils;
 import design.aeonic.logicnetworks.api.util.Texture;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;

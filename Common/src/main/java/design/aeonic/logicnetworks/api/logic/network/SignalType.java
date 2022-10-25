@@ -1,6 +1,7 @@
 package design.aeonic.logicnetworks.api.logic.network;
 
 import design.aeonic.logicnetworks.api.block.NetworkAnchor;
+import design.aeonic.logicnetworks.api.client.screen.LineSet;
 import net.minecraft.core.Direction;
 import net.minecraft.network.chat.Component;
 
@@ -21,6 +22,14 @@ public abstract class SignalType<T> {
     public SignalType(Class<T> type, int color) {
         this.type = type;
         this.color = color;
+    }
+
+    /**
+     * Gets the line set for this signal type, only called on the client.
+     * The defined line set is used instead of the default for connections with this signal type on the left.
+     */
+    public LineSet getLineSet() {
+        return LineSet.DEFAULT;
     }
 
     /**
