@@ -3,6 +3,7 @@ package design.aeonic.logicnetworks.api.builtin;
 import design.aeonic.logicnetworks.api.builtin.nodes.logic.*;
 import design.aeonic.logicnetworks.api.builtin.nodes.math.*;
 import design.aeonic.logicnetworks.api.builtin.nodes.nbt.NBTGetNode;
+import design.aeonic.logicnetworks.api.builtin.nodes.nbt.NBTPutNode;
 import design.aeonic.logicnetworks.api.builtin.nodes.nbt.NBTReadNode;
 import design.aeonic.logicnetworks.api.builtin.nodes.string.*;
 import design.aeonic.logicnetworks.api.builtin.nodes.world.*;
@@ -83,6 +84,11 @@ public final class BuiltinNodeTypes {
     public static final NodeType<NBTGetNode<Integer>> NBT_GET_INT = new BaseNodeType<>(NBTGetNode.Int::new);
     public static final NodeType<NBTGetNode<Long>> NBT_GET_LONG = new BaseNodeType<>(NBTGetNode.Lng::new);
     public static final NodeType<NBTGetNode<Boolean>> NBT_GET_BOOLEAN = new BaseNodeType<>(NBTGetNode.Bool::new);
+    public static final NodeType<NBTPutNode<CompoundTag>> NBT_PUT_COMPOUND = new BaseNodeType<>(NBTPutNode.Compound::new);
+    public static final NodeType<NBTPutNode<String>> NBT_PUT_STRING = new BaseNodeType<>(NBTPutNode.Str::new);
+    public static final NodeType<NBTPutNode<Integer>> NBT_PUT_INT = new BaseNodeType<>(NBTPutNode.Int::new);
+    public static final NodeType<NBTPutNode<Long>> NBT_PUT_LONG = new BaseNodeType<>(NBTPutNode.Lng::new);
+    public static final NodeType<NBTPutNode<Boolean>> NBT_PUT_BOOLEAN = new BaseNodeType<>(NBTPutNode.Bool::new);
 
     public static void register() {
         CommonRegistries.NODE_TYPES.register(new ResourceLocation(Constants.MOD_ID, "cache_read"), CACHE_READ);
@@ -152,5 +158,10 @@ public final class BuiltinNodeTypes {
         CommonRegistries.NODE_TYPES.register(new ResourceLocation(Constants.MOD_ID, "nbt_get_int"), NBT_GET_INT);
         CommonRegistries.NODE_TYPES.register(new ResourceLocation(Constants.MOD_ID, "nbt_get_long"), NBT_GET_LONG);
         CommonRegistries.NODE_TYPES.register(new ResourceLocation(Constants.MOD_ID, "nbt_get_boolean"), NBT_GET_BOOLEAN);
+        CommonRegistries.NODE_TYPES.register(new ResourceLocation(Constants.MOD_ID, "nbt_put_compound"), NBT_PUT_COMPOUND);
+        CommonRegistries.NODE_TYPES.register(new ResourceLocation(Constants.MOD_ID, "nbt_put_string"), NBT_PUT_STRING);
+        CommonRegistries.NODE_TYPES.register(new ResourceLocation(Constants.MOD_ID, "nbt_put_int"), NBT_PUT_INT);
+        CommonRegistries.NODE_TYPES.register(new ResourceLocation(Constants.MOD_ID, "nbt_put_long"), NBT_PUT_LONG);
+        CommonRegistries.NODE_TYPES.register(new ResourceLocation(Constants.MOD_ID, "nbt_put_boolean"), NBT_PUT_BOOLEAN);
     }
 }

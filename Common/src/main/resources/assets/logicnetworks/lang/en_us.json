@@ -33,6 +33,7 @@
   "gui.logicnetworks.generic.target": "Target",
   "gui.logicnetworks.generic.replace_with": "Replace with",
   "gui.logicnetworks.generic.key": "Key",
+  "gui.logicnetworks.generic.value": "Value",
 
   "gui.logicnetworks.generic.bit_zero": "2^0 bit",
   "gui.logicnetworks.generic.bit_one": "2^1 bit",
@@ -141,5 +142,10 @@
   "gui.logicnetworks.nodes.nbt_get_string": "Get String",
   "gui.logicnetworks.nodes.nbt_get_integer": "Get Integer",
   "gui.logicnetworks.nodes.nbt_get_long": "Get Long",
-  "gui.logicnetworks.nodes.nbt_get_boolean": "Get Boolean"
+  "gui.logicnetworks.nodes.nbt_get_boolean": "Get Boolean",
+  "gui.logicnetworks.nodes.nbt_put_compound": "Put Compound",
+  "gui.logicnetworks.nodes.nbt_put_string": "Put String",
+  "gui.logicnetworks.nodes.nbt_put_integer": "Put Integer",
+  "gui.logicnetworks.nodes.nbt_put_long": "Put Long",
+  "gui.logicnetworks.nodes.nbt_put_boolean": "Put Boolean"
 }

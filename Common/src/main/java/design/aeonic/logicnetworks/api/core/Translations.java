@@ -30,6 +30,7 @@ public final class Translations {
         public static final Component TARGET = Component.translatable("gui.logicnetworks.generic.target");
         public static final Component REPLACE_WITH = Component.translatable("gui.logicnetworks.generic.replace_with");
         public static final Component KEY = Component.translatable("gui.logicnetworks.generic.key");
+        public static final Component VALUE = Component.translatable("gui.logicnetworks.generic.value");
 
         public static final Component BIT_ZERO = Component.translatable("gui.logicnetworks.generic.bit_zero");
         public static final Component BIT_ONE = Component.translatable("gui.logicnetworks.generic.bit_one");
@@ -180,7 +181,11 @@ public final class Translations {
         public static final Component NBT_GET_INTEGER = Component.translatable("gui.logicnetworks.nodes.nbt_get_integer");
         public static final Component NBT_GET_LONG = Component.translatable("gui.logicnetworks.nodes.nbt_get_long");
         public static final Component NBT_GET_BOOLEAN = Component.translatable("gui.logicnetworks.nodes.nbt_get_boolean");
-
+        public static final Component NBT_PUT_COMPOUND = Component.translatable("gui.logicnetworks.nodes.nbt_put_compound");
+        public static final Component NBT_PUT_STRING = Component.translatable("gui.logicnetworks.nodes.nbt_put_string");
+        public static final Component NBT_PUT_INTEGER = Component.translatable("gui.logicnetworks.nodes.nbt_put_integer");
+        public static final Component NBT_PUT_LONG = Component.translatable("gui.logicnetworks.nodes.nbt_put_long");
+        public static final Component NBT_PUT_BOOLEAN = Component.translatable("gui.logicnetworks.nodes.nbt_put_boolean");
     }
 
     private static DynamicComponent dynamic(String key) {
