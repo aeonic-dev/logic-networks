@@ -100,6 +100,8 @@ public final class Translations {
                 .withStyle(s -> s.withColor(BuiltinSignalTypes.ANALOG.color));
         public static final Component BOOLEAN = Component.translatable("gui.logicnetworks.signals.boolean")
                 .withStyle(s -> s.withColor(BuiltinSignalTypes.BOOLEAN.color));
+        public static final Component STRING = Component.translatable("gui.logicnetworks.signals.string")
+                .withStyle(s -> s.withColor(BuiltinSignalTypes.STRING.color));
     }
 
     public static final class Nodes {
@@ -152,6 +154,18 @@ public final class Translations {
         public static final Component BOOLEAN_NAND = Component.translatable("gui.logicnetworks.nodes.boolean_nand");
         public static final Component BOOLEAN_NOR = Component.translatable("gui.logicnetworks.nodes.boolean_nor");
         public static final Component BOOLEAN_XNOR = Component.translatable("gui.logicnetworks.nodes.boolean_xnor");
+
+        public static final Component STRING_CONSTANT = Component.translatable("gui.logicnetworks.nodes.string_constant");
+        public static final Component STRING_LENGTH = Component.translatable("gui.logicnetworks.nodes.string_length");
+        public static final Component STRING_EQUALS = Component.translatable("gui.logicnetworks.nodes.string_equals");
+        public static final Component STRING_CONTAINS = Component.translatable("gui.logicnetworks.nodes.string_contains");
+        public static final Component STRING_INDEX_OF = Component.translatable("gui.logicnetworks.nodes.string_index_of");
+        public static final Component STRING_SUBSTRING = Component.translatable("gui.logicnetworks.nodes.string_substring");
+        public static final Component STRING_REPLACE = Component.translatable("gui.logicnetworks.nodes.string_replace");
+        public static final Component STRING_SPLIT = Component.translatable("gui.logicnetworks.nodes.string_split");
+        public static final Component STRING_JOIN = Component.translatable("gui.logicnetworks.nodes.string_join");
+        public static final Component STRING_TO_LOWER = Component.translatable("gui.logicnetworks.nodes.string_to_lower");
+        public static final Component STRING_TO_UPPER = Component.translatable("gui.logicnetworks.nodes.string_to_upper");
     }
 
     private static DynamicComponent dynamic(String key) {

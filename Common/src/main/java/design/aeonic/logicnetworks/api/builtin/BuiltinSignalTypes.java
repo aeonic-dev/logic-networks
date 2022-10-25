@@ -1,9 +1,6 @@
 package design.aeonic.logicnetworks.api.builtin;
 
-import design.aeonic.logicnetworks.api.builtin.signals.AnalogSignalType;
-import design.aeonic.logicnetworks.api.builtin.signals.BooleanSignalType;
-import design.aeonic.logicnetworks.api.builtin.signals.IntegerSignalType;
-import design.aeonic.logicnetworks.api.builtin.signals.LongSignalType;
+import design.aeonic.logicnetworks.api.builtin.signals.*;
 import design.aeonic.logicnetworks.api.core.CommonRegistries;
 import design.aeonic.logicnetworks.api.core.Constants;
 import design.aeonic.logicnetworks.api.logic.network.SignalType;
@@ -30,11 +27,17 @@ public final class BuiltinSignalTypes {
      */
     public static final SignalType<Boolean> BOOLEAN = new BooleanSignalType(0x3CB371);
 
+    /**
+     * String signal type, arbitrary strings.
+     */
+    public static final SignalType<String> STRING = new StringSignalType(0xFCCE4C);
+
     public static void register() {
         CommonRegistries.SIGNAL_TYPES.register(new ResourceLocation(Constants.MOD_ID, "integer"), INTEGER);
         CommonRegistries.SIGNAL_TYPES.register(new ResourceLocation(Constants.MOD_ID, "long"), LONG);
         CommonRegistries.SIGNAL_TYPES.register(new ResourceLocation(Constants.MOD_ID, "analog"), ANALOG);
         CommonRegistries.SIGNAL_TYPES.register(new ResourceLocation(Constants.MOD_ID, "boolean"), BOOLEAN);
+        CommonRegistries.SIGNAL_TYPES.register(new ResourceLocation(Constants.MOD_ID, "string"), STRING);
     }
 
 }

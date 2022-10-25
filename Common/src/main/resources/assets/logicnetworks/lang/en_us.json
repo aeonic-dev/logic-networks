@@ -63,6 +63,7 @@
   "gui.logicnetworks.signals.long": "[Long]",
   "gui.logicnetworks.signals.analog": "[Analog 0-15]",
   "gui.logicnetworks.signals.boolean": "[Boolean]",
+  "gui.logicnetworks.signals.string": "[String]",
 
   "gui.logicnetworks.nodes.cache_read": "Cache Read",
   "gui.logicnetworks.nodes.cache_write": "Cache Write",
@@ -113,5 +114,17 @@
   "gui.logicnetworks.nodes.boolean_xor": "XOR",
   "gui.logicnetworks.nodes.boolean_nand": "NAND",
   "gui.logicnetworks.nodes.boolean_nor": "NOR",
-  "gui.logicnetworks.nodes.boolean_xnor": "XNOR"
+  "gui.logicnetworks.nodes.boolean_xnor": "XNOR",
+
+  "gui.logicnetworks.nodes.string_constant": "String Constant",
+  "gui.logicnetworks.nodes.string_length": "String Length",
+  "gui.logicnetworks.nodes.string_equals": "String Equals",
+  "gui.logicnetworks.nodes.string_contains": "String Contains",
+  "gui.logicnetworks.node.string.index_of": "Index Of",
+  "gui.logicnetworks.nodes.string_substring": "Substring",
+  "gui.logicnetworks.nodes.string_replace": "Replace",
+  "gui.logicnetworks.nodes.string_split": "Split",
+  "gui.logicnetworks.nodes.string_join": "Join",
+  "gui.logicnetworks.nodes.string_to_lower": "To Lowercase",
+  "gui.logicnetworks.nodes.string_to_upper": "To Uppercase"
 }
