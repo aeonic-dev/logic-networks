@@ -25,11 +25,6 @@ public class CacheWriteNode extends AnchorSinkNode<CacheWriteNode> {
     }
 
     @Override
-    public int getHeight() {
-        return 45;
-    }
-
-    @Override
     public boolean validate(NetworkController controller, Object... inputs) {
         // Only accept input if at least one value is nonnull
         for (Object object : inputs) {

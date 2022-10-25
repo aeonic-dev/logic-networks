@@ -20,7 +20,7 @@ public abstract class NBTPutNode<T> extends SimpleOperatorNode<NBTPutNode<T>> {
 
     @Override
     public int getHeight() {
-        return 19;
+        return 25;
     }
 
     @Nullable

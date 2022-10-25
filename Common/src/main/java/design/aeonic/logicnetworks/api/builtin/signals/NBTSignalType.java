@@ -3,15 +3,15 @@ package design.aeonic.logicnetworks.api.builtin.signals;
 import design.aeonic.logicnetworks.api.block.NetworkAnchor;
 import design.aeonic.logicnetworks.api.builtin.BuiltinSignalTypes;
 import design.aeonic.logicnetworks.api.core.Translations;
-import design.aeonic.logicnetworks.api.logic.network.CacheWritableSignalType;
 import design.aeonic.logicnetworks.api.logic.network.SignalType;
 import net.minecraft.core.Direction;
 import net.minecraft.nbt.CompoundTag;
-import net.minecraft.nbt.Tag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.level.block.entity.BlockEntity;
 
-public class NBTSignalType extends CacheWritableSignalType<CompoundTag> {
+public class NBTSignalType extends SignalType<CompoundTag> {
+    // This one isn't cache writable because it feels too all-encompassing--could be a problem with NBT depth as well
+    // but really it's just because I don't want to encourage using multiple caches
     public NBTSignalType(int color) {
         super(CompoundTag.class, color);
     }
@@ -31,17 +31,6 @@ public class NBTSignalType extends CacheWritableSignalType<CompoundTag> {
             return blockEntity.saveWithoutMetadata();
         }
         return null;
-    }
-
-    @Override
-    public void writeValue(CompoundTag tag, CompoundTag value) {
-        tag.put("NBT", value);
-    }
-
-    @Override
-    public CompoundTag readValue(CompoundTag tag) {
-        if (!tag.contains("NBT", Tag.TAG_COMPOUND)) return null;
-        return tag.getCompound("NBT");
     }
 
     @Override

@@ -15,6 +15,11 @@ public class IntegerClampNode extends SimpleOperatorNode<IntegerClampNode> {
         super(nodeType, Translations.Nodes.INTEGER_CLAMP, BuiltinSignalTypes.INTEGER.arrayOf(3), BuiltinSignalTypes.INTEGER.arrayOf(), uuid, x, y);
     }
 
+    @Override
+    public int getHeight() {
+        return 25;
+    }
+
     @Nullable
     @Override
     protected Component getInputSocketName(int index) {

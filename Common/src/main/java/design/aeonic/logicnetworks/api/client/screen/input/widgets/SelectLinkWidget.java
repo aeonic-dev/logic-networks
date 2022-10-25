@@ -44,16 +44,18 @@ public class SelectLinkWidget extends AbstractInputWidget {
             if (CURRENT_SELECTOR != null) {
                 screen.removeWidget(CURRENT_SELECTOR);
                 CURRENT_SELECTOR = null;
-            }
-            else {
+            } else {
                 CURRENT_SELECTOR = screen.addWidget(selector = LinkSlotsWidget.create(stack -> {
                     setLinkStack(stack);
                     screen.removeWidget(selector);
                     CURRENT_SELECTOR = null;
                 }, getX() - 7, getY() + 19));
             }
+            screen.clearFocus(screen.getFocusedWidget());
+            playClickSound();
+            return true;
         }
-        return super.mouseDown(screen, mouseX, mouseY, button);
+        return false;
     }
 
     @Override
