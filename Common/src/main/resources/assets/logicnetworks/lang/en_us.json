@@ -34,6 +34,8 @@
   "gui.logicnetworks.generic.replace_with": "Replace with",
   "gui.logicnetworks.generic.key": "Key",
   "gui.logicnetworks.generic.value": "Value",
+  "gui.logicnetworks.generic.index": "Index",
+  "gui.logicnetworks.generic.append": "Append",
 
   "gui.logicnetworks.generic.bit_zero": "2^0 bit",
   "gui.logicnetworks.generic.bit_one": "2^1 bit",
@@ -74,6 +76,7 @@
   "gui.logicnetworks.signals.boolean": "[Boolean]",
   "gui.logicnetworks.signals.string": "[String]",
   "gui.logicnetworks.signals.nbt": "[NBT]",
+  "gui.logicnetworks.signals.list": "[List]",
 
   "gui.logicnetworks.nodes.cache_read": "Cache Read",
   "gui.logicnetworks.nodes.cache_write": "Cache Write",
@@ -130,7 +133,6 @@
   "gui.logicnetworks.nodes.string_length": "String Length",
   "gui.logicnetworks.nodes.string_equals": "String Equals",
   "gui.logicnetworks.nodes.string_contains": "String Contains",
-  "gui.logicnetworks.node.string.index_of": "Index Of",
   "gui.logicnetworks.nodes.string_substring": "Substring",
   "gui.logicnetworks.nodes.string_replace": "Replace",
   "gui.logicnetworks.nodes.string_join": "Join",
@@ -143,9 +145,26 @@
   "gui.logicnetworks.nodes.nbt_get_integer": "Get Integer",
   "gui.logicnetworks.nodes.nbt_get_long": "Get Long",
   "gui.logicnetworks.nodes.nbt_get_boolean": "Get Boolean",
+  "gui.logicnetworks.nodes.nbt_get_list": "Get List",
   "gui.logicnetworks.nodes.nbt_put_compound": "Put Compound",
   "gui.logicnetworks.nodes.nbt_put_string": "Put String",
   "gui.logicnetworks.nodes.nbt_put_integer": "Put Integer",
   "gui.logicnetworks.nodes.nbt_put_long": "Put Long",
-  "gui.logicnetworks.nodes.nbt_put_boolean": "Put Boolean"
+  "gui.logicnetworks.nodes.nbt_put_boolean": "Put Boolean",
+  "gui.logicnetworks.nodes.nbt_put_list": "Put List",
+
+  "gui.logicnetworks.nodes.list_length": "Length",
+  "gui.logicnetworks.nodes.list_equals": "List Equals",
+  "gui.logicnetworks.nodes.list_contains": "Contains",
+  "gui.logicnetworks.nodes.list_remove": "Remove",
+  "gui.logicnetworks.nodes.list_get_compound": "Get Compound",
+  "gui.logicnetworks.nodes.list_get_string": "Get String",
+  "gui.logicnetworks.nodes.list_get_integer": "Get Integer",
+  "gui.logicnetworks.nodes.list_get_long": "Get Long",
+  "gui.logicnetworks.nodes.list_get_boolean": "Get Boolean",
+  "gui.logicnetworks.nodes.list_add_compound": "Add Compound",
+  "gui.logicnetworks.nodes.list_add_string": "Add String",
+  "gui.logicnetworks.nodes.list_add_integer": "Add Integer",
+  "gui.logicnetworks.nodes.list_add_long": "Add Long",
+  "gui.logicnetworks.nodes.list_add_boolean": "Add Boolean"
 }

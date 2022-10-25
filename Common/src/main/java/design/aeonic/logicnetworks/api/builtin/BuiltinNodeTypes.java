@@ -2,16 +2,15 @@ package design.aeonic.logicnetworks.api.builtin;
 
 import design.aeonic.logicnetworks.api.builtin.nodes.logic.*;
 import design.aeonic.logicnetworks.api.builtin.nodes.math.*;
-import design.aeonic.logicnetworks.api.builtin.nodes.nbt.NBTGetNode;
-import design.aeonic.logicnetworks.api.builtin.nodes.nbt.NBTPutNode;
-import design.aeonic.logicnetworks.api.builtin.nodes.nbt.NBTReadNode;
+import design.aeonic.logicnetworks.api.builtin.nodes.nbt.*;
 import design.aeonic.logicnetworks.api.builtin.nodes.string.*;
 import design.aeonic.logicnetworks.api.builtin.nodes.world.*;
 import design.aeonic.logicnetworks.api.core.CommonRegistries;
 import design.aeonic.logicnetworks.api.core.Constants;
 import design.aeonic.logicnetworks.api.logic.network.BaseNodeType;
 import design.aeonic.logicnetworks.api.logic.network.NodeType;
-import net.minecraft.nbt.*;
+import net.minecraft.nbt.CompoundTag;
+import net.minecraft.nbt.ListTag;
 import net.minecraft.resources.ResourceLocation;
 
 public final class BuiltinNodeTypes {
@@ -84,11 +83,26 @@ public final class BuiltinNodeTypes {
     public static final NodeType<NBTGetNode<Integer>> NBT_GET_INT = new BaseNodeType<>(NBTGetNode.Int::new);
     public static final NodeType<NBTGetNode<Long>> NBT_GET_LONG = new BaseNodeType<>(NBTGetNode.Lng::new);
     public static final NodeType<NBTGetNode<Boolean>> NBT_GET_BOOLEAN = new BaseNodeType<>(NBTGetNode.Bool::new);
+    public static final NodeType<NBTGetNode<ListTag>> NBT_GET_LIST = new BaseNodeType<>(NBTGetNode.List::new);
     public static final NodeType<NBTPutNode<CompoundTag>> NBT_PUT_COMPOUND = new BaseNodeType<>(NBTPutNode.Compound::new);
     public static final NodeType<NBTPutNode<String>> NBT_PUT_STRING = new BaseNodeType<>(NBTPutNode.Str::new);
     public static final NodeType<NBTPutNode<Integer>> NBT_PUT_INT = new BaseNodeType<>(NBTPutNode.Int::new);
     public static final NodeType<NBTPutNode<Long>> NBT_PUT_LONG = new BaseNodeType<>(NBTPutNode.Lng::new);
     public static final NodeType<NBTPutNode<Boolean>> NBT_PUT_BOOLEAN = new BaseNodeType<>(NBTPutNode.Bool::new);
+    public static final NodeType<NBTPutNode<ListTag>> NBT_PUT_LIST = new BaseNodeType<>(NBTPutNode.List::new);
+
+    public static final NodeType<ListLengthNode> LIST_LENGTH = new BaseNodeType<>(ListLengthNode::new);
+    public static final NodeType<ListEqualsNode>  LIST_EQUALS = new BaseNodeType<>(ListEqualsNode::new);
+    public static final NodeType<ListGetNode<CompoundTag>> LIST_GET_COMPOUND = new BaseNodeType<>(ListGetNode.Compound::new);
+    public static final NodeType<ListGetNode<String>> LIST_GET_STRING = new BaseNodeType<>(ListGetNode.Str::new);
+    public static final NodeType<ListGetNode<Integer>> LIST_GET_INT = new BaseNodeType<>(ListGetNode.Int::new);
+    public static final NodeType<ListGetNode<Long>> LIST_GET_LONG = new BaseNodeType<>(ListGetNode.Lng::new);
+    public static final NodeType<ListGetNode<Boolean>> LIST_GET_BOOLEAN = new BaseNodeType<>(ListGetNode.Bool::new);
+    public static final NodeType<ListAddNode<CompoundTag>> LIST_ADD_COMPOUND = new BaseNodeType<>(ListAddNode.Compound::new);
+    public static final NodeType<ListAddNode<String>> LIST_ADD_STRING = new BaseNodeType<>(ListAddNode.Str::new);
+    public static final NodeType<ListAddNode<Integer>> LIST_ADD_INT = new BaseNodeType<>(ListAddNode.Int::new);
+    public static final NodeType<ListAddNode<Long>> LIST_ADD_LONG = new BaseNodeType<>(ListAddNode.Lng::new);
+    public static final NodeType<ListAddNode<Boolean>> LIST_ADD_BOOLEAN = new BaseNodeType<>(ListAddNode.Bool::new);
 
     public static void register() {
         CommonRegistries.NODE_TYPES.register(new ResourceLocation(Constants.MOD_ID, "cache_read"), CACHE_READ);
@@ -158,10 +172,25 @@ public final class BuiltinNodeTypes {
         CommonRegistries.NODE_TYPES.register(new ResourceLocation(Constants.MOD_ID, "nbt_get_int"), NBT_GET_INT);
         CommonRegistries.NODE_TYPES.register(new ResourceLocation(Constants.MOD_ID, "nbt_get_long"), NBT_GET_LONG);
         CommonRegistries.NODE_TYPES.register(new ResourceLocation(Constants.MOD_ID, "nbt_get_boolean"), NBT_GET_BOOLEAN);
+        CommonRegistries.NODE_TYPES.register(new ResourceLocation(Constants.MOD_ID, "nbt_get_list"), NBT_GET_LIST);
         CommonRegistries.NODE_TYPES.register(new ResourceLocation(Constants.MOD_ID, "nbt_put_compound"), NBT_PUT_COMPOUND);
         CommonRegistries.NODE_TYPES.register(new ResourceLocation(Constants.MOD_ID, "nbt_put_string"), NBT_PUT_STRING);
         CommonRegistries.NODE_TYPES.register(new ResourceLocation(Constants.MOD_ID, "nbt_put_int"), NBT_PUT_INT);
         CommonRegistries.NODE_TYPES.register(new ResourceLocation(Constants.MOD_ID, "nbt_put_long"), NBT_PUT_LONG);
         CommonRegistries.NODE_TYPES.register(new ResourceLocation(Constants.MOD_ID, "nbt_put_boolean"), NBT_PUT_BOOLEAN);
+        CommonRegistries.NODE_TYPES.register(new ResourceLocation(Constants.MOD_ID, "nbt_put_list"), NBT_PUT_LIST);
+
+        CommonRegistries.NODE_TYPES.register(new ResourceLocation(Constants.MOD_ID, "list_length"), LIST_LENGTH);
+        CommonRegistries.NODE_TYPES.register(new ResourceLocation(Constants.MOD_ID, "list_equals"), LIST_EQUALS);
+        CommonRegistries.NODE_TYPES.register(new ResourceLocation(Constants.MOD_ID, "list_get_compound"), LIST_GET_COMPOUND);
+        CommonRegistries.NODE_TYPES.register(new ResourceLocation(Constants.MOD_ID, "list_get_string"), LIST_GET_STRING);
+        CommonRegistries.NODE_TYPES.register(new ResourceLocation(Constants.MOD_ID, "list_get_int"), LIST_GET_INT);
+        CommonRegistries.NODE_TYPES.register(new ResourceLocation(Constants.MOD_ID, "list_get_long"), LIST_GET_LONG);
+        CommonRegistries.NODE_TYPES.register(new ResourceLocation(Constants.MOD_ID, "list_get_boolean"), LIST_GET_BOOLEAN);
+        CommonRegistries.NODE_TYPES.register(new ResourceLocation(Constants.MOD_ID, "list_add_compound"), LIST_ADD_COMPOUND);
+        CommonRegistries.NODE_TYPES.register(new ResourceLocation(Constants.MOD_ID, "list_add_string"), LIST_ADD_STRING);
+        CommonRegistries.NODE_TYPES.register(new ResourceLocation(Constants.MOD_ID, "list_add_int"), LIST_ADD_INT);
+        CommonRegistries.NODE_TYPES.register(new ResourceLocation(Constants.MOD_ID, "list_add_long"), LIST_ADD_LONG);
+        CommonRegistries.NODE_TYPES.register(new ResourceLocation(Constants.MOD_ID, "list_add_boolean"), LIST_ADD_BOOLEAN);
     }
 }

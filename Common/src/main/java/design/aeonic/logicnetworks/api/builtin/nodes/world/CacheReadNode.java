@@ -25,6 +25,11 @@ public class CacheReadNode extends AnchorSourceNode<CacheReadNode> {
     }
 
     @Override
+    public int getHeight() {
+        return 43;
+    }
+
+    @Override
     public int findOutputSlot(SignalType<?> type) {
         for (int i = 0; i < outputSlots.length; i++) {
             if (outputSlots[i] == type) return i;

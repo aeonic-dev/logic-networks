@@ -31,6 +31,8 @@ public final class Translations {
         public static final Component REPLACE_WITH = Component.translatable("gui.logicnetworks.generic.replace_with");
         public static final Component KEY = Component.translatable("gui.logicnetworks.generic.key");
         public static final Component VALUE = Component.translatable("gui.logicnetworks.generic.value");
+        public static final Component INDEX = Component.translatable("gui.logicnetworks.generic.index");
+        public static final Component APPEND = Component.translatable("gui.logicnetworks.generic.append");
 
         public static final Component BIT_ZERO = Component.translatable("gui.logicnetworks.generic.bit_zero");
         public static final Component BIT_ONE = Component.translatable("gui.logicnetworks.generic.bit_one");
@@ -112,6 +114,8 @@ public final class Translations {
                 .withStyle(s -> s.withColor(BuiltinSignalTypes.STRING.color));
         public static final Component NBT = Component.translatable("gui.logicnetworks.signals.nbt")
                 .withStyle(s -> s.withColor(BuiltinSignalTypes.NBT.color));
+        public static final Component LIST = Component.translatable("gui.logicnetworks.signals.list")
+                .withStyle(s -> s.withColor(BuiltinSignalTypes.LIST.color));
     }
 
     public static final class Nodes {
@@ -180,12 +184,29 @@ public final class Translations {
         public static final Component NBT_GET_STRING = Component.translatable("gui.logicnetworks.nodes.nbt_get_string");
         public static final Component NBT_GET_INTEGER = Component.translatable("gui.logicnetworks.nodes.nbt_get_integer");
         public static final Component NBT_GET_LONG = Component.translatable("gui.logicnetworks.nodes.nbt_get_long");
+        public static final Component NBT_GET_LIST = Component.translatable("gui.logicnetworks.nodes.nbt_get_list");
         public static final Component NBT_GET_BOOLEAN = Component.translatable("gui.logicnetworks.nodes.nbt_get_boolean");
         public static final Component NBT_PUT_COMPOUND = Component.translatable("gui.logicnetworks.nodes.nbt_put_compound");
         public static final Component NBT_PUT_STRING = Component.translatable("gui.logicnetworks.nodes.nbt_put_string");
         public static final Component NBT_PUT_INTEGER = Component.translatable("gui.logicnetworks.nodes.nbt_put_integer");
         public static final Component NBT_PUT_LONG = Component.translatable("gui.logicnetworks.nodes.nbt_put_long");
         public static final Component NBT_PUT_BOOLEAN = Component.translatable("gui.logicnetworks.nodes.nbt_put_boolean");
+        public static final Component NBT_PUT_LIST = Component.translatable("gui.logicnetworks.nodes.nbt_put_list");
+
+        public static final Component LIST_LENGTH = Component.translatable("gui.logicnetworks.nodes.list_length");
+        public static final Component LIST_EQUALS = Component.translatable("gui.logicnetworks.nodes.list_equals");
+        public static final Component LIST_CONTAINS = Component.translatable("gui.logicnetworks.nodes.list_contains");
+        public static final Component LIST_REMOVE = Component.translatable("gui.logicnetworks.nodes.list_remove");
+        public static final Component LIST_GET_COMPOUND = Component.translatable("gui.logicnetworks.nodes.list_get_compound");
+        public static final Component LIST_GET_STRING = Component.translatable("gui.logicnetworks.nodes.list_get_string");
+        public static final Component LIST_GET_INTEGER = Component.translatable("gui.logicnetworks.nodes.list_get_integer");
+        public static final Component LIST_GET_LONG = Component.translatable("gui.logicnetworks.nodes.list_get_long");
+        public static final Component LIST_GET_BOOLEAN = Component.translatable("gui.logicnetworks.nodes.list_get_boolean");
+        public static final Component LIST_ADD_COMPOUND = Component.translatable("gui.logicnetworks.nodes.list_add_compound");
+        public static final Component LIST_ADD_STRING = Component.translatable("gui.logicnetworks.nodes.list_add_string");
+        public static final Component LIST_ADD_INTEGER = Component.translatable("gui.logicnetworks.nodes.list_add_integer");
+        public static final Component LIST_ADD_LONG = Component.translatable("gui.logicnetworks.nodes.list_add_long");
+        public static final Component LIST_ADD_BOOLEAN = Component.translatable("gui.logicnetworks.nodes.list_add_boolean");
     }
 
     private static DynamicComponent dynamic(String key) {
