@@ -2,6 +2,7 @@ package design.aeonic.logicnetworks.api.builtin;
 
 import design.aeonic.logicnetworks.api.builtin.nodes.logic.*;
 import design.aeonic.logicnetworks.api.builtin.nodes.math.*;
+import design.aeonic.logicnetworks.api.builtin.nodes.string.*;
 import design.aeonic.logicnetworks.api.builtin.nodes.world.*;
 import design.aeonic.logicnetworks.api.core.CommonRegistries;
 import design.aeonic.logicnetworks.api.core.Constants;
@@ -63,6 +64,16 @@ public final class BuiltinNodeTypes {
     public static final NodeType<BooleanLogicNode> BOOLEAN_NOR = new BaseNodeType<>(BooleanLogicNode.Nor::new);
     public static final NodeType<BooleanLogicNode> BOOLEAN_XNOR = new BaseNodeType<>(BooleanLogicNode.Xnor::new);
 
+    public static final NodeType<StringConstantNode> STRING_CONSTANT = new BaseNodeType<>(StringConstantNode::new);
+    public static final NodeType<StringLengthNode> STRING_LENGTH = new BaseNodeType<>(StringLengthNode::new);
+    public static final NodeType<StringEqualsNode> STRING_EQUALS = new BaseNodeType<>(StringEqualsNode::new);
+    public static final NodeType<StringContainsNode> STRING_CONTAINS = new BaseNodeType<>(StringContainsNode::new);
+    public static final NodeType<SubstringNode> SUBSTRING = new BaseNodeType<>(SubstringNode::new);
+    public static final NodeType<StringReplaceNode> STRING_REPLACE = new BaseNodeType<>(StringReplaceNode::new);
+    public static final NodeType<StringJoinNode> STRING_JOIN = new BaseNodeType<>(StringJoinNode::new);
+    public static final NodeType<StringToLowerNode> STRING_TO_LOWER = new BaseNodeType<>(StringToLowerNode::new);
+    public static final NodeType<StringToUpperNode> STRING_TO_UPPER = new BaseNodeType<>(StringToUpperNode::new);
+
     public static void register() {
         CommonRegistries.NODE_TYPES.register(new ResourceLocation(Constants.MOD_ID, "cache_read"), CACHE_READ);
         CommonRegistries.NODE_TYPES.register(new ResourceLocation(Constants.MOD_ID, "cache_write"), CACHE_WRITE);
@@ -114,5 +125,16 @@ public final class BuiltinNodeTypes {
         CommonRegistries.NODE_TYPES.register(new ResourceLocation(Constants.MOD_ID, "boolean_nand"), BOOLEAN_NAND);
         CommonRegistries.NODE_TYPES.register(new ResourceLocation(Constants.MOD_ID, "boolean_nor"), BOOLEAN_NOR);
         CommonRegistries.NODE_TYPES.register(new ResourceLocation(Constants.MOD_ID, "boolean_xnor"), BOOLEAN_XNOR);
+
+        CommonRegistries.NODE_TYPES.register(new ResourceLocation(Constants.MOD_ID, "string_constant"), STRING_CONSTANT);
+        CommonRegistries.NODE_TYPES.register(new ResourceLocation(Constants.MOD_ID, "string_length"), STRING_LENGTH);
+        CommonRegistries.NODE_TYPES.register(new ResourceLocation(Constants.MOD_ID, "string_equals"), STRING_EQUALS);
+        CommonRegistries.NODE_TYPES.register(new ResourceLocation(Constants.MOD_ID, "string_contains"), STRING_CONTAINS);
+        CommonRegistries.NODE_TYPES.register(new ResourceLocation(Constants.MOD_ID, "substring"), SUBSTRING);
+        CommonRegistries.NODE_TYPES.register(new ResourceLocation(Constants.MOD_ID, "string_replace"), STRING_REPLACE);
+        CommonRegistries.NODE_TYPES.register(new ResourceLocation(Constants.MOD_ID, "string_join"), STRING_JOIN);
+        CommonRegistries.NODE_TYPES.register(new ResourceLocation(Constants.MOD_ID, "string_to_lower"), STRING_TO_LOWER);
+        CommonRegistries.NODE_TYPES.register(new ResourceLocation(Constants.MOD_ID, "string_to_upper"), STRING_TO_UPPER);
+
     }
 }

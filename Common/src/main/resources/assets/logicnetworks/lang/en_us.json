@@ -26,6 +26,13 @@
   "gui.logicnetworks.generic.tick_seed": "Randomize every tick",
   "gui.logicnetworks.generic.time_of_day": "Ticks 0-23999",
   "gui.logicnetworks.generic.anchor_link": "Anchor link",
+  "gui.logicnetworks.generic.first_index": "First index",
+  "gui.logicnetworks.generic.start_index": "Start index",
+  "gui.logicnetworks.generic.end_index": "End index",
+  "gui.logicnetworks.generic.substring": "Substring",
+  "gui.logicnetworks.generic.target": "Target",
+  "gui.logicnetworks.generic.replace_with": "Replace with",
+
   "gui.logicnetworks.generic.bit_zero": "2^0 bit",
   "gui.logicnetworks.generic.bit_one": "2^1 bit",
   "gui.logicnetworks.generic.bit_two": "2^2 bit",
@@ -123,7 +130,6 @@
   "gui.logicnetworks.node.string.index_of": "Index Of",
   "gui.logicnetworks.nodes.string_substring": "Substring",
   "gui.logicnetworks.nodes.string_replace": "Replace",
-  "gui.logicnetworks.nodes.string_split": "Split",
   "gui.logicnetworks.nodes.string_join": "Join",
   "gui.logicnetworks.nodes.string_to_lower": "To Lowercase",
   "gui.logicnetworks.nodes.string_to_upper": "To Uppercase"

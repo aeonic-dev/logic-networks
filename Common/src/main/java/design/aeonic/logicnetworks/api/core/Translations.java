@@ -23,6 +23,12 @@ public final class Translations {
         public static final Component TICK_SEED = Component.translatable("gui.logicnetworks.generic.tick_seed");
         public static final Component TIME_OF_DAY = Component.translatable("gui.logicnetworks.generic.time_of_day");
         public static final Component ANCHOR_LINK = Component.translatable("gui.logicnetworks.generic.anchor_link");
+        public static final Component FIRST_INDEX = Component.translatable("gui.logicnetworks.generic.first_index");
+        public static final Component START_INDEX = Component.translatable("gui.logicnetworks.generic.start_index");
+        public static final Component END_INDEX = Component.translatable("gui.logicnetworks.generic.end_index");
+        public static final Component SUBSTRING = Component.translatable("gui.logicnetworks.generic.substring");
+        public static final Component TARGET = Component.translatable("gui.logicnetworks.generic.target");
+        public static final Component REPLACE_WITH = Component.translatable("gui.logicnetworks.generic.replace_with");
 
         public static final Component BIT_ZERO = Component.translatable("gui.logicnetworks.generic.bit_zero");
         public static final Component BIT_ONE = Component.translatable("gui.logicnetworks.generic.bit_one");
@@ -159,10 +165,8 @@ public final class Translations {
         public static final Component STRING_LENGTH = Component.translatable("gui.logicnetworks.nodes.string_length");
         public static final Component STRING_EQUALS = Component.translatable("gui.logicnetworks.nodes.string_equals");
         public static final Component STRING_CONTAINS = Component.translatable("gui.logicnetworks.nodes.string_contains");
-        public static final Component STRING_INDEX_OF = Component.translatable("gui.logicnetworks.nodes.string_index_of");
         public static final Component STRING_SUBSTRING = Component.translatable("gui.logicnetworks.nodes.string_substring");
         public static final Component STRING_REPLACE = Component.translatable("gui.logicnetworks.nodes.string_replace");
-        public static final Component STRING_SPLIT = Component.translatable("gui.logicnetworks.nodes.string_split");
         public static final Component STRING_JOIN = Component.translatable("gui.logicnetworks.nodes.string_join");
         public static final Component STRING_TO_LOWER = Component.translatable("gui.logicnetworks.nodes.string_to_lower");
         public static final Component STRING_TO_UPPER = Component.translatable("gui.logicnetworks.nodes.string_to_upper");
