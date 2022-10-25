@@ -15,6 +15,11 @@ public class StringJoinNode extends SimpleOperatorNode<StringJoinNode> {
     }
 
     @Override
+    public int getHeight() {
+        return 19;
+    }
+
+    @Override
     public Object[] evaluate(Object[] inputs) {
         return new Object[]{(inputs[0]) + ((String) inputs[1])};
     }

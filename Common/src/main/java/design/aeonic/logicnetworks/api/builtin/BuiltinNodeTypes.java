@@ -2,12 +2,15 @@ package design.aeonic.logicnetworks.api.builtin;
 
 import design.aeonic.logicnetworks.api.builtin.nodes.logic.*;
 import design.aeonic.logicnetworks.api.builtin.nodes.math.*;
+import design.aeonic.logicnetworks.api.builtin.nodes.nbt.NBTGetNode;
+import design.aeonic.logicnetworks.api.builtin.nodes.nbt.NBTReadNode;
 import design.aeonic.logicnetworks.api.builtin.nodes.string.*;
 import design.aeonic.logicnetworks.api.builtin.nodes.world.*;
 import design.aeonic.logicnetworks.api.core.CommonRegistries;
 import design.aeonic.logicnetworks.api.core.Constants;
 import design.aeonic.logicnetworks.api.logic.network.BaseNodeType;
 import design.aeonic.logicnetworks.api.logic.network.NodeType;
+import net.minecraft.nbt.*;
 import net.minecraft.resources.ResourceLocation;
 
 public final class BuiltinNodeTypes {
@@ -74,6 +77,13 @@ public final class BuiltinNodeTypes {
     public static final NodeType<StringToLowerNode> STRING_TO_LOWER = new BaseNodeType<>(StringToLowerNode::new);
     public static final NodeType<StringToUpperNode> STRING_TO_UPPER = new BaseNodeType<>(StringToUpperNode::new);
 
+    public static final NodeType<NBTReadNode> NBT_READ = new BaseNodeType<>(NBTReadNode::new);
+    public static final NodeType<NBTGetNode<CompoundTag>> NBT_GET_COMPOUND = new BaseNodeType<>(NBTGetNode.Compound::new);
+    public static final NodeType<NBTGetNode<String>> NBT_GET_STRING = new BaseNodeType<>(NBTGetNode.Str::new);
+    public static final NodeType<NBTGetNode<Integer>> NBT_GET_INT = new BaseNodeType<>(NBTGetNode.Int::new);
+    public static final NodeType<NBTGetNode<Long>> NBT_GET_LONG = new BaseNodeType<>(NBTGetNode.Lng::new);
+    public static final NodeType<NBTGetNode<Boolean>> NBT_GET_BOOLEAN = new BaseNodeType<>(NBTGetNode.Bool::new);
+
     public static void register() {
         CommonRegistries.NODE_TYPES.register(new ResourceLocation(Constants.MOD_ID, "cache_read"), CACHE_READ);
         CommonRegistries.NODE_TYPES.register(new ResourceLocation(Constants.MOD_ID, "cache_write"), CACHE_WRITE);
@@ -136,5 +146,11 @@ public final class BuiltinNodeTypes {
         CommonRegistries.NODE_TYPES.register(new ResourceLocation(Constants.MOD_ID, "string_to_lower"), STRING_TO_LOWER);
         CommonRegistries.NODE_TYPES.register(new ResourceLocation(Constants.MOD_ID, "string_to_upper"), STRING_TO_UPPER);
 
+        CommonRegistries.NODE_TYPES.register(new ResourceLocation(Constants.MOD_ID, "nbt_read"), NBT_READ);
+        CommonRegistries.NODE_TYPES.register(new ResourceLocation(Constants.MOD_ID, "nbt_get_compound"), NBT_GET_COMPOUND);
+        CommonRegistries.NODE_TYPES.register(new ResourceLocation(Constants.MOD_ID, "nbt_get_string"), NBT_GET_STRING);
+        CommonRegistries.NODE_TYPES.register(new ResourceLocation(Constants.MOD_ID, "nbt_get_int"), NBT_GET_INT);
+        CommonRegistries.NODE_TYPES.register(new ResourceLocation(Constants.MOD_ID, "nbt_get_long"), NBT_GET_LONG);
+        CommonRegistries.NODE_TYPES.register(new ResourceLocation(Constants.MOD_ID, "nbt_get_boolean"), NBT_GET_BOOLEAN);
     }
 }

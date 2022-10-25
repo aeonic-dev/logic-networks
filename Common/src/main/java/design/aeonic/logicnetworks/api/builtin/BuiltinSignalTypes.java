@@ -4,6 +4,7 @@ import design.aeonic.logicnetworks.api.builtin.signals.*;
 import design.aeonic.logicnetworks.api.core.CommonRegistries;
 import design.aeonic.logicnetworks.api.core.Constants;
 import design.aeonic.logicnetworks.api.logic.network.SignalType;
+import net.minecraft.nbt.CompoundTag;
 import net.minecraft.resources.ResourceLocation;
 
 public final class BuiltinSignalTypes {
@@ -32,12 +33,18 @@ public final class BuiltinSignalTypes {
      */
     public static final SignalType<String> STRING = new StringSignalType(0xFCCE4C);
 
+    /**
+     * NBT signal type, compound tags.
+     */
+    public static final SignalType<CompoundTag> NBT = new NBTSignalType(0xF5FFFA);
+
     public static void register() {
         CommonRegistries.SIGNAL_TYPES.register(new ResourceLocation(Constants.MOD_ID, "integer"), INTEGER);
         CommonRegistries.SIGNAL_TYPES.register(new ResourceLocation(Constants.MOD_ID, "long"), LONG);
         CommonRegistries.SIGNAL_TYPES.register(new ResourceLocation(Constants.MOD_ID, "analog"), ANALOG);
         CommonRegistries.SIGNAL_TYPES.register(new ResourceLocation(Constants.MOD_ID, "boolean"), BOOLEAN);
         CommonRegistries.SIGNAL_TYPES.register(new ResourceLocation(Constants.MOD_ID, "string"), STRING);
+        CommonRegistries.SIGNAL_TYPES.register(new ResourceLocation(Constants.MOD_ID, "nbt"), NBT);
     }
 
 }

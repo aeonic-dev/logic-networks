@@ -16,6 +16,11 @@ public class StringContainsNode extends SimpleOperatorNode<StringContainsNode> {
                 SignalType.arrayOf(BuiltinSignalTypes.BOOLEAN, BuiltinSignalTypes.INTEGER), uuid, x, y);
     }
 
+    @Override
+    public int getHeight() {
+        return 19;
+    }
+
     @Nullable
     @Override
     protected Component getInputSocketName(int index) {
