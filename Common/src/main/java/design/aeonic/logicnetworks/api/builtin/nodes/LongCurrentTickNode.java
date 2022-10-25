@@ -23,7 +23,7 @@ public class LongCurrentTickNode extends AbstractSourceNode<LongCurrentTickNode>
 
     @Override
     public int getHeight() {
-        return 16;
+        return 19;
     }
 
     @Override

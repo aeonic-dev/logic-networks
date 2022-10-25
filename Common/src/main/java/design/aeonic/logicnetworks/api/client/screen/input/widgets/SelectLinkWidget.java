@@ -40,15 +40,20 @@ public class SelectLinkWidget extends AbstractInputWidget {
 
     @Override
     public boolean mouseDown(WidgetScreen screen, int mouseX, int mouseY, int button) {
-        if (super.mouseDown(screen, mouseX, mouseY, button) || CURRENT_SELECTOR == null) {
-            if (CURRENT_SELECTOR != null) screen.removeWidget(CURRENT_SELECTOR);
-            CURRENT_SELECTOR = screen.addWidget(selector = LinkSlotsWidget.create(stack -> {
-                setLinkStack(stack);
-                screen.removeWidget(selector);
+        if (button == 0) {
+            if (CURRENT_SELECTOR != null) {
+                screen.removeWidget(CURRENT_SELECTOR);
                 CURRENT_SELECTOR = null;
-            }, getX() - 7, getY() + 19));
+            }
+            else {
+                CURRENT_SELECTOR = screen.addWidget(selector = LinkSlotsWidget.create(stack -> {
+                    setLinkStack(stack);
+                    screen.removeWidget(selector);
+                    CURRENT_SELECTOR = null;
+                }, getX() - 7, getY() + 19));
+            }
         }
-        return true;
+        return super.mouseDown(screen, mouseX, mouseY, button);
     }
 
     @Override

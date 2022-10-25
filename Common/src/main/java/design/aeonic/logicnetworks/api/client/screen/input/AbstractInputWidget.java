@@ -27,7 +27,7 @@ public abstract class AbstractInputWidget implements InputWidget {
 
     @Override
     public boolean mouseDown(WidgetScreen screen, int mouseX, int mouseY, int button) {
-        if (screen.getFocusedWidget() != this) {
+        if (button == 0 && screen.getFocusedWidget() != this) {
             screen.clearFocus(screen.getFocusedWidget());
             screen.setFocus(this);
             playClickSound();

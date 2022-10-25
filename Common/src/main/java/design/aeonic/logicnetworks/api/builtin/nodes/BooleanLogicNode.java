@@ -20,7 +20,7 @@ public class BooleanLogicNode extends SimpleOperatorNode<BooleanLogicNode> {
 
     @Override
     public int getHeight() {
-        return 16;
+        return 19;
     }
 
     @Override

@@ -14,7 +14,7 @@ public class IntegerAbsNode extends SimpleOperatorNode<IntegerAbsNode> {
 
     @Override
     public int getHeight() {
-        return 16;
+        return 19;
     }
 
     @Override

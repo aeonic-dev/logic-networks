@@ -15,6 +15,11 @@ public class LongUnpackNode extends SimpleOperatorNode<LongUnpackNode> {
                 BuiltinSignalTypes.LONG.arrayOf(1), BuiltinSignalTypes.INTEGER.arrayOf(2), uuid, x, y);
     }
 
+    @Override
+    public int getHeight() {
+        return 19;
+    }
+
     @Nullable
     @Override
     protected Component getOutputSocketName(int index) {

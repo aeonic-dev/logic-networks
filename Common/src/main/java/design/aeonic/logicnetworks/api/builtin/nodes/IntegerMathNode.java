@@ -15,7 +15,7 @@ public abstract class IntegerMathNode extends SimpleOperatorNode<IntegerMathNode
 
     @Override
     public int getHeight() {
-        return 16;
+        return 19;
     }
 
     @Override

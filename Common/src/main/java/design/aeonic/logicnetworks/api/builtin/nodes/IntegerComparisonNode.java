@@ -15,7 +15,7 @@ public abstract class IntegerComparisonNode extends SimpleOperatorNode<IntegerCo
 
     @Override
     public int getHeight() {
-        return 16;
+        return 19;
     }
 
     @Override

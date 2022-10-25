@@ -14,7 +14,7 @@ public class IntegerNegateNode extends SimpleOperatorNode<IntegerNegateNode> {
 
     @Override
     public int getHeight() {
-        return 16;
+        return 19;
     }
 
     @Override
