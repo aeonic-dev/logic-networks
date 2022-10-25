@@ -6,6 +6,7 @@ import design.aeonic.logicnetworks.api.logic.network.NodeType;
 import design.aeonic.logicnetworks.api.logic.network.SignalType;
 import design.aeonic.logicnetworks.api.logic.network.node.base.SimpleOperatorNode;
 import net.minecraft.nbt.CompoundTag;
+import net.minecraft.nbt.ListTag;
 import net.minecraft.nbt.Tag;
 import net.minecraft.network.chat.Component;
 
@@ -141,6 +142,27 @@ public abstract class NBTGetNode<T> extends SimpleOperatorNode<NBTGetNode<T>> {
         @Override
         protected void writeNBTValue(CompoundTag tag, String key, Boolean value) {
             tag.putBoolean(key, value);
+        }
+    }
+
+    public static class List extends NBTGetNode<ListTag> {
+        public List(NodeType<NBTGetNode<ListTag>> nodeType, UUID uuid, int x, int y) {
+            super(nodeType, BuiltinSignalTypes.LIST, Translations.Nodes.NBT_GET_LIST, uuid, x, y);
+        }
+
+        @Override
+        protected boolean contains(CompoundTag tag, String key) {
+            return tag.contains(key, Tag.TAG_LIST);
+        }
+
+        @Override
+        protected ListTag getNBTValue(CompoundTag tag, String key) {
+            return tag.get(key) instanceof ListTag list ? list : null;
+        }
+
+        @Override
+        protected void writeNBTValue(CompoundTag tag, String key, ListTag value) {
+            tag.put(key, value);
         }
     }
 }
