@@ -21,6 +21,7 @@ public final class Translations {
         public static final Component MIN_VALUE = Component.translatable("gui.logicnetworks.generic.min_value");
         public static final Component MAX_VALUE = Component.translatable("gui.logicnetworks.generic.max_value");
         public static final Component TICK_SEED = Component.translatable("gui.logicnetworks.generic.tick_seed");
+        public static final Component TIME_OF_DAY = Component.translatable("gui.logicnetworks.generic.time_of_day");
         public static final Component ANCHOR_LINK = Component.translatable("gui.logicnetworks.generic.anchor_link");
 
         public static final Component BIT_ZERO = Component.translatable("gui.logicnetworks.generic.bit_zero");
@@ -120,8 +121,16 @@ public final class Translations {
         public static final Component INTEGER_EQUALS = Component.translatable("gui.logicnetworks.nodes.equals");
         public static final Component INTEGER_GREATER_THAN = Component.translatable("gui.logicnetworks.nodes.greater_than");
         public static final Component INTEGER_LESS_THAN = Component.translatable("gui.logicnetworks.nodes.less_than");
+        public static final Component BITWISE_NOT = Component.translatable("gui.logicnetworks.nodes.bitwise_not");
+        public static final Component BITWISE_AND = Component.translatable("gui.logicnetworks.nodes.bitwise_and");
+        public static final Component BITWISE_OR = Component.translatable("gui.logicnetworks.nodes.bitwise_or");
+        public static final Component BITWISE_XOR = Component.translatable("gui.logicnetworks.nodes.bitwise_xor");
+        public static final Component BITWISE_NAND = Component.translatable("gui.logicnetworks.nodes.bitwise_nand");
+        public static final Component BITWISE_NOR = Component.translatable("gui.logicnetworks.nodes.bitwise_nor");
+        public static final Component BITWISE_XNOR = Component.translatable("gui.logicnetworks.nodes.bitwise_xnor");
 
         public static final Component CURRENT_TICK = Component.translatable("gui.logicnetworks.nodes.current_tick");
+        public static final Component DAY_TIME = Component.translatable("gui.logicnetworks.nodes.day_time");
         public static final Component RANDOM = Component.translatable("gui.logicnetworks.nodes.random");
         public static final Component LONG_PACK = Component.translatable("gui.logicnetworks.nodes.long_pack");
         public static final Component LONG_UNPACK = Component.translatable("gui.logicnetworks.nodes.long_unpack");

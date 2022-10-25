@@ -27,7 +27,18 @@ public final class BuiltinNodeTypes {
     public static final NodeType<IntegerNegateNode> INTEGER_NEGATE = new BaseNodeType<>(IntegerNegateNode::new);
     public static final NodeType<IntegerClampNode> INTEGER_CLAMP = new BaseNodeType<>(IntegerClampNode::new);
 
+
+    public static final NodeType<IntegerMathNode> BITWISE_NOT = new BaseNodeType<>(IntegerMathNode.BitwiseNot::new);
+    public static final NodeType<IntegerMathNode> BITWISE_AND = new BaseNodeType<>(IntegerMathNode.BitwiseAnd::new);
+    public static final NodeType<IntegerMathNode> BITWISE_OR = new BaseNodeType<>(IntegerMathNode.BitwiseOr::new);
+    public static final NodeType<IntegerMathNode> BITWISE_XOR = new BaseNodeType<>(IntegerMathNode.BitwiseXor::new);
+    public static final NodeType<IntegerMathNode> BITWISE_NAND = new BaseNodeType<>(IntegerMathNode.BitwiseNand::new);
+    public static final NodeType<IntegerMathNode> BITWISE_NOR = new BaseNodeType<>(IntegerMathNode.BitwiseNor::new);
+    public static final NodeType<IntegerMathNode> BITWISE_XNOR = new BaseNodeType<>(IntegerMathNode.BitwiseXnor::new);
+
+
     public static final NodeType<LongCurrentTickNode> CURRENT_TICK = new BaseNodeType<>(LongCurrentTickNode::new);
+    public static final NodeType<IntegerDayTimeNode> DAY_TIME = new BaseNodeType<>(IntegerDayTimeNode::new);
     public static final NodeType<RandomNode> RANDOM = new BaseNodeType<>(RandomNode::new);
     public static final NodeType<LongPackNode> LONG_PACK = new BaseNodeType<>(LongPackNode::new);
     public static final NodeType<LongUnpackNode> LONG_UNPACK = new BaseNodeType<>(LongUnpackNode::new);
@@ -70,7 +81,16 @@ public final class BuiltinNodeTypes {
         CommonRegistries.NODE_TYPES.register(new ResourceLocation(Constants.MOD_ID, "integer_negate"), INTEGER_NEGATE);
         CommonRegistries.NODE_TYPES.register(new ResourceLocation(Constants.MOD_ID, "integer_clamp"), INTEGER_CLAMP);
 
+        CommonRegistries.NODE_TYPES.register(new ResourceLocation(Constants.MOD_ID, "bitwise_not"), BITWISE_NOT);
+        CommonRegistries.NODE_TYPES.register(new ResourceLocation(Constants.MOD_ID, "bitwise_and"), BITWISE_AND);
+        CommonRegistries.NODE_TYPES.register(new ResourceLocation(Constants.MOD_ID, "bitwise_or"), BITWISE_OR);
+        CommonRegistries.NODE_TYPES.register(new ResourceLocation(Constants.MOD_ID, "bitwise_xor"), BITWISE_XOR);
+        CommonRegistries.NODE_TYPES.register(new ResourceLocation(Constants.MOD_ID, "bitwise_nand"), BITWISE_NAND);
+        CommonRegistries.NODE_TYPES.register(new ResourceLocation(Constants.MOD_ID, "bitwise_nor"), BITWISE_NOR);
+        CommonRegistries.NODE_TYPES.register(new ResourceLocation(Constants.MOD_ID, "bitwise_xnor"), BITWISE_XNOR);
+
         CommonRegistries.NODE_TYPES.register(new ResourceLocation(Constants.MOD_ID, "current_tick"), CURRENT_TICK);
+        CommonRegistries.NODE_TYPES.register(new ResourceLocation(Constants.MOD_ID, "day_time"), DAY_TIME);
         CommonRegistries.NODE_TYPES.register(new ResourceLocation(Constants.MOD_ID, "random"), RANDOM);
         CommonRegistries.NODE_TYPES.register(new ResourceLocation(Constants.MOD_ID, "long_pack"), LONG_PACK);
         CommonRegistries.NODE_TYPES.register(new ResourceLocation(Constants.MOD_ID, "long_unpack"), LONG_UNPACK);

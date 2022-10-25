@@ -122,4 +122,82 @@ public abstract class IntegerMathNode extends SimpleOperatorNode<IntegerMathNode
             return (int) Math.pow(a, b);
         }
     }
+
+    public static class BitwiseNot extends IntegerMathNode {
+        public BitwiseNot(NodeType<IntegerMathNode> nodeType, UUID uuid, int x, int y) {
+            super(nodeType, Translations.Nodes.BITWISE_NOT, uuid, x, y);
+        }
+
+        @Override
+        public Integer evaluateInternal(Integer a, Integer b) {
+            return ~a;
+        }
+    }
+
+    public static class BitwiseAnd extends IntegerMathNode {
+        public BitwiseAnd(NodeType<IntegerMathNode> nodeType, UUID uuid, int x, int y) {
+            super(nodeType, Translations.Nodes.BITWISE_AND, uuid, x, y);
+        }
+
+        @Override
+        public Integer evaluateInternal(Integer a, Integer b) {
+            return a & b;
+        }
+    }
+
+    public static class BitwiseOr extends IntegerMathNode {
+        public BitwiseOr(NodeType<IntegerMathNode> nodeType, UUID uuid, int x, int y) {
+            super(nodeType, Translations.Nodes.BITWISE_OR, uuid, x, y);
+        }
+
+        @Override
+        public Integer evaluateInternal(Integer a, Integer b) {
+            return a | b;
+        }
+    }
+
+    public static class BitwiseXor extends IntegerMathNode {
+        public BitwiseXor(NodeType<IntegerMathNode> nodeType, UUID uuid, int x, int y) {
+            super(nodeType, Translations.Nodes.BITWISE_XOR, uuid, x, y);
+        }
+
+        @Override
+        public Integer evaluateInternal(Integer a, Integer b) {
+            return a ^ b;
+        }
+    }
+
+    public static class BitwiseNand extends IntegerMathNode {
+        public BitwiseNand(NodeType<IntegerMathNode> nodeType, UUID uuid, int x, int y) {
+            super(nodeType, Translations.Nodes.BITWISE_NAND, uuid, x, y);
+        }
+
+        @Override
+        public Integer evaluateInternal(Integer a, Integer b) {
+            return ~(a & b);
+        }
+    }
+
+    public static class BitwiseNor extends IntegerMathNode {
+        public BitwiseNor(NodeType<IntegerMathNode> nodeType, UUID uuid, int x, int y) {
+            super(nodeType, Translations.Nodes.BITWISE_NOR, uuid, x, y);
+        }
+
+        @Override
+        public Integer evaluateInternal(Integer a, Integer b) {
+            return ~(a | b);
+        }
+    }
+
+    public static class BitwiseXnor extends IntegerMathNode {
+
+        public BitwiseXnor(NodeType<IntegerMathNode> nodeType, UUID uuid, int x, int y) {
+            super(nodeType, Translations.Nodes.BITWISE_XNOR, uuid, x, y);
+        }
+
+        @Override
+        public Integer evaluateInternal(Integer a, Integer b) {
+            return ~(a ^ b);
+        }
+    }
 }

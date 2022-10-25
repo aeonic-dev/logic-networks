@@ -7,7 +7,6 @@ Powerful, node-based logic and logistical programming within Minecraft.
 - Check and sync the validity of linking cards inside nodes on the server
 - Save and sync network with keybind from the graph screen
 - Node search box categories
-- Bitwise operators
 - Screens
 - String & NBT signals
 - Network copying
