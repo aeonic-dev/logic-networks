@@ -1,4 +1,4 @@
-package design.aeonic.logicnetworks.api.builtin.nodes;
+package design.aeonic.logicnetworks.api.builtin.nodes.logic;
 
 import design.aeonic.logicnetworks.api.builtin.BuiltinSignalTypes;
 import design.aeonic.logicnetworks.api.core.Translations;
@@ -8,7 +8,7 @@ import design.aeonic.logicnetworks.api.logic.network.SignalType;
 import design.aeonic.logicnetworks.api.logic.network.node.base.AbstractSourceNode;
 import design.aeonic.logicnetworks.api.client.screen.input.InputWidget;
 import design.aeonic.logicnetworks.api.client.screen.input.WidgetScreen;
-import design.aeonic.logicnetworks.api.client.screen.input.widgets.IntInputWidget;
+import design.aeonic.logicnetworks.api.client.screen.input.widgets.CheckboxInputWidget;
 import net.minecraft.client.Minecraft;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
@@ -16,18 +16,18 @@ import net.minecraft.network.chat.Component;
 import java.util.List;
 import java.util.UUID;
 
-public class AnalogConstantNode extends AbstractSourceNode<AnalogConstantNode> {
+public class BooleanConstantNode extends AbstractSourceNode<BooleanConstantNode> {
 
-    protected IntInputWidget input;
-    protected int value;
+    protected CheckboxInputWidget input;
+    protected boolean value;
 
-    public AnalogConstantNode(NodeType<AnalogConstantNode> nodeType, UUID uuid, int x, int y) {
+    public BooleanConstantNode(NodeType<BooleanConstantNode> nodeType, UUID uuid, int x, int y) {
         super(nodeType, uuid, x, y);
     }
 
     @Override
     public List<InputWidget> getInputWidgets() {
-        return List.of(input = new IntInputWidget(6, 15, 0, 15, 2, true, 5, value) {
+        return List.of(input = new CheckboxInputWidget(6, 15, value) {
             @Override
             public List<Component> getTooltip(WidgetScreen screen, int mouseX, int mouseY) {
                 return List.of(Translations.Generic.CONSTANT);
@@ -37,7 +37,7 @@ public class AnalogConstantNode extends AbstractSourceNode<AnalogConstantNode> {
 
     @Override
     public Component getName() {
-        return Translations.Nodes.ANALOG_CONSTANT;
+        return Translations.Nodes.BOOLEAN_CONSTANT;
     }
 
     @Override
@@ -52,7 +52,7 @@ public class AnalogConstantNode extends AbstractSourceNode<AnalogConstantNode> {
 
     @Override
     public SignalType<?>[] getOutputSlots() {
-        return BuiltinSignalTypes.ANALOG.arrayOf();
+        return BuiltinSignalTypes.BOOLEAN.arrayOf();
     }
 
     @Override
@@ -62,13 +62,13 @@ public class AnalogConstantNode extends AbstractSourceNode<AnalogConstantNode> {
 
     @Override
     public void readAdditional(CompoundTag tag) {
-        value = tag.getInt("Value");
+        value = tag.getBoolean("Value");
         if (input != null) input.setValue(value);
     }
 
     @Override
     public void saveAdditional(CompoundTag tag) {
         if (input != null) value = input.getValue();
-        tag.putInt("Value", value);
+        tag.putBoolean("Value", value);
     }
 }

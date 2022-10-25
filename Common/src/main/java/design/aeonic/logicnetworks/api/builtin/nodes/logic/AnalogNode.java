@@ -1,4 +1,4 @@
-package design.aeonic.logicnetworks.api.builtin.nodes;
+package design.aeonic.logicnetworks.api.builtin.nodes.logic;
 
 import design.aeonic.logicnetworks.api.core.Translations;
 import design.aeonic.logicnetworks.api.logic.network.NodeType;

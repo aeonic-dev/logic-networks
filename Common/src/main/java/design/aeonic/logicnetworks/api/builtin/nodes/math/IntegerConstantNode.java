@@ -1,14 +1,14 @@
-package design.aeonic.logicnetworks.api.builtin.nodes;
+package design.aeonic.logicnetworks.api.builtin.nodes.math;
 
-import design.aeonic.logicnetworks.api.builtin.BuiltinSignalTypes;
-import design.aeonic.logicnetworks.api.core.Translations;
 import design.aeonic.logicnetworks.api.block.NetworkController;
+import design.aeonic.logicnetworks.api.builtin.BuiltinSignalTypes;
+import design.aeonic.logicnetworks.api.client.screen.input.InputWidget;
+import design.aeonic.logicnetworks.api.client.screen.input.WidgetScreen;
+import design.aeonic.logicnetworks.api.client.screen.input.widgets.IntInputWidget;
+import design.aeonic.logicnetworks.api.core.Translations;
 import design.aeonic.logicnetworks.api.logic.network.NodeType;
 import design.aeonic.logicnetworks.api.logic.network.SignalType;
 import design.aeonic.logicnetworks.api.logic.network.node.base.AbstractSourceNode;
-import design.aeonic.logicnetworks.api.client.screen.input.InputWidget;
-import design.aeonic.logicnetworks.api.client.screen.input.WidgetScreen;
-import design.aeonic.logicnetworks.api.client.screen.input.widgets.CheckboxInputWidget;
 import net.minecraft.client.Minecraft;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
@@ -16,18 +16,18 @@ import net.minecraft.network.chat.Component;
 import java.util.List;
 import java.util.UUID;
 
-public class BooleanConstantNode extends AbstractSourceNode<BooleanConstantNode> {
+public class IntegerConstantNode extends AbstractSourceNode<IntegerConstantNode> {
 
-    protected CheckboxInputWidget input;
-    protected boolean value;
+    protected IntInputWidget input;
+    protected int value;
 
-    public BooleanConstantNode(NodeType<BooleanConstantNode> nodeType, UUID uuid, int x, int y) {
+    public IntegerConstantNode(NodeType<IntegerConstantNode> nodeType, UUID uuid, int x, int y) {
         super(nodeType, uuid, x, y);
     }
 
     @Override
     public List<InputWidget> getInputWidgets() {
-        return List.of(input = new CheckboxInputWidget(6, 15, value) {
+        return List.of(input = new IntInputWidget(6, 15, Integer.MIN_VALUE, Integer.MAX_VALUE, 11, true, 100, value) {
             @Override
             public List<Component> getTooltip(WidgetScreen screen, int mouseX, int mouseY) {
                 return List.of(Translations.Generic.CONSTANT);
@@ -37,12 +37,12 @@ public class BooleanConstantNode extends AbstractSourceNode<BooleanConstantNode>
 
     @Override
     public Component getName() {
-        return Translations.Nodes.BOOLEAN_CONSTANT;
+        return Translations.Nodes.INTEGER_CONSTANT;
     }
 
     @Override
     public int getWidth() {
-        return Minecraft.getInstance().font.width(getName()) + 12;
+        return Math.max(Minecraft.getInstance().font.width(getName()), input.getWidth()) + 12;
     }
 
     @Override
@@ -52,7 +52,7 @@ public class BooleanConstantNode extends AbstractSourceNode<BooleanConstantNode>
 
     @Override
     public SignalType<?>[] getOutputSlots() {
-        return BuiltinSignalTypes.BOOLEAN.arrayOf();
+        return BuiltinSignalTypes.INTEGER.arrayOf();
     }
 
     @Override
@@ -62,13 +62,13 @@ public class BooleanConstantNode extends AbstractSourceNode<BooleanConstantNode>
 
     @Override
     public void readAdditional(CompoundTag tag) {
-        value = tag.getBoolean("Value");
+        value = tag.getInt("Value");
         if (input != null) input.setValue(value);
     }
 
     @Override
     public void saveAdditional(CompoundTag tag) {
         if (input != null) value = input.getValue();
-        tag.putBoolean("Value", value);
+        tag.putInt("Value", value);
     }
 }

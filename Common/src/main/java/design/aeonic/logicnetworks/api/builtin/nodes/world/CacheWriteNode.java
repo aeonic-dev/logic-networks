@@ -1,4 +1,4 @@
-package design.aeonic.logicnetworks.api.builtin.nodes;
+package design.aeonic.logicnetworks.api.builtin.nodes.world;
 
 import design.aeonic.logicnetworks.api.block.NetworkAnchor;
 import design.aeonic.logicnetworks.api.block.NetworkCache;

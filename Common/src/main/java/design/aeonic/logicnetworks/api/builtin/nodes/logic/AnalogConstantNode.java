@@ -1,14 +1,14 @@
-package design.aeonic.logicnetworks.api.builtin.nodes;
+package design.aeonic.logicnetworks.api.builtin.nodes.logic;
 
-import design.aeonic.logicnetworks.api.block.NetworkController;
 import design.aeonic.logicnetworks.api.builtin.BuiltinSignalTypes;
-import design.aeonic.logicnetworks.api.client.screen.input.InputWidget;
-import design.aeonic.logicnetworks.api.client.screen.input.WidgetScreen;
-import design.aeonic.logicnetworks.api.client.screen.input.widgets.IntInputWidget;
 import design.aeonic.logicnetworks.api.core.Translations;
+import design.aeonic.logicnetworks.api.block.NetworkController;
 import design.aeonic.logicnetworks.api.logic.network.NodeType;
 import design.aeonic.logicnetworks.api.logic.network.SignalType;
 import design.aeonic.logicnetworks.api.logic.network.node.base.AbstractSourceNode;
+import design.aeonic.logicnetworks.api.client.screen.input.InputWidget;
+import design.aeonic.logicnetworks.api.client.screen.input.WidgetScreen;
+import design.aeonic.logicnetworks.api.client.screen.input.widgets.IntInputWidget;
 import net.minecraft.client.Minecraft;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
@@ -16,18 +16,18 @@ import net.minecraft.network.chat.Component;
 import java.util.List;
 import java.util.UUID;
 
-public class IntegerConstantNode extends AbstractSourceNode<IntegerConstantNode> {
+public class AnalogConstantNode extends AbstractSourceNode<AnalogConstantNode> {
 
     protected IntInputWidget input;
     protected int value;
 
-    public IntegerConstantNode(NodeType<IntegerConstantNode> nodeType, UUID uuid, int x, int y) {
+    public AnalogConstantNode(NodeType<AnalogConstantNode> nodeType, UUID uuid, int x, int y) {
         super(nodeType, uuid, x, y);
     }
 
     @Override
     public List<InputWidget> getInputWidgets() {
-        return List.of(input = new IntInputWidget(6, 15, Integer.MIN_VALUE, Integer.MAX_VALUE, 11, true, 100, value) {
+        return List.of(input = new IntInputWidget(6, 15, 0, 15, 2, true, 5, value) {
             @Override
             public List<Component> getTooltip(WidgetScreen screen, int mouseX, int mouseY) {
                 return List.of(Translations.Generic.CONSTANT);
@@ -37,12 +37,12 @@ public class IntegerConstantNode extends AbstractSourceNode<IntegerConstantNode>
 
     @Override
     public Component getName() {
-        return Translations.Nodes.INTEGER_CONSTANT;
+        return Translations.Nodes.ANALOG_CONSTANT;
     }
 
     @Override
     public int getWidth() {
-        return Math.max(Minecraft.getInstance().font.width(getName()), input.getWidth()) + 12;
+        return Minecraft.getInstance().font.width(getName()) + 12;
     }
 
     @Override
@@ -52,7 +52,7 @@ public class IntegerConstantNode extends AbstractSourceNode<IntegerConstantNode>
 
     @Override
     public SignalType<?>[] getOutputSlots() {
-        return BuiltinSignalTypes.INTEGER.arrayOf();
+        return BuiltinSignalTypes.ANALOG.arrayOf();
     }
 
     @Override

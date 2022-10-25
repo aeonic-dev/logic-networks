@@ -1,4 +1,4 @@
-package design.aeonic.logicnetworks.api.builtin.nodes;
+package design.aeonic.logicnetworks.api.builtin.nodes.world;
 
 import design.aeonic.logicnetworks.api.block.NetworkController;
 import design.aeonic.logicnetworks.api.builtin.BuiltinSignalTypes;
