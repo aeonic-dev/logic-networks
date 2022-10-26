@@ -16,6 +16,7 @@ import net.minecraft.resources.ResourceLocation;
 public final class BuiltinNodeTypes {
     public static final NodeType<CacheReadNode> CACHE_READ = new BaseNodeType<>(CacheReadNode::new);
     public static final NodeType<CacheWriteNode> CACHE_WRITE = new BaseNodeType<>(CacheWriteNode::new);
+    public static final NodeType<BlockInfoNode> BLOCK_INFO = new BaseNodeType<>(BlockInfoNode::new);
 
     public static final NodeType<IntegerConstantNode> INTEGER_CONSTANT = new BaseNodeType<>(IntegerConstantNode::new);
     public static final NodeType<IntegerComparisonNode> INTEGER_EQUALS = new BaseNodeType<>(IntegerComparisonNode.Equals::new);
@@ -77,6 +78,7 @@ public final class BuiltinNodeTypes {
     public static final NodeType<StringToLowerNode> STRING_TO_LOWER = new BaseNodeType<>(StringToLowerNode::new);
     public static final NodeType<StringToUpperNode> STRING_TO_UPPER = new BaseNodeType<>(StringToUpperNode::new);
 
+    public static final NodeType<EmptyNBTNode> EMPTY_NBT_TAG = new BaseNodeType<>(EmptyNBTNode::new);
     public static final NodeType<NBTReadNode> NBT_READ = new BaseNodeType<>(NBTReadNode::new);
     public static final NodeType<NBTGetNode<CompoundTag>> NBT_GET_COMPOUND = new BaseNodeType<>(NBTGetNode.Compound::new);
     public static final NodeType<NBTGetNode<String>> NBT_GET_STRING = new BaseNodeType<>(NBTGetNode.Str::new);
@@ -91,6 +93,7 @@ public final class BuiltinNodeTypes {
     public static final NodeType<NBTPutNode<Boolean>> NBT_PUT_BOOLEAN = new BaseNodeType<>(NBTPutNode.Bool::new);
     public static final NodeType<NBTPutNode<ListTag>> NBT_PUT_LIST = new BaseNodeType<>(NBTPutNode.List::new);
 
+    public static final NodeType<EmptyListNode> EMPTY_LIST = new BaseNodeType<>(EmptyListNode::new);
     public static final NodeType<ListLengthNode> LIST_LENGTH = new BaseNodeType<>(ListLengthNode::new);
     public static final NodeType<ListEqualsNode>  LIST_EQUALS = new BaseNodeType<>(ListEqualsNode::new);
     public static final NodeType<ListGetNode<CompoundTag>> LIST_GET_COMPOUND = new BaseNodeType<>(ListGetNode.Compound::new);
@@ -107,6 +110,7 @@ public final class BuiltinNodeTypes {
     public static void register() {
         CommonRegistries.NODE_TYPES.register(new ResourceLocation(Constants.MOD_ID, "cache_read"), CACHE_READ);
         CommonRegistries.NODE_TYPES.register(new ResourceLocation(Constants.MOD_ID, "cache_write"), CACHE_WRITE);
+        CommonRegistries.NODE_TYPES.register(new ResourceLocation(Constants.MOD_ID, "block_info"), BLOCK_INFO);
 
         CommonRegistries.NODE_TYPES.register(new ResourceLocation(Constants.MOD_ID, "integer_constant"), INTEGER_CONSTANT);
         CommonRegistries.NODE_TYPES.register(new ResourceLocation(Constants.MOD_ID, "integer_equals"), INTEGER_EQUALS);
@@ -166,6 +170,7 @@ public final class BuiltinNodeTypes {
         CommonRegistries.NODE_TYPES.register(new ResourceLocation(Constants.MOD_ID, "string_to_lower"), STRING_TO_LOWER);
         CommonRegistries.NODE_TYPES.register(new ResourceLocation(Constants.MOD_ID, "string_to_upper"), STRING_TO_UPPER);
 
+        CommonRegistries.NODE_TYPES.register(new ResourceLocation(Constants.MOD_ID, "empty_nbt_tag"), EMPTY_NBT_TAG);
         CommonRegistries.NODE_TYPES.register(new ResourceLocation(Constants.MOD_ID, "nbt_read"), NBT_READ);
         CommonRegistries.NODE_TYPES.register(new ResourceLocation(Constants.MOD_ID, "nbt_get_compound"), NBT_GET_COMPOUND);
         CommonRegistries.NODE_TYPES.register(new ResourceLocation(Constants.MOD_ID, "nbt_get_string"), NBT_GET_STRING);
@@ -180,6 +185,7 @@ public final class BuiltinNodeTypes {
         CommonRegistries.NODE_TYPES.register(new ResourceLocation(Constants.MOD_ID, "nbt_put_boolean"), NBT_PUT_BOOLEAN);
         CommonRegistries.NODE_TYPES.register(new ResourceLocation(Constants.MOD_ID, "nbt_put_list"), NBT_PUT_LIST);
 
+        CommonRegistries.NODE_TYPES.register(new ResourceLocation(Constants.MOD_ID, "empty_list"), EMPTY_LIST);
         CommonRegistries.NODE_TYPES.register(new ResourceLocation(Constants.MOD_ID, "list_length"), LIST_LENGTH);
         CommonRegistries.NODE_TYPES.register(new ResourceLocation(Constants.MOD_ID, "list_equals"), LIST_EQUALS);
         CommonRegistries.NODE_TYPES.register(new ResourceLocation(Constants.MOD_ID, "list_get_compound"), LIST_GET_COMPOUND);

@@ -36,6 +36,8 @@
   "gui.logicnetworks.generic.value": "Value",
   "gui.logicnetworks.generic.index": "Index",
   "gui.logicnetworks.generic.append": "Append",
+  "gui.logicnetworks.generic.block_id": "Block ID",
+  "gui.logicnetworks.generic.block_state": "Block state",
 
   "gui.logicnetworks.generic.bit_zero": "2^0 bit",
   "gui.logicnetworks.generic.bit_one": "2^1 bit",
@@ -80,6 +82,7 @@
 
   "gui.logicnetworks.nodes.cache_read": "Cache Read",
   "gui.logicnetworks.nodes.cache_write": "Cache Write",
+  "gui.logicnetworks.nodes.block_info": "Block Info",
 
   "gui.logicnetworks.nodes.equals": "Equals",
   "gui.logicnetworks.nodes.greater_than": "Greater Than",
@@ -139,6 +142,7 @@
   "gui.logicnetworks.nodes.string_to_lower": "To Lowercase",
   "gui.logicnetworks.nodes.string_to_upper": "To Uppercase",
 
+  "gui.logicnetworks.nodes.empty_nbt_tag": "Empty NBT Tag",
   "gui.logicnetworks.nodes.nbt_read": "NBT Read",
   "gui.logicnetworks.nodes.nbt_get_compound": "Get Compound",
   "gui.logicnetworks.nodes.nbt_get_string": "Get String",
@@ -153,6 +157,7 @@
   "gui.logicnetworks.nodes.nbt_put_boolean": "Put Boolean",
   "gui.logicnetworks.nodes.nbt_put_list": "Put List",
 
+  "gui.logicnetworks.nodes.empty_list": "Empty List",
   "gui.logicnetworks.nodes.list_length": "Length",
   "gui.logicnetworks.nodes.list_equals": "List Equals",
   "gui.logicnetworks.nodes.list_contains": "Contains",

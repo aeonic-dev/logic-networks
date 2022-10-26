@@ -8,7 +8,7 @@ Powerful, node-based logic and logistical programming within Minecraft.
 - Save and sync network with keybind from the graph screen
 - Node search box categories
 - Screens
-- String & NBT signals
 - Network copying
 - Multiplexer
+- Link target highlighting
 - Integrated recipes (create filling, thermal etc once it's updated)
