@@ -105,6 +105,16 @@
   "gui.logicnetworks.nodes.integer_negate": "Negate",
   "gui.logicnetworks.nodes.integer_clamp": "Clamp",
 
+  "gui.logicnetworks.nodes.integer_pack": "Integer Pack",
+  "gui.logicnetworks.nodes.integer_unpack": "Integer Unpack",
+  "gui.logicnetworks.nodes.bitwise_not": "Bitwise Not",
+  "gui.logicnetworks.nodes.bitwise_and": "Bitwise AND",
+  "gui.logicnetworks.nodes.bitwise_or": "Bitwise OR",
+  "gui.logicnetworks.nodes.bitwise_xor": "Bitwise XOR",
+  "gui.logicnetworks.nodes.bitwise_nand": "Bitwise NAND",
+  "gui.logicnetworks.nodes.bitwise_nor": "Bitwise NOR",
+  "gui.logicnetworks.nodes.bitwise_xnor": "Bitwise XNOR",
+
   "gui.logicnetworks.nodes.current_tick": "Current Tick",
   "gui.logicnetworks.nodes.day_time": "Day Time",
   "gui.logicnetworks.nodes.random": "Random",
@@ -117,14 +127,6 @@
   "gui.logicnetworks.nodes.analog_invert": "Analog Invert",
   "gui.logicnetworks.nodes.analog_pack": "Analog Pack",
   "gui.logicnetworks.nodes.analog_unpack": "Analog Unpack",
-
-  "gui.logicnetworks.nodes.bitwise_not": "Bitwise Not",
-  "gui.logicnetworks.nodes.bitwise_and": "Bitwise AND",
-  "gui.logicnetworks.nodes.bitwise_or": "Bitwise OR",
-  "gui.logicnetworks.nodes.bitwise_xor": "Bitwise XOR",
-  "gui.logicnetworks.nodes.bitwise_nand": "Bitwise NAND",
-  "gui.logicnetworks.nodes.bitwise_nor": "Bitwise NOR",
-  "gui.logicnetworks.nodes.bitwise_xnor": "Bitwise XNOR",
 
   "gui.logicnetworks.nodes.boolean_read": "Boolean Read",
   "gui.logicnetworks.nodes.boolean_write": "Boolean Write",

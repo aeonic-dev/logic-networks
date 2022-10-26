@@ -1,4 +1,4 @@
-package design.aeonic.logicnetworks.api.builtin.nodes.math;
+package design.aeonic.logicnetworks.api.builtin.nodes.logic;
 
 import design.aeonic.logicnetworks.api.builtin.BuiltinSignalTypes;
 import design.aeonic.logicnetworks.api.core.Translations;
@@ -9,20 +9,18 @@ import net.minecraft.network.chat.Component;
 import javax.annotation.Nullable;
 import java.util.UUID;
 
-public class LongPackNode extends SimpleOperatorNode<LongPackNode> {
-    public LongPackNode(NodeType<LongPackNode> nodeType, UUID uuid, int x, int y) {
-        super(nodeType, Translations.Nodes.LONG_PACK,
-                BuiltinSignalTypes.INTEGER.arrayOf(2), BuiltinSignalTypes.LONG.arrayOf(), uuid, x, y);
+public class IntegerPackNode extends SimpleOperatorNode<IntegerPackNode> {
+    public IntegerPackNode(NodeType<IntegerPackNode> nodeType, UUID uuid, int x, int y) {
+        super(nodeType, Translations.Nodes.INTEGER_PACK,
+                BuiltinSignalTypes.ANALOG.arrayOf(8), BuiltinSignalTypes.INTEGER.arrayOf(), uuid, x, y);
     }
 
     @Override
     public boolean validate(Object[] inputs) {
-        return inputs[0] != null || inputs[1] != null;
-    }
-
-    @Override
-    public int getHeight() {
-        return 19;
+        for (Object object : inputs) {
+            if (object != null) return true;
+        }
+        return false;
     }
 
     @Nullable
@@ -30,13 +28,17 @@ public class LongPackNode extends SimpleOperatorNode<LongPackNode> {
     protected Component getInputSocketName(int index) {
         return switch (index) {
             case 0 -> Translations.Generic.MOST_SIGNIFICANT;
-            case 1 -> Translations.Generic.LEAST_SIGNIFICANT;
+            case 7 -> Translations.Generic.LEAST_SIGNIFICANT;
             default -> super.getInputSocketName(index);
         };
     }
 
     @Override
     public Object[] evaluate(Object[] inputs) {
-        return new Object[] {((long) (int) inputs[0] << 32) | ((int) inputs[1] & 0xFFFFFFFFL)};
+        int value = 0;
+        for (int i = 0; i < 8; i++) {
+            if (inputs[i] != null) value |= (((Integer) inputs[i] & 0xF) << ((7 - i) << 2));
+        }
+        return new Object[] {value};
     }
 }

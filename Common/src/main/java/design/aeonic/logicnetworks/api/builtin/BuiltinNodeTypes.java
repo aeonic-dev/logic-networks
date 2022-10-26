@@ -35,6 +35,8 @@ public final class BuiltinNodeTypes {
     public static final NodeType<IntegerClampNode> INTEGER_CLAMP = new BaseNodeType<>(IntegerClampNode::new);
 
 
+    public static final NodeType<IntegerPackNode> INTEGER_PACK = new BaseNodeType<>(IntegerPackNode::new);
+    public static final NodeType<IntegerUnpackNode> INTEGER_UNPACK = new BaseNodeType<>(IntegerUnpackNode::new);
     public static final NodeType<IntegerMathNode> BITWISE_NOT = new BaseNodeType<>(IntegerMathNode.BitwiseNot::new);
     public static final NodeType<IntegerMathNode> BITWISE_AND = new BaseNodeType<>(IntegerMathNode.BitwiseAnd::new);
     public static final NodeType<IntegerMathNode> BITWISE_OR = new BaseNodeType<>(IntegerMathNode.BitwiseOr::new);
@@ -128,6 +130,8 @@ public final class BuiltinNodeTypes {
         CommonRegistries.NODE_TYPES.register(new ResourceLocation(Constants.MOD_ID, "integer_negate"), INTEGER_NEGATE);
         CommonRegistries.NODE_TYPES.register(new ResourceLocation(Constants.MOD_ID, "integer_clamp"), INTEGER_CLAMP);
 
+        CommonRegistries.NODE_TYPES.register(new ResourceLocation(Constants.MOD_ID, "integer_pack"), INTEGER_PACK);
+        CommonRegistries.NODE_TYPES.register(new ResourceLocation(Constants.MOD_ID, "integer_unpack"), INTEGER_UNPACK);
         CommonRegistries.NODE_TYPES.register(new ResourceLocation(Constants.MOD_ID, "bitwise_not"), BITWISE_NOT);
         CommonRegistries.NODE_TYPES.register(new ResourceLocation(Constants.MOD_ID, "bitwise_and"), BITWISE_AND);
         CommonRegistries.NODE_TYPES.register(new ResourceLocation(Constants.MOD_ID, "bitwise_or"), BITWISE_OR);

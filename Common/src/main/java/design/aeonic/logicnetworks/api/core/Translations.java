@@ -142,6 +142,8 @@ public final class Translations {
         public static final Component INTEGER_EQUALS = Component.translatable("gui.logicnetworks.nodes.equals");
         public static final Component INTEGER_GREATER_THAN = Component.translatable("gui.logicnetworks.nodes.greater_than");
         public static final Component INTEGER_LESS_THAN = Component.translatable("gui.logicnetworks.nodes.less_than");
+        public static final Component INTEGER_PACK = Component.translatable("gui.logicnetworks.nodes.integer_pack");
+        public static final Component INTEGER_UNPACK = Component.translatable("gui.logicnetworks.nodes.integer_unpack");
         public static final Component BITWISE_NOT = Component.translatable("gui.logicnetworks.nodes.bitwise_not");
         public static final Component BITWISE_AND = Component.translatable("gui.logicnetworks.nodes.bitwise_and");
         public static final Component BITWISE_OR = Component.translatable("gui.logicnetworks.nodes.bitwise_or");
