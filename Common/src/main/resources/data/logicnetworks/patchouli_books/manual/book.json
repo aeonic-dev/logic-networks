@@ -1,0 +1,8 @@
+{
+  "name": "gui.logicnetworks.manual.title",
+  "landing_text": "gui.logicnetworks.manual.landing_text",
+  "version": 1,
+
+  "dont_generate_book": true,
+  "custom_book_item": "logicnetworks:manual"
+}

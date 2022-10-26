@@ -11,8 +11,12 @@
   "item.logicnetworks.logic_core": "Logic Core",
   "item.logicnetworks.control_circuit": "Control Circuit",
   "item.logicnetworks.wrench": "Wrench",
+  "item.logicnetworks.manual": "Logic Networks Manual",
 
   "itemGroup.logicnetworks:main": "Logic Networks",
+
+  "gui.logicnetworks.manual.title": "Logic Networks Manual",
+  "gui.logicnetworks.manual.landing_text": "Insert landing text",
 
   "gui.logicnetworks.generic.constant": "Constant input",
   "gui.logicnetworks.generic.ticks": "Ticks/operation",
