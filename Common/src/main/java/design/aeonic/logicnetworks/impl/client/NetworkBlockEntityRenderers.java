@@ -9,6 +9,7 @@ import net.minecraft.world.level.block.entity.BlockEntityType;
 public final class NetworkBlockEntityRenderers {
     public static void register(BlockEntityRendererRegistry registry) {
         registry.accept(NetworkBlockEntities.NETWORK_ANCHOR, FacadeRenderer::new);
+        registry.accept(NetworkBlockEntities.NETWORK_CACHE, FacadeRenderer::new);
     }
 
     public interface BlockEntityRendererRegistry {

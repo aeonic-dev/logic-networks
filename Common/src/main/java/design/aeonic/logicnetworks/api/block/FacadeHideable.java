@@ -45,12 +45,13 @@ public interface FacadeHideable {
      * the correct interaction result to return from {@link net.minecraft.world.level.block.Block#use(BlockState, Level, BlockPos, Player, InteractionHand, BlockHitResult)}.
      */
     default InteractionResult tryPutFacade(Level level, BlockPos pos, Player player, InteractionHand hand, BlockHitResult res) {
+        if (getFacade() != null) return InteractionResult.FAIL;
         ItemStack stack = player.getItemInHand(hand);
-        if (!stack.isEmpty() && stack.getItem() instanceof BlockItem blockItem) {
+        if (stack.getItem() instanceof BlockItem blockItem) {
             BlockPlaceContext ctx = blockItem.updatePlacementContext(new BlockPlaceContext(player, hand, stack, res));
             if (ctx != null) {
                 BlockState facadeState = blockItem.getBlock().getStateForPlacement(ctx);
-                if (facadeState != null && !facadeState.is(NetworkTags.Blocks.FACADE_BLACKLIST)) {
+                if (facadeState != null && facadeState.isCollisionShapeFullBlock(level, pos) && !facadeState.is(NetworkTags.Blocks.FACADE_BLACKLIST)) {
                     level.playSound(player, pos, SoundEvents.BUNDLE_INSERT, SoundSource.BLOCKS, .5f, 1);
                     level.playSound(player, pos, facadeState.getSoundType().getPlaceSound(), SoundSource.BLOCKS, .5f, 1);
                     setFacade(facadeState);
@@ -64,6 +65,11 @@ public interface FacadeHideable {
     default InteractionResult tryRemoveFacade(Level level, BlockPos pos, Player player, InteractionHand hand, BlockHitResult res) {
         if (getFacade() != null) {
             if (player.isCrouching() && player.getItemInHand(hand).isEmpty()) {
+                level.playSound(player, pos, SoundEvents.BUNDLE_REMOVE_ONE, SoundSource.BLOCKS, .5f, 1);
+                level.playSound(player, pos, getFacade().getSoundType().getBreakSound(), SoundSource.BLOCKS, .5f, 1);
+                setFacade(null);
+                return InteractionResult.sidedSuccess(level.isClientSide);
+            } else if (player.getItemInHand(hand).is(NetworkTags.Items.WRENCH)) {
                 level.playSound(player, pos, SoundEvents.BUNDLE_REMOVE_ONE, SoundSource.BLOCKS, .5f, 1);
                 level.playSound(player, pos, getFacade().getSoundType().getBreakSound(), SoundSource.BLOCKS, .5f, 1);
                 setFacade(null);
