@@ -33,6 +33,9 @@ public final class Translations {
         public static final Component VALUE = Component.translatable("gui.logicnetworks.generic.value");
         public static final Component INDEX = Component.translatable("gui.logicnetworks.generic.index");
         public static final Component APPEND = Component.translatable("gui.logicnetworks.generic.append");
+        public static final Component BLOCK_ID = Component.translatable("gui.logicnetworks.generic.block_id");
+        public static final Component BLOCK_STATE = Component.translatable("gui.logicnetworks.generic.block_state");
+        public static final Component BLOCK_ENTITY_DATA = Component.translatable("gui.logicnetworks.generic.block_entity_data");
 
         public static final Component BIT_ZERO = Component.translatable("gui.logicnetworks.generic.bit_zero");
         public static final Component BIT_ONE = Component.translatable("gui.logicnetworks.generic.bit_one");
@@ -121,6 +124,7 @@ public final class Translations {
     public static final class Nodes {
         public static final Component CACHE_READ = Component.translatable("gui.logicnetworks.nodes.cache_read");
         public static final Component CACHE_WRITE = Component.translatable("gui.logicnetworks.nodes.cache_write");
+        public static final Component BLOCK_INFO = Component.translatable("gui.logicnetworks.nodes.block_info");
 
         public static final Component INTEGER_CONSTANT = Component.translatable("gui.logicnetworks.nodes.integer_constant");
         public static final Component INTEGER_MAX = Component.translatable("gui.logicnetworks.nodes.integer_max");
@@ -179,6 +183,7 @@ public final class Translations {
         public static final Component STRING_TO_LOWER = Component.translatable("gui.logicnetworks.nodes.string_to_lower");
         public static final Component STRING_TO_UPPER = Component.translatable("gui.logicnetworks.nodes.string_to_upper");
 
+        public static final Component EMPTY_NBT_TAG = Component.translatable("gui.logicnetworks.nodes.empty_nbt_tag");
         public static final Component NBT_READ = Component.translatable("gui.logicnetworks.nodes.nbt_read");
         public static final Component NBT_GET_COMPOUND = Component.translatable("gui.logicnetworks.nodes.nbt_get_compound");
         public static final Component NBT_GET_STRING = Component.translatable("gui.logicnetworks.nodes.nbt_get_string");
@@ -193,6 +198,7 @@ public final class Translations {
         public static final Component NBT_PUT_BOOLEAN = Component.translatable("gui.logicnetworks.nodes.nbt_put_boolean");
         public static final Component NBT_PUT_LIST = Component.translatable("gui.logicnetworks.nodes.nbt_put_list");
 
+        public static final Component EMPTY_LIST = Component.translatable("gui.logicnetworks.nodes.empty_list");
         public static final Component LIST_LENGTH = Component.translatable("gui.logicnetworks.nodes.list_length");
         public static final Component LIST_EQUALS = Component.translatable("gui.logicnetworks.nodes.list_equals");
         public static final Component LIST_CONTAINS = Component.translatable("gui.logicnetworks.nodes.list_contains");
