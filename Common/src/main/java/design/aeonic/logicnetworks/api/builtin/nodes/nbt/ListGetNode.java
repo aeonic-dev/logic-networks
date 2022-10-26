@@ -74,12 +74,12 @@ public abstract class ListGetNode<T> extends SimpleOperatorNode<ListGetNode<T>> 
 
         @Override
         protected boolean isOfType(ListTag tag) {
-            return tag.getElementType() == Tag.TAG_INT || tag.getElementType() == Tag.TAG_SHORT;
+            return tag.getElementType() == Tag.TAG_INT || tag.getElementType() == Tag.TAG_SHORT || tag.getElementType() == Tag.TAG_BYTE;
         }
 
         @Override
         protected Integer get(ListTag tag, int index) {
-            return tag.getElementType() == Tag.TAG_INT ? tag.getInt(index) : (int) tag.getShort(index);
+            return tag.getElementType() == Tag.TAG_INT ? tag.getInt(index) : (tag.getElementType() == Tag.TAG_SHORT ? tag.getShort(index) : ((ByteTag) tag.get(index)).getAsByte());
         }
     }
 

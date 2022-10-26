@@ -33,6 +33,7 @@ public final class Translations {
         public static final Component VALUE = Component.translatable("gui.logicnetworks.generic.value");
         public static final Component INDEX = Component.translatable("gui.logicnetworks.generic.index");
         public static final Component APPEND = Component.translatable("gui.logicnetworks.generic.append");
+        public static final Component IS_AIR = Component.translatable("gui.logicnetworks.generic.is_air");
         public static final Component BLOCK_ID = Component.translatable("gui.logicnetworks.generic.block_id");
         public static final Component BLOCK_STATE = Component.translatable("gui.logicnetworks.generic.block_state");
         public static final Component BLOCK_ENTITY_DATA = Component.translatable("gui.logicnetworks.generic.block_entity_data");

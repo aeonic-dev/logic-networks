@@ -3,7 +3,7 @@
     "pattern": [
         "CSA",
         "BLP",
-        "CRA"
+        "CRE"
     ],
     "key": {
         "S": {
@@ -17,6 +17,9 @@
         },
         "A": {
             "item": "logicnetworks:network_anchor"
+        },
+        "E": {
+            "item": "logicnetworks:network_cache"
         },
         "L": {
             "item": "logicnetworks:logic_core"

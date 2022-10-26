@@ -89,7 +89,7 @@ public abstract class NBTGetNode<T> extends SimpleOperatorNode<NBTGetNode<T>> {
 
         @Override
         protected boolean contains(CompoundTag tag, String key) {
-            return tag.contains(key, Tag.TAG_INT) || tag.contains(key, Tag.TAG_SHORT);
+            return tag.contains(key, Tag.TAG_INT) || tag.contains(key, Tag.TAG_SHORT) || tag.contains(key, Tag.TAG_BYTE);
         }
 
         @Override
