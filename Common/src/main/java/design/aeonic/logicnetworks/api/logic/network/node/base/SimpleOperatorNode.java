@@ -32,7 +32,7 @@ public abstract class SimpleOperatorNode<T extends SimpleOperatorNode<T>> extend
     @Override
     public int getHeight() {
         int maxSlots = Math.max(getInputSlots().length, getOutputSlots().length);
-        return 19 + Math.min((maxSlots - 2), 0) * 6;
+        return 19 + Math.max((maxSlots - 2), 0) * 6;
     }
 
     @Override

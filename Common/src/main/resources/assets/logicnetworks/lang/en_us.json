@@ -40,6 +40,7 @@
   "gui.logicnetworks.generic.value": "Value",
   "gui.logicnetworks.generic.index": "Index",
   "gui.logicnetworks.generic.append": "Append",
+  "gui.logicnetworks.generic.is_air": "Is air",
   "gui.logicnetworks.generic.block_id": "Block ID",
   "gui.logicnetworks.generic.block_state": "Block state",
 
@@ -171,9 +172,9 @@
   "gui.logicnetworks.nodes.list_get_integer": "List Get Integer",
   "gui.logicnetworks.nodes.list_get_long": "List Get Long",
   "gui.logicnetworks.nodes.list_get_boolean": "List Get Boolean",
-  "gui.logicnetworks.nodes.list_add_compound": "Add Compound",
-  "gui.logicnetworks.nodes.list_add_string": "Add String",
-  "gui.logicnetworks.nodes.list_add_integer": "Add Integer",
-  "gui.logicnetworks.nodes.list_add_long": "Add Long",
-  "gui.logicnetworks.nodes.list_add_boolean": "Add Boolean"
+  "gui.logicnetworks.nodes.list_add_compound": "List Add Compound",
+  "gui.logicnetworks.nodes.list_add_string": "List Add String",
+  "gui.logicnetworks.nodes.list_add_integer": "List Add Integer",
+  "gui.logicnetworks.nodes.list_add_long": "List Add Long",
+  "gui.logicnetworks.nodes.list_add_boolean": "List Add Boolean"
 }

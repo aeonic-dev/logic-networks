@@ -20,8 +20,7 @@ import java.util.List;
 import java.util.UUID;
 
 public class BlockInfoNode extends AnchorSourceNode<BlockInfoNode> {
-    private static final SignalType<?>[] slots = SignalType.arrayOf(
-            BuiltinSignalTypes.STRING, BuiltinSignalTypes.NBT);
+    private static final SignalType<?>[] slots = SignalType.arrayOf(BuiltinSignalTypes.BOOLEAN, BuiltinSignalTypes.STRING, BuiltinSignalTypes.NBT);
 
     public BlockInfoNode(NodeType<BlockInfoNode> nodeType, UUID uuid, int x, int y) {
         super(nodeType, uuid, x, y);
@@ -30,10 +29,11 @@ public class BlockInfoNode extends AnchorSourceNode<BlockInfoNode> {
     @Override
     public List<Component> getSocketTooltip(boolean isOutput, int index) {
         return isOutput ? switch (index) {
-            case 0 -> List.of(Translations.Generic.BLOCK_ID, BuiltinSignalTypes.STRING.getSocketTooltip(true));
-            case 1 -> List.of(Translations.Generic.BLOCK_STATE, BuiltinSignalTypes.NBT.getSocketTooltip(true));
-            default -> super.getSocketTooltip(isOutput, index);
-        } :  super.getSocketTooltip(isOutput, index);
+            case 0 -> List.of(Translations.Generic.IS_AIR, BuiltinSignalTypes.BOOLEAN.getSocketTooltip(true));
+            case 1 -> List.of(Translations.Generic.BLOCK_ID, BuiltinSignalTypes.STRING.getSocketTooltip(true));
+            case 2 -> List.of(Translations.Generic.BLOCK_STATE, BuiltinSignalTypes.NBT.getSocketTooltip(true));
+            default -> super.getSocketTooltip(true, index);
+        } :  super.getSocketTooltip(false, index);
     }
 
     @Override
@@ -43,6 +43,7 @@ public class BlockInfoNode extends AnchorSourceNode<BlockInfoNode> {
                 BlockPos relative = anchor.getAnchorPos().relative(item.getDirection(linkStack));
                 BlockState state = anchor.getAnchorLevel().getBlockState(relative);
                 return new Object[]{
+                        state.isAir(),
                         Registry.BLOCK.getKey(state.getBlock()).toString(),
                         BlockState.CODEC.encodeStart(NbtOps.INSTANCE, state).getOrThrow(false, Constants.LOG::error)
                 };
