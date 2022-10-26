@@ -1,9 +1,10 @@
 package design.aeonic.logicnetworks;
 
-import design.aeonic.logicnetworks.api.client.FacadeRenderer;
 import design.aeonic.logicnetworks.api.core.Constants;
 import design.aeonic.logicnetworks.api.util.Registrar;
 import design.aeonic.logicnetworks.impl.LogicNetworks;
+import design.aeonic.logicnetworks.impl.client.NetworkBlockEntityRenderers;
+import design.aeonic.logicnetworks.impl.client.NetworkItemProperties;
 import design.aeonic.logicnetworks.impl.client.NetworkKeybinds;
 import design.aeonic.logicnetworks.impl.content.NetworkBlockEntities;
 import design.aeonic.logicnetworks.impl.content.NetworkBlocks;
@@ -13,6 +14,7 @@ import net.fabricmc.api.ModInitializer;
 import net.fabricmc.fabric.api.client.keybinding.v1.KeyBindingHelper;
 import net.fabricmc.fabric.api.client.rendering.v1.BlockEntityRendererRegistry;
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.renderer.item.ItemProperties;
 import net.minecraft.core.Registry;
 
 public class FabricLogicNetworks implements ModInitializer {
@@ -20,7 +22,10 @@ public class FabricLogicNetworks implements ModInitializer {
     public static void onInitializeClient() {
         LogicNetworks.clientInit(Minecraft.getInstance()::submit);
         NetworkKeybinds.register(($, mapping) -> KeyBindingHelper.registerKeyBinding(mapping));
-        BlockEntityRendererRegistry.register(NetworkBlockEntities.NETWORK_ANCHOR, FacadeRenderer::new);
+        Minecraft.getInstance().submit(() -> {
+            NetworkBlockEntityRenderers.register(BlockEntityRendererRegistry::register);
+            NetworkItemProperties.register(ItemProperties::register);
+        });
     }
 
     @Override

@@ -3,5 +3,13 @@
   "parent": "minecraft:item/generated",
   "textures": {
     "layer0": "logicnetworks:item/manual"
-  }
+  },
+  "overrides": [
+    {
+      "predicate": {
+        "logicnetworks:is_open": 1
+      },
+      "model": "logicnetworks:item/manual_open"
+    }
+  ]
 }

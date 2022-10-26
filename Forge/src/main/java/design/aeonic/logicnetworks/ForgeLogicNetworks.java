@@ -1,14 +1,16 @@
 package design.aeonic.logicnetworks;
 
-import design.aeonic.logicnetworks.api.client.FacadeRenderer;
 import design.aeonic.logicnetworks.api.core.Constants;
 import design.aeonic.logicnetworks.api.util.Registrar;
 import design.aeonic.logicnetworks.impl.LogicNetworks;
+import design.aeonic.logicnetworks.impl.client.NetworkBlockEntityRenderers;
+import design.aeonic.logicnetworks.impl.client.NetworkItemProperties;
 import design.aeonic.logicnetworks.impl.client.NetworkKeybinds;
 import design.aeonic.logicnetworks.impl.content.NetworkBlockEntities;
 import design.aeonic.logicnetworks.impl.content.NetworkBlocks;
 import design.aeonic.logicnetworks.impl.content.NetworkItems;
 import design.aeonic.logicnetworks.impl.content.NetworkMenus;
+import net.minecraft.client.renderer.item.ItemProperties;
 import net.minecraft.core.Registry;
 import net.minecraft.resources.ResourceKey;
 import net.minecraftforge.client.event.EntityRenderersEvent;
@@ -37,6 +39,9 @@ public class ForgeLogicNetworks {
 
         modBus.addListener((FMLClientSetupEvent event) -> {
             LogicNetworks.clientInit(event::enqueueWork);
+            event.enqueueWork(() -> {
+                NetworkItemProperties.register(ItemProperties::register);
+            });
         });
 
         modBus.addListener((RegisterKeyMappingsEvent event) -> {
@@ -47,7 +52,7 @@ public class ForgeLogicNetworks {
         });
 
         modBus.addListener((EntityRenderersEvent.RegisterRenderers event) -> {
-            event.registerBlockEntityRenderer(NetworkBlockEntities.NETWORK_ANCHOR, FacadeRenderer::new);
+            NetworkBlockEntityRenderers.register(event::registerBlockEntityRenderer);
         });
     }
 

@@ -30,4 +30,8 @@ public class ManualItem extends Item {
         }
         return InteractionResultHolder.success(stack);
     }
+
+    public static float getIsOpenPropety() {
+        return bookId.equals(PatchouliAPI.get().getOpenBookGui()) ? 1 : 0;
+    }
 }

@@ -1,0 +1,15 @@
+{
+    "type": "minecraft:crafting_shapeless",
+    "ingredients": [
+        {
+            "item": "logicnetworks:control_circuit"
+        },
+        {
+            "tag": "logicnetworks:crafting_ingredients/books"
+        }
+    ],
+    "result": {
+        "item": "logicnetworks:manual",
+        "count": 1
+    }
+}
