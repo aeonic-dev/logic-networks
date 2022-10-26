@@ -29,6 +29,11 @@ public abstract class AnalogNode<T extends AnalogNode<T>> extends SimpleOperator
     }
 
     @Override
+    public int getHeight() {
+        return 32;
+    }
+
+    @Override
     public final Object[] evaluate(Object[] inputs) {
         Object[] out = evaluateInternal(inputs);
         if (clamp) {
