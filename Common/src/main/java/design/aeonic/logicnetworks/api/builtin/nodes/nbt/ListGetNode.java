@@ -29,11 +29,6 @@ public abstract class ListGetNode<T> extends SimpleOperatorNode<ListGetNode<T>> 
         return new Object[]{null};
     }
 
-    @Override
-    public int getHeight() {
-        return 25;
-    }
-
     @Nullable
     @Override
     protected Component getInputSocketName(int index) {
@@ -42,7 +37,7 @@ public abstract class ListGetNode<T> extends SimpleOperatorNode<ListGetNode<T>> 
 
     public static class Compound extends ListGetNode<CompoundTag> {
         public Compound(NodeType<ListGetNode<CompoundTag>> nodeType, UUID uuid, int x, int y) {
-            super(nodeType, Translations.Nodes.LIST_ADD_COMPOUND, BuiltinSignalTypes.NBT, uuid, x, y);
+            super(nodeType, Translations.Nodes.LIST_GET_COMPOUND, BuiltinSignalTypes.NBT, uuid, x, y);
         }
 
         @Override
@@ -58,7 +53,7 @@ public abstract class ListGetNode<T> extends SimpleOperatorNode<ListGetNode<T>> 
 
     public static class Str extends ListGetNode<String> {
         public Str(NodeType<ListGetNode<String>> nodeType, UUID uuid, int x, int y) {
-            super(nodeType, Translations.Nodes.LIST_ADD_STRING, BuiltinSignalTypes.STRING, uuid, x, y);
+            super(nodeType, Translations.Nodes.LIST_GET_STRING, BuiltinSignalTypes.STRING, uuid, x, y);
         }
 
         @Override
@@ -74,7 +69,7 @@ public abstract class ListGetNode<T> extends SimpleOperatorNode<ListGetNode<T>> 
 
     public static class Int extends ListGetNode<Integer> {
         public Int(NodeType<ListGetNode<Integer>> nodeType, UUID uuid, int x, int y) {
-            super(nodeType, Translations.Nodes.LIST_ADD_INTEGER, BuiltinSignalTypes.INTEGER, uuid, x, y);
+            super(nodeType, Translations.Nodes.LIST_GET_INTEGER, BuiltinSignalTypes.INTEGER, uuid, x, y);
         }
 
         @Override
@@ -90,7 +85,7 @@ public abstract class ListGetNode<T> extends SimpleOperatorNode<ListGetNode<T>> 
 
     public static class Lng extends ListGetNode<Long> {
         public Lng(NodeType<ListGetNode<Long>> nodeType, UUID uuid, int x, int y) {
-            super(nodeType, Translations.Nodes.LIST_ADD_LONG, BuiltinSignalTypes.LONG, uuid, x, y);
+            super(nodeType, Translations.Nodes.LIST_GET_LONG, BuiltinSignalTypes.LONG, uuid, x, y);
         }
 
         @Override
@@ -111,7 +106,7 @@ public abstract class ListGetNode<T> extends SimpleOperatorNode<ListGetNode<T>> 
 
     public static class Bool extends ListGetNode<Boolean> {
         public Bool(NodeType<ListGetNode<Boolean>> nodeType, UUID uuid, int x, int y) {
-            super(nodeType, Translations.Nodes.LIST_ADD_BOOLEAN, BuiltinSignalTypes.BOOLEAN, uuid, x, y);
+            super(nodeType, Translations.Nodes.LIST_GET_BOOLEAN, BuiltinSignalTypes.BOOLEAN, uuid, x, y);
         }
 
         @Override

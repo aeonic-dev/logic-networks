@@ -61,7 +61,7 @@ public abstract class ListAddNode<T> extends SimpleOperatorNode<ListAddNode<T>> 
 
     @Override
     public int getHeight() {
-        return 25;
+        return 33;
     }
 
     @Nullable
