@@ -39,14 +39,14 @@ public abstract class ListAddNode<T> extends SimpleOperatorNode<ListAddNode<T>> 
     @Override
     public Object[] evaluate(Object[] inputs) {
         ListTag tag = ((ListTag) inputs[0]).copy();
-        if (isOfType(tag)) {
+        if (tag.isEmpty() || isOfType(tag)) {
             if (append) {
                 insert(tag, (T) inputs[1], tag.size());
             } else if (inputs[2] != null) {
                 insert(tag, (T) inputs[1], (Integer) inputs[2]);
             }
         }
-        return new Object[]{null};
+        return new Object[]{tag};
     }
 
     @Override
@@ -132,7 +132,7 @@ public abstract class ListAddNode<T> extends SimpleOperatorNode<ListAddNode<T>> 
 
         @Override
         protected void insert(ListTag tag, Integer value, int index) {
-            if (tag.getElementType() == Tag.TAG_INT) tag.add(index, IntTag.valueOf(value));
+            if (tag.isEmpty() || tag.getElementType() == Tag.TAG_INT) tag.add(index, IntTag.valueOf(value));
             else tag.add(index, LongTag.valueOf(value));
         }
     }

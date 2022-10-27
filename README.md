@@ -9,6 +9,6 @@ Powerful, node-based logic and logistical programming within Minecraft.
 - Node search box categories
 - Screens
 - Network copying
-- Multiplexer
+- Pulse run mode
 - Link target highlighting
 - Integrated recipes (create filling, thermal etc once it's updated)
