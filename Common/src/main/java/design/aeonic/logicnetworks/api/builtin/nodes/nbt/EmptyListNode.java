@@ -26,7 +26,7 @@ public class EmptyListNode extends AbstractSourceNode<EmptyListNode> {
 
     @Override
     public int getWidth() {
-        return Minecraft.getInstance().font.width(getName());
+        return Minecraft.getInstance().font.width(getName()) + 12;
     }
 
     @Override
