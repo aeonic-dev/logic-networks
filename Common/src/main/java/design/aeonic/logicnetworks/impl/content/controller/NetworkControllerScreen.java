@@ -36,6 +36,11 @@ public class NetworkControllerScreen extends WidgetContainerScreen<NetworkContro
         public List<Component> getTooltip(WidgetScreen screen, int mouseX, int mouseY) {
             return List.of(Translations.NetworkController.TICKS_PER_OP);
         }
+
+        @Override
+        public boolean isEnabled() {
+            return redstoneControlInputWidget.getValue() != RedstoneControl.PULSE;
+        }
     };
 
     private ButtonInputWidget editNetworkButton = new ButtonInputWidget(8, 36, Translations.NetworkController.EDIT_NETWORK, this::openNetworkGraph) {

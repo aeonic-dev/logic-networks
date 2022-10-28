@@ -41,7 +41,7 @@ public class CheckboxInputWidget extends AbstractInputWidget {
             HIGHLIGHT.draw(stack, getX() - 1, getY() - 1, 0);
         }
 
-        float[] rgba = isEnabled() ? new float[]{1, 1, 1, 1} : new float[]{0.5f, 0.5f, 0.5f, 1};
+        float[] rgba = isEnabled() ? new float[]{1, 1, 1, 1} : new float[]{1f, 1f, 1f, .65f};
         (value ? CHECKED : EMPTY).draw(stack, getX(), getY(), 0, rgba[0], rgba[1], rgba[2], rgba[3]);
     }
 

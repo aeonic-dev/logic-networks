@@ -1,5 +1,6 @@
 package design.aeonic.logicnetworks.api.client.screen.input.widgets;
 
+import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.PoseStack;
 import design.aeonic.logicnetworks.api.client.screen.input.AbstractInputWidget;
 import design.aeonic.logicnetworks.api.client.screen.input.SimpleMonoText;
@@ -135,17 +136,19 @@ public class IntInputWidget extends AbstractInputWidget {
             HIGHLIGHT.draw(stack, getX() - 1, getY() - 1, 0, getWidth() + 2, getHeight() + 2, 1, 1, 1, 1, false);
         }
 
-        float[] rgba = isEnabled() ? new float[]{1, 1, 1, 1} : new float[]{0.5f, 0.5f, 0.5f, 1};
+        float[] rgba = isEnabled() ? new float[]{1, 1, 1, 1} : new float[]{1f, 1f, 1f, .65f};
+        RenderSystem.enableBlend();
+        RenderSystem.defaultBlendFunc();
         BOX_LEFT.draw(stack, getX(), getY(), 0, rgba[0], rgba[1], rgba[2], rgba[3]);
         BOX_FILL.draw(stack, getX() + 10, getY(), 0, getWidth() - 11, BOX_FILL.height(), rgba[0], rgba[1], rgba[2], rgba[3], false);
         BOX_LAST.draw(stack, getX() + getWidth() - 1, getY(), 0, rgba[0], rgba[1], rgba[2], rgba[3]);
+        RenderSystem.disableBlend();
 
-        if (isWithinBounds(getX() + 1, getY() + 1, 7, 5, mouseX, mouseY)) {
-            // Up arrow is hovered
-            ARROW_UP.draw(stack, getX(), getY(), 0, rgba[0], rgba[1], rgba[2], rgba[3]);
-        } else if (isWithinBounds(getX() + 1, getY() + 6, 7, 5, mouseX, mouseY)) {
-            // Down arrow is hovered
-            ARROW_DOWN.draw(stack, getX(), getY() + 5, 0, rgba[0], rgba[1], rgba[2], rgba[3]);
+        if (isEnabled()) {
+            if (isWithinBounds(getX() + 1, getY() + 1, 7, 5, mouseX, mouseY))
+                ARROW_UP.draw(stack, getX(), getY(), 0, rgba[0], rgba[1], rgba[2], rgba[3]);
+            else if (isWithinBounds(getX() + 1, getY() + 6, 7, 5, mouseX, mouseY))
+                ARROW_DOWN.draw(stack, getX(), getY() + 5, 0, rgba[0], rgba[1], rgba[2], rgba[3]);
         }
 
         drawDigits(stack, stringValue, getX() + 10, getY() + 3, 0xFFFFFF, 0x404040);

@@ -78,7 +78,7 @@ public class SettingsInputWidget extends AbstractInputWidget {
             HIGHLIGHT.draw(stack, getX() - 1, getY() - 1, 0, getWidth() + 2, getHeight() + 2, 1, 1, 1, 1, false);
         }
 
-        float[] rgba = isEnabled() ? new float[]{1, 1, 1, 1} : new float[]{0.5f, 0.5f, 0.5f, 1};
+        float[] rgba = isEnabled() ? new float[]{1, 1, 1, 1} : new float[]{1f, 1f, 1f, .65f};
         (clicked ? CLICKED : NORMAL).draw(stack, getX(), getY(), 0, getWidth(), getHeight(), rgba[0], rgba[1], rgba[2], rgba[3], false);
     }
 
