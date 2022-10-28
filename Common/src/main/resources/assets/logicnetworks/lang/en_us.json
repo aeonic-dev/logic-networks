@@ -60,6 +60,7 @@
   "gui.logicnetworks.redstone_control.high": "Active with redstone signal",
   "gui.logicnetworks.redstone_control.low": "Active without redstone signal",
   "gui.logicnetworks.redstone_control.never": "Never active",
+  "gui.logicnetworks.redstone_control.pulse": "Run on pulse",
 
   "gui.logicnetworks.link.linked_to": "Linked to: %s",
   "gui.logicnetworks.link.linked_side": "Side: %s",

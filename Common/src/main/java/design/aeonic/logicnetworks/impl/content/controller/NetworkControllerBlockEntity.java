@@ -37,6 +37,7 @@ public class NetworkControllerBlockEntity extends BlockEntity implements MenuPro
     private RedstoneControl redstoneControl = RedstoneControl.ALWAYS;
     private int ticksPerOperation = 20;
     private int timer = 0;
+    private boolean pulsed = false;
 
     public NetworkControllerBlockEntity(BlockPos pos, BlockState state) {
         super(NetworkBlockEntities.NETWORK_CONTROLLER, pos, state);
@@ -68,11 +69,20 @@ public class NetworkControllerBlockEntity extends BlockEntity implements MenuPro
     }
 
     public void serverTick(ServerLevel level) {
-        if (redstoneControl.shouldRun(level, worldPosition)) {
-            if (ticksPerOperation != 0 && ++timer % ticksPerOperation == 0) {
-                getCompiledNetwork().tick(this);
+        boolean shouldTick = switch (redstoneControl) {
+            case ALWAYS ->  ticksPerOperation != 0 && ++timer % ticksPerOperation == 0;
+            case HIGH -> level.hasNeighborSignal(getBlockPos()) && ticksPerOperation != 0 && ++timer % ticksPerOperation == 0;
+            case LOW -> !level.hasNeighborSignal(getBlockPos()) && ticksPerOperation != 0 && ++timer % ticksPerOperation == 0;
+            case NEVER -> false;
+            case PULSE -> {
+                if (level.hasNeighborSignal(getBlockPos())) {
+                    if (!pulsed) yield pulsed = true;
+                    else yield false;
+                } else yield pulsed = false;
             }
-        }
+        };
+
+        if (shouldTick) getCompiledNetwork().tick(this);
     }
 
     public CompiledNetwork getCompiledNetwork() {
@@ -110,6 +120,8 @@ public class NetworkControllerBlockEntity extends BlockEntity implements MenuPro
 
         tag.putString("redstoneControl", redstoneControl.name());
         tag.putInt("ticksPerOperation", ticksPerOperation);
+        tag.putBoolean("pulsed", pulsed);
+        tag.putInt("timer", timer);
 
         if (network != null) {
             CompoundTag networkTag = new CompoundTag();
@@ -124,6 +136,8 @@ public class NetworkControllerBlockEntity extends BlockEntity implements MenuPro
 
         redstoneControl = tag.contains("redstoneControl", Tag.TAG_STRING) ? RedstoneControl.valueOf(tag.getString("redstoneControl")) : RedstoneControl.ALWAYS;
         ticksPerOperation = tag.contains("ticksPerOperation", Tag.TAG_INT) ? tag.getInt("ticksPerOperation") : 20;
+        pulsed = tag.contains("pulsed", Tag.TAG_BYTE) && tag.getBoolean("pulsed");
+        timer = tag.contains("timer", Tag.TAG_INT) ? tag.getInt("timer") : 0;
 
         if (tag.contains("network")) {
             network = Network.deserialize(tag.getCompound("network"));

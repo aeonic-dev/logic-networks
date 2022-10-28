@@ -69,6 +69,17 @@ public final class Translations {
         public static final Component HIGH = Component.translatable("gui.logicnetworks.redstone_control.high");
         public static final Component LOW = Component.translatable("gui.logicnetworks.redstone_control.low");
         public static final Component NEVER = Component.translatable("gui.logicnetworks.redstone_control.never");
+        public static final Component PULSE = Component.translatable("gui.logicnetworks.redstone_control.pulse");
+
+        public static Component translate(design.aeonic.logicnetworks.api.logic.RedstoneControl value) {
+            return switch (value) {
+                case ALWAYS -> ALWAYS;
+                case HIGH   -> HIGH;
+                case LOW    -> LOW;
+                case NEVER  -> NEVER;
+                case PULSE  -> PULSE;
+            };
+        }
     }
 
     public static final class Link {
