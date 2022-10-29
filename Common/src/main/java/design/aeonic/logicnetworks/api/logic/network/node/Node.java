@@ -127,9 +127,12 @@ public interface Node<T extends Node<T>> {
     default void readAdditional(CompoundTag tag) {}
 
     /**
-     * Called on the server after the network is reconstructed from a client's modification packet or from disk.
+     * Called on the server before each network tick; should be used to refresh any info for execution.
+     * Must return true if any data has changed for the node.
      * As an example, this is used by anchor nodes to check their link status.
      */
-    default void loadOnServer(NetworkController controller) {}
+    default boolean refresh(NetworkController controller) {
+        return false;
+    }
 
 }

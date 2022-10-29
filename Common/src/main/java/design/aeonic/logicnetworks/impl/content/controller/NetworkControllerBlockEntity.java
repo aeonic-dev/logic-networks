@@ -1,7 +1,8 @@
 package design.aeonic.logicnetworks.impl.content.controller;
 
-import design.aeonic.logicnetworks.api.core.Translations;
 import design.aeonic.logicnetworks.api.block.NetworkController;
+import design.aeonic.logicnetworks.api.core.Constants;
+import design.aeonic.logicnetworks.api.core.Translations;
 import design.aeonic.logicnetworks.api.logic.RedstoneControl;
 import design.aeonic.logicnetworks.api.logic.network.CompiledNetwork;
 import design.aeonic.logicnetworks.api.logic.network.Network;
@@ -52,7 +53,7 @@ public class NetworkControllerBlockEntity extends BlockEntity implements MenuPro
     @Override
     public void setChanged() {
         super.setChanged();
-        level.setBlock(getBlockPos(), getBlockState(), Block.UPDATE_CLIENTS);
+        level.sendBlockUpdated(worldPosition, getBlockState(), getBlockState(), Block.UPDATE_CLIENTS);
     }
 
     @Nullable
@@ -82,17 +83,26 @@ public class NetworkControllerBlockEntity extends BlockEntity implements MenuPro
             }
         };
 
-        if (shouldTick) getCompiledNetwork().tick(this);
+        if (shouldTick) {
+            refreshNodes();
+            getCompiledNetwork().tick(this);
+        }
     }
 
     public CompiledNetwork getCompiledNetwork() {
         if (level == null || level.isClientSide) return CompiledNetwork.EMPTY;
-        if (compiledNetwork == null) compiledNetwork = getNetwork().compile();
+        if (compiledNetwork == null) {
+            compiledNetwork = getNetwork().compile();
+            setChanged();
+        }
         return compiledNetwork;
     }
 
     public Network getNetwork() {
-        if (network == null) network = new NetworkImpl();
+        if (network == null) {
+            network = new NetworkImpl();
+            setChanged();
+        }
         return network;
     }
 
@@ -108,8 +118,8 @@ public class NetworkControllerBlockEntity extends BlockEntity implements MenuPro
 
     public void setNetwork(Network network) {
         this.network = network;
-        network.getNodes().forEach(node -> node.loadOnServer(this));
         this.compiledNetwork = network.compile();
+        refreshNodes();
         setChanged();
         level.setBlock(getBlockPos(), getBlockState(), Block.UPDATE_CLIENTS);
     }
@@ -140,11 +150,21 @@ public class NetworkControllerBlockEntity extends BlockEntity implements MenuPro
         timer = tag.contains("timer", Tag.TAG_INT) ? tag.getInt("timer") : 0;
 
         if (tag.contains("network")) {
+            Constants.LOG.info("Loaded on {}", level.isClientSide ? "client" : "server");
             network = Network.deserialize(tag.getCompound("network"));
             if (level != null && !level.isClientSide) {
-                network.getNodes().forEach(node -> node.loadOnServer(this));
+                refreshNodes();
                 setChanged();
             }
+        }
+    }
+
+    private void refreshNodes() {
+        // Can't use anyMatch because we might not refresh every node
+        Constants.LOG.info("Refreshing nodes");
+        if (network != null && network.getNodes().filter(node -> node.refresh(this)).count() > 0) {
+            Constants.LOG.info("Refreshed nodes, changed true");
+            setChanged();
         }
     }
 

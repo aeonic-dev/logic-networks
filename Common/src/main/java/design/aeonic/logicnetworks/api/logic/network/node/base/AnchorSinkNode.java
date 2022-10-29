@@ -1,13 +1,13 @@
 package design.aeonic.logicnetworks.api.logic.network.node.base;
 
-import design.aeonic.logicnetworks.api.logic.LinkCard;
-import design.aeonic.logicnetworks.api.logic.LinkStatus;
 import design.aeonic.logicnetworks.api.block.NetworkAnchor;
 import design.aeonic.logicnetworks.api.block.NetworkController;
-import design.aeonic.logicnetworks.api.logic.network.NodeType;
-import design.aeonic.logicnetworks.api.logic.network.SignalType;
 import design.aeonic.logicnetworks.api.client.screen.input.InputWidget;
 import design.aeonic.logicnetworks.api.client.screen.input.widgets.SelectLinkWidget;
+import design.aeonic.logicnetworks.api.logic.LinkCard;
+import design.aeonic.logicnetworks.api.logic.LinkStatus;
+import design.aeonic.logicnetworks.api.logic.network.NodeType;
+import design.aeonic.logicnetworks.api.logic.network.SignalType;
 import net.minecraft.client.Minecraft;
 import net.minecraft.core.Direction;
 import net.minecraft.nbt.CompoundTag;
@@ -69,7 +69,12 @@ public abstract class AnchorSinkNode<T extends AnchorSinkNode<T>> extends Abstra
     }
 
     @Override
-    public void loadOnServer(NetworkController controller) {
-        if (linkStack != null && linkStack.getItem() instanceof LinkCard card) card.checkStatus(controller.getControllerLevel(), linkStack);
+    public boolean refresh(NetworkController controller) {
+        if (linkStack != null && linkStack.getItem() instanceof LinkCard card) {
+            LinkStatus old = card.getLinkStatus(linkStack);
+            card.checkStatus(controller.getControllerLevel(), linkStack);
+            return old != card.getLinkStatus(linkStack);
+        }
+        return false;
     }
 }

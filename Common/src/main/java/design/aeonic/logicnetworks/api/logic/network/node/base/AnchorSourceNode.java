@@ -72,7 +72,12 @@ public abstract class AnchorSourceNode<T extends AnchorSourceNode<T>> extends Ab
     }
 
     @Override
-    public void loadOnServer(NetworkController controller) {
-        if (linkStack != null && linkStack.getItem() instanceof LinkCard card) card.checkStatus(controller.getControllerLevel(), linkStack);
+    public boolean refresh(NetworkController controller) {
+        if (linkStack != null && linkStack.getItem() instanceof LinkCard card) {
+            LinkStatus old = card.getLinkStatus(linkStack);
+            card.checkStatus(controller.getControllerLevel(), linkStack);
+            return old != card.getLinkStatus(linkStack);
+        }
+        return false;
     }
 }
